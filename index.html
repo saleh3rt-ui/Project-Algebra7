@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>المعادلات والعبارات الجبرية | تقى يونسو</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;900&family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --c-primary-50:#eef2ff; --c-primary-100:#e0e7ff; --c-primary-200:#c7d2fe;
+  --c-primary-400:#818cf8; --c-primary-500:#6366f1; --c-primary-600:#4f46e5;
+  --c-primary-700:#4338ca; --c-primary-800:#3730a3; --c-primary-900:#312e81;
+  --c-accent-50:#fffbeb; --c-accent-200:#fde68a; --c-accent-400:#fbbf24;
+  --c-accent-500:#f59e0b; --c-accent-600:#d97706; --c-accent-700:#b45309;
+  --c-success-50:#ecfdf5; --c-success-500:#10b981; --c-success-700:#047857;
+  --c-danger-50:#fff1f2; --c-danger-500:#f43f5e; --c-danger-700:#be123c;
+  --c-slate-50:#f8fafc; --c-slate-100:#f1f5f9; --c-slate-200:#e2e8f0;
+  --c-slate-300:#cbd5e1; --c-slate-400:#94a3b8; --c-slate-500:#64748b;
+  --c-slate-600:#475569; --c-slate-700:#334155; --c-slate-800:#1e293b;
+  --c-slate-900:#0f172a;
+  --text-primary:#0f172a; --text-secondary:#334155; --text-tertiary:#64748b;
+  --bg-primary:#ffffff; --bg-secondary:#f8fafc; --bg-tertiary:#f1f5f9;
+  --border-subtle:#e2e8f0; --border-default:#cbd5e1;
+  --font-display:'Noto Kufi Arabic',sans-serif;
+  --font-heading:'Cairo',sans-serif;
+  --font-body:'Tajawal',sans-serif;
+  --font-math:'IBM Plex Mono',monospace;
+  --fs-xs:0.8rem; --fs-sm:0.95rem; --fs-base:1.1rem; --fs-lg:1.25rem;
+  --fs-xl:1.4rem; --fs-2xl:1.6rem; --fs-3xl:1.9rem; --fs-4xl:2.2rem;
+  --sp-1:0.2rem; --sp-2:0.4rem; --sp-3:0.6rem; --sp-4:0.8rem;
+  --sp-5:1rem; --sp-6:1.2rem; --sp-8:1.6rem; --sp-10:2rem;
+  --r-sm:0.35rem; --r-md:0.5rem; --r-lg:0.7rem; --r-xl:0.9rem;
+  --r-2xl:1.2rem; --r-3xl:1.5rem; --r-full:9999px;
+  --shadow-sm:0 1px 2px rgba(15,23,42,0.06);
+  --shadow-md:0 3px 6px rgba(15,23,42,0.08);
+  --shadow-lg:0 8px 12px rgba(15,23,42,0.1);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
+  --duration-base:200ms;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;font-size:15px}
+body{font-family:var(--font-body);font-size:var(--fs-base);line-height:1.6;color:var(--text-primary);background:var(--bg-secondary);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(99,102,241,0.06) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(245,158,11,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+.math-expr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:var(--font-math);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:0.1em 0.4em;border-radius:6px;border:1px solid var(--c-primary-200);vertical-align:middle;white-space:nowrap}
+
+.top-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border-bottom:1px solid var(--border-subtle);box-shadow:var(--shadow-sm)}
+.header-container{max-width:1400px;margin:0 auto;padding:var(--sp-3) var(--sp-5);display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:var(--sp-3)}
+.brand-mark{width:44px;height:44px;background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-800));border-radius:var(--r-xl);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;box-shadow:var(--shadow-md);flex-shrink:0}
+.brand-text{display:flex;flex-direction:column;gap:1px}
+.brand-title{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:900;color:var(--text-primary);line-height:1.15;letter-spacing:-0.02em}
+.brand-subtitle{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:500}
+.nav-actions{display:flex;gap:var(--sp-1);flex-wrap:wrap;align-items:center}
+.nav-btn{background:transparent;border:1px solid transparent;color:var(--text-secondary);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-full);cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:var(--fs-sm);transition:all var(--duration-base) var(--ease-out);display:inline-flex;align-items:center;gap:var(--sp-1);white-space:nowrap}
+.nav-btn:hover{background:var(--bg-tertiary);color:var(--text-primary)}
+.nav-btn.active{background:var(--c-primary-600);color:white;box-shadow:var(--shadow-md)}
+.nav-btn.graph-nav{font-size:0.8rem;white-space:normal;text-align:center;line-height:1.2;max-width:120px}
+
+.student-bar{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-3) var(--sp-5);margin:var(--sp-3) auto;max-width:1400px;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--sp-2);position:relative;z-index:2}
+.student-info{display:flex;flex-direction:column;gap:2px;padding:var(--sp-2) var(--sp-3);background:var(--bg-secondary);border-radius:var(--r-md);border:1px solid var(--border-subtle)}
+.student-info .label{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.student-info .value{font-size:var(--fs-sm);font-weight:700;color:var(--text-primary);font-family:var(--font-heading)}
+
+.page{display:none;padding:var(--sp-5) var(--sp-4);animation:pageEnter 0.4s var(--ease-out);position:relative;z-index:2;max-width:1400px;margin:0 auto}
+.page.active{display:block}
+@keyframes pageEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.hero{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-10) var(--sp-8);text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c-primary-500),var(--c-accent-500),var(--c-primary-500));background-size:200% 100%;animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.hero-badge{display:inline-flex;align-items:center;gap:var(--sp-2);background:var(--c-accent-50);color:var(--c-accent-700);padding:var(--sp-1) var(--sp-4);border-radius:var(--r-full);font-weight:700;font-size:var(--fs-sm);border:1px solid var(--c-accent-200);margin-bottom:var(--sp-4)}
+.hero-title{font-family:var(--font-display);font-size:clamp(var(--fs-3xl),4vw,var(--fs-4xl));font-weight:900;color:var(--text-primary);line-height:1.15;letter-spacing:-0.02em;margin-bottom:var(--sp-3)}
+.hero-title .accent{background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-800));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
+.hero-description{font-size:var(--fs-lg);color:var(--text-secondary);max-width:620px;margin:0 auto var(--sp-6);line-height:1.6;font-weight:500}
+.hero-visual{font-family:var(--font-math);font-size:var(--fs-2xl);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:var(--sp-4) var(--sp-6);border-radius:var(--r-2xl);display:inline-block;margin:var(--sp-5) 0;border:2px solid var(--c-primary-200);letter-spacing:0.04em;direction:ltr}
+.cta-btn{background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-700));color:white;border:none;padding:var(--sp-3) var(--sp-6);border-radius:var(--r-full);font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;cursor:pointer;box-shadow:var(--shadow-lg);transition:all var(--duration-base) var(--ease-out);display:inline-flex;align-items:center;gap:var(--sp-2)}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.stats-row{display:flex;justify-content:center;gap:var(--sp-3);margin-top:var(--sp-6);flex-wrap:wrap}
+.stat-pill{background:var(--bg-secondary);border:1px solid var(--border-subtle);padding:var(--sp-2) var(--sp-4);border-radius:var(--r-full);font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:var(--sp-2);box-shadow:var(--shadow-sm);font-size:var(--fs-sm)}
+.stat-pill .num{color:var(--c-primary-600);font-size:var(--fs-xl);font-weight:900;font-family:var(--font-heading)}
+
+.section-header{text-align:center;margin-bottom:var(--sp-6);max-width:680px;margin-left:auto;margin-right:auto}
+.section-eyebrow{display:inline-block;font-family:var(--font-heading);font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-600);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--sp-2)}
+.section-title{font-family:var(--font-display);font-size:clamp(var(--fs-2xl),3.5vw,var(--fs-4xl));font-weight:900;color:var(--text-primary);line-height:1.15;letter-spacing:-0.02em;margin-bottom:var(--sp-2)}
+.section-subtitle{font-size:var(--fs-base);color:var(--text-secondary);line-height:1.55}
+
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--sp-4);margin-bottom:var(--sp-6)}
+.concept-card{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-5);box-shadow:var(--shadow-sm);transition:all var(--duration-base) var(--ease-out);position:relative;overflow:hidden;cursor:pointer}
+.concept-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--c-primary-200)}
+.concept-card::after{content:'اضغطي للتمرين ←';position:absolute;bottom:8px;left:12px;font-size:var(--fs-xs);color:var(--c-primary-600);font-weight:600;opacity:0;transition:opacity 0.3s}
+.concept-card:hover::after{opacity:1}
+.concept-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;box-shadow:var(--shadow-sm);margin-bottom:var(--sp-3)}
+.concept-card h3{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:800;color:var(--text-primary);margin-bottom:var(--sp-2);line-height:1.3}
+.concept-card p{font-size:var(--fs-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--sp-3)}
+.concept-example{background:var(--c-accent-50);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-md);border-right:3px solid var(--c-accent-500);font-family:var(--font-math);font-size:var(--fs-base);font-weight:600;color:var(--c-accent-700);direction:ltr;text-align:right}
+
+.concept-modal{position:fixed;inset:0;background:rgba(15,23,42,0.8);backdrop-filter:blur(10px);display:none;justify-content:center;align-items:center;z-index:3000;padding:var(--sp-4)}
+.concept-modal.show{display:flex;animation:fadeIn 0.3s var(--ease-out)}
+.concept-modal-content{background:var(--bg-primary);border:2px solid var(--c-primary-200);padding:var(--sp-6);border-radius:var(--r-3xl);max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:popIn 0.5s var(--ease-spring)}
+.concept-modal-header{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4);padding-bottom:var(--sp-3);border-bottom:2px solid var(--bg-secondary)}
+.concept-modal-title{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-700)}
+.concept-explanation{background:var(--c-primary-50);border:1px solid var(--c-primary-200);border-radius:var(--r-xl);padding:var(--sp-4);margin-bottom:var(--sp-4);font-size:var(--fs-base);line-height:1.7;color:var(--text-primary);direction:rtl;text-align:right}
+.concept-explanation strong{color:var(--c-primary-700)}
+.concept-examples-list{background:var(--c-accent-50);border:1px solid var(--c-accent-200);border-radius:var(--r-xl);padding:var(--sp-4);margin-bottom:var(--sp-4)}
+.concept-examples-list h4{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:800;color:var(--c-accent-700);margin-bottom:var(--sp-3);text-align:right}
+.concept-examples-list .ex-item{font-family:var(--font-heading);font-size:var(--fs-base);padding:var(--sp-2) 0;color:var(--c-accent-700);direction:rtl;text-align:right;border-bottom:1px dashed var(--c-accent-200)}
+.concept-examples-list .ex-item:last-child{border-bottom:none}
+.concept-exercise{background:linear-gradient(135deg,var(--c-primary-50),var(--c-primary-100));border:2px solid var(--c-primary-200);border-radius:var(--r-xl);padding:var(--sp-5);text-align:center}
+.concept-exercise h4{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:800;color:var(--c-primary-700);margin-bottom:var(--sp-3)}
+.concept-exercise .exercise-q{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:700;color:var(--text-primary);margin:var(--sp-4) 0;direction:rtl;text-align:right;line-height:1.6}
+.concept-exercise input{padding:var(--sp-2) var(--sp-4);font-size:var(--fs-xl);border-radius:var(--r-lg);border:2px solid var(--border-default);text-align:center;width:140px;font-family:var(--font-math);font-weight:700;background:var(--bg-primary);color:var(--text-primary)}
+.concept-exercise input:focus{outline:none;border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+.concept-exercise .feedback{margin-top:var(--sp-3);font-size:var(--fs-lg);font-weight:700;min-height:30px}
+.concept-exercise .feedback.correct{color:var(--c-success-700)}
+.concept-exercise .feedback.wrong{color:var(--c-danger-700)}
+
+.lesson-card{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-6);margin-bottom:var(--sp-4);box-shadow:var(--shadow-sm)}
+.lesson-header{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4);padding-bottom:var(--sp-3);border-bottom:2px solid var(--bg-secondary)}
+.lesson-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;box-shadow:var(--shadow-sm);flex-shrink:0}
+.lesson-header h3{font-family:var(--font-display);font-size:var(--fs-xl);font-weight:800;color:var(--text-primary);line-height:1.15;letter-spacing:-0.01em}
+.lesson-content{font-size:var(--fs-base);line-height:1.6;color:var(--text-secondary);margin-bottom:var(--sp-4);direction:rtl;text-align:right}
+.lesson-content strong{color:var(--text-primary);font-weight:700}
+.lesson-content ul{list-style:none;padding:0;margin:var(--sp-2) 0}
+.lesson-content li{padding:var(--sp-1) 0;padding-right:var(--sp-5);position:relative;font-size:var(--fs-base)}
+.lesson-content li::before{content:'◆';position:absolute;right:0;color:var(--c-primary-500);font-size:var(--fs-sm);top:50%;transform:translateY(-50%)}
+.example-box{background:var(--c-accent-50);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-md);margin:var(--sp-2) 0;border-right:3px solid var(--c-accent-500);font-family:var(--font-heading);font-size:var(--fs-base);font-weight:600;color:var(--c-accent-700);direction:rtl;text-align:right;display:flex;align-items:center;gap:var(--sp-2)}
+.example-box .label{font-family:var(--font-body);font-size:var(--fs-xs);color:var(--c-accent-600);font-weight:700;direction:rtl;white-space:nowrap}
+
+.question-panel{background:linear-gradient(135deg,var(--c-primary-50),var(--c-primary-100));border:2px solid var(--c-primary-200);border-radius:var(--r-2xl);padding:var(--sp-5);margin:var(--sp-5) 0 var(--sp-3);text-align:center}
+.question-text{font-family:var(--font-heading);font-size:clamp(var(--fs-xl),2.5vw,var(--fs-2xl));font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-4);line-height:1.6;direction:rtl;text-align:right}
+.answer-input{padding:var(--sp-2) var(--sp-4);font-size:var(--fs-xl);border-radius:var(--r-lg);border:2px solid var(--border-default);text-align:center;width:140px;font-family:var(--font-math);font-weight:700;background:var(--bg-primary);color:var(--text-primary);transition:all var(--duration-base) var(--ease-out)}
+.answer-input:focus{outline:none;border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+.btn-row{display:flex;gap:var(--sp-2);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-4)}
+.action-btn{padding:var(--sp-2) var(--sp-4);border:none;border-radius:var(--r-full);font-family:var(--font-body);font-size:var(--fs-sm);font-weight:700;cursor:pointer;transition:all var(--duration-base) var(--ease-out);display:inline-flex;align-items:center;gap:var(--sp-1);box-shadow:var(--shadow-sm)}
+.action-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.btn-check{background:linear-gradient(135deg,var(--c-success-500),var(--c-success-700));color:white}
+.btn-hint{background:linear-gradient(135deg,var(--c-accent-400),var(--c-accent-600));color:white}
+.btn-new{background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));color:white}
+
+/* === الميزان الديناميكي المحسّن - مع تصحيح الاتجاه === */
+.scale-section{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-5);box-shadow:var(--shadow-lg);margin:var(--sp-3) 0;position:relative;overflow:hidden}
+.scale-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c-primary-500),var(--c-accent-500))}
+.scale-header{text-align:center;margin-bottom:var(--sp-3)}
+.scale-header h3{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--text-primary);margin-bottom:var(--sp-2);letter-spacing:-0.02em}
+.scale-header p{font-size:var(--fs-base);color:var(--text-secondary);max-width:560px;margin:0 auto}
+.scale-equation{background:var(--bg-secondary);border:2px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-3);margin-bottom:var(--sp-3);display:flex;align-items:center;justify-content:center;gap:var(--sp-3);flex-wrap:wrap}
+.scale-equation .eq-part{display:flex;align-items:center;gap:var(--sp-2);font-family:var(--font-math);font-size:var(--fs-xl);font-weight:700;color:var(--text-primary)}
+.scale-equation input{width:75px;padding:var(--sp-2);font-size:var(--fs-xl);font-family:var(--font-math);font-weight:700;text-align:center;border:2px solid var(--border-default);border-radius:var(--r-lg);background:var(--bg-primary);color:var(--text-primary);transition:all var(--duration-base) var(--ease-out)}
+.scale-equation input:focus{outline:none;border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+.scale-equation .eq-operator{font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-600)}
+
+/* رفع الميزان للأعلى + تحسين المحاذاة */
+.scale-container{
+  display:flex;
+  justify-content:center;
+  align-items:flex-end;
+  margin:0 0 var(--sp-2) 0;
+  position:relative;
+  transform:translateY(-20px);
+}
+.scale-svg{width:100%;max-width:600px;height:auto;filter:drop-shadow(0 10px 20px rgba(15,23,42,0.08))}
+
+.scale-beam{
+  transition:transform 0.8s cubic-bezier(0.34,1.56,0.64,1);
+  transform-origin:350px 120px;
+  will-change:transform;
+}
+.scale-beam.tilting{animation:gentleWobble 0.6s ease-in-out}
+@keyframes gentleWobble{0%,100%{filter:none}50%{filter:drop-shadow(0 0 8px rgba(99,102,241,0.4))}}
+
+.scale-status{text-align:center;margin-top:var(--sp-3);padding:var(--sp-2);border-radius:var(--r-lg);font-family:var(--font-heading);font-size:var(--fs-base);font-weight:700;transition:all 0.4s var(--ease-out)}
+.scale-status.balanced{background:var(--c-success-50);color:var(--c-success-700);border:2px solid var(--c-success-500)}
+.scale-status.unbalanced{background:var(--c-danger-50);color:var(--c-danger-700);border:2px solid var(--c-danger-500)}
+
+.graph-section{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-6);box-shadow:var(--shadow-lg);margin:var(--sp-4) 0;position:relative;overflow:hidden}
+.graph-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c-accent-500),var(--c-primary-500))}
+.graph-header{text-align:center;margin-bottom:var(--sp-4)}
+.graph-header h3{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--text-primary);margin-bottom:var(--sp-2);letter-spacing:-0.02em}
+.graph-header p{font-size:var(--fs-sm);color:var(--text-secondary);max-width:560px;margin:0 auto}
+.graph-layout{display:grid;grid-template-columns:1fr 360px;gap:var(--sp-4);align-items:stretch}
+.graph-canvas-wrap{background:var(--bg-primary);border:2px solid var(--border-subtle);border-radius:var(--r-xl);padding:var(--sp-2);position:relative;aspect-ratio:4/3;overflow:hidden;box-shadow:inset 0 2px 8px rgba(0,0,0,0.05)}
+.graph-canvas{width:100%;height:100%;display:block}
+.graph-controls{background:var(--bg-secondary);border:1px solid var(--border-subtle);border-radius:var(--r-xl);padding:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-4)}
+
+.eq-editor{background:var(--bg-primary);border:2px solid var(--border-default);border-radius:var(--r-xl);padding:var(--sp-4);text-align:center;transition:all var(--duration-base) var(--ease-out)}
+.eq-editor:focus-within{border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+.eq-formula{font-family:var(--font-math);font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-700);margin-bottom:var(--sp-3);direction:ltr;letter-spacing:0.05em}
+.eq-inputs{display:flex;gap:var(--sp-3);justify-content:center;align-items:center}
+.eq-input-group{display:flex;flex-direction:column;align-items:center;gap:var(--sp-1)}
+.eq-input-group label{font-size:var(--fs-xs);font-weight:700;color:var(--text-tertiary);text-transform:uppercase}
+.eq-input{width:70px;padding:var(--sp-2);font-size:var(--fs-lg);font-family:var(--font-math);font-weight:700;text-align:center;border:2px solid var(--border-default);border-radius:var(--r-lg);background:var(--bg-secondary);color:var(--text-primary);transition:all var(--duration-base) var(--ease-out)}
+.eq-input:focus{outline:none;border-color:var(--c-primary-500);background:var(--bg-primary)}
+.eq-slider{width:100%;margin-top:var(--sp-2);accent-color:var(--c-primary-600)}
+
+.comparison-box{display:flex;flex-direction:column;gap:var(--sp-3)}
+.eq-editor.eq1{border-color:var(--c-primary-200);background:var(--c-primary-50)}
+.eq-editor.eq1 .eq-formula{color:var(--c-primary-700)}
+.eq-editor.eq2{border-color:var(--c-accent-200);background:var(--c-accent-50)}
+.eq-editor.eq2 .eq-formula{color:var(--c-accent-700)}
+
+.intersection-display{background:linear-gradient(135deg,var(--c-danger-50),#fee2e2);border:2px solid var(--c-danger-200);border-radius:var(--r-xl);padding:var(--sp-4);text-align:center;margin-top:var(--sp-2)}
+.intersection-display h4{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:800;color:var(--c-danger-700);margin-bottom:var(--sp-2)}
+.intersection-point{font-family:var(--font-math);font-size:var(--fs-2xl);font-weight:900;color:var(--c-danger-700);direction:ltr}
+
+.edu-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-4);margin-bottom:var(--sp-4)}
+.edu-card{perspective:1000px;height:220px;cursor:pointer}
+.edu-card-inner{position:relative;width:100%;height:100%;transition:transform 0.7s var(--ease-spring);transform-style:preserve-3d}
+.edu-card.flipped .edu-card-inner{transform:rotateY(180deg)}
+.edu-card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r-2xl);padding:var(--sp-4);display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:var(--shadow-md);border:2px solid var(--border-subtle);text-align:center}
+.edu-card-front{background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));color:white}
+.edu-card-front .edu-icon{width:50px;height:50px;background:rgba(255,255,255,0.25);border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:var(--sp-2)}
+.edu-card-front h4{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:800;margin-bottom:var(--sp-2)}
+.edu-card-front p{font-size:var(--fs-sm);opacity:0.95;line-height:1.5}
+.edu-card-front .flip-hint{position:absolute;bottom:10px;font-size:var(--fs-xs);opacity:0.8}
+.edu-card-back{background:var(--bg-primary);color:var(--text-primary);transform:rotateY(180deg);justify-content:flex-start;padding-top:var(--sp-4)}
+.edu-card-back h4{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:800;color:var(--c-primary-700);margin-bottom:var(--sp-2)}
+.edu-card-back .examples-title{font-size:var(--fs-sm);color:var(--text-tertiary);margin-bottom:var(--sp-2);font-weight:600}
+.edu-card-back .example-item{font-family:var(--font-heading);font-size:var(--fs-base);font-weight:600;color:var(--c-accent-700);background:var(--c-accent-50);padding:var(--sp-1) var(--sp-3);border-radius:var(--r-md);margin:var(--sp-1) 0;width:100%;direction:rtl;text-align:right}
+
+.fairy-wrap{position:fixed;z-index:50;cursor:grab;transition:transform 0.2s var(--ease-out);touch-action:none;user-select:none}
+.fairy-wrap:active{cursor:grabbing}
+.fairy-wrap:hover .fairy-controls{opacity:1;transform:translateX(-50%) translateY(0)}
+.fairy-svg{width:var(--fairy-size,100px);height:auto;filter:drop-shadow(0 6px 15px rgba(99,102,241,0.25));pointer-events:none;transition:width 0.15s var(--ease-out)}
+
+.fairy-controls{position:absolute;top:-42px;left:50%;transform:translateX(-50%) translateY(5px);display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.97);backdrop-filter:blur(10px);padding:5px 10px;border-radius:24px;box-shadow:0 4px 14px rgba(0,0,0,0.18);border:1px solid var(--border-subtle);opacity:0;transition:all 0.25s var(--ease-out);pointer-events:auto;z-index:10}
+.fairy-size-btn{width:30px;height:30px;border:none;border-radius:50%;background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));color:white;font-size:16px;font-weight:900;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s var(--ease-out);font-family:var(--font-heading);line-height:1}
+.fairy-size-btn:hover{transform:scale(1.15);box-shadow:0 2px 8px rgba(99,102,241,0.4)}
+.fairy-size-btn:active{transform:scale(0.95)}
+.fairy-size-label{font-family:var(--font-math);font-size:12px;font-weight:700;color:var(--c-primary-700);min-width:40px;text-align:center;user-select:none}
+.fairy-hint{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--text-tertiary);white-space:nowrap;opacity:0;transition:opacity 0.3s;pointer-events:none;background:rgba(255,255,255,0.9);padding:2px 8px;border-radius:10px}
+.fairy-wrap:hover .fairy-hint{opacity:1}
+
+.fairy-bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:var(--bg-primary);border:1px solid var(--border-subtle);padding:var(--sp-3);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);min-width:200px;max-width:260px;font-size:var(--fs-sm);color:var(--text-primary);font-weight:500;display:none;animation:bubblePop 0.4s var(--ease-spring);text-align:center;line-height:1.5;pointer-events:auto;cursor:default;z-index:11}
+.fairy-bubble.show{display:block}
+.fairy-bubble::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--border-subtle)}
+@keyframes bubblePop{0%{transform:translateX(-50%) scale(0);opacity:0}100%{transform:translateX(-50%) scale(1);opacity:1}}
+
+.feedback-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(6px);display:none;justify-content:center;align-items:center;z-index:1000;padding:var(--sp-4)}
+.feedback-overlay.show{display:flex;animation:fadeIn 0.3s var(--ease-out)}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.feedback-box{background:var(--bg-primary);border:3px solid var(--c-accent-400);padding:var(--sp-8);border-radius:var(--r-3xl);text-align:center;box-shadow:var(--shadow-lg);animation:popIn 0.5s var(--ease-spring);max-width:440px;width:100%}
+@keyframes popIn{0%{transform:scale(0.5) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
+.feedback-correct{font-family:var(--font-display);font-size:var(--fs-4xl);font-weight:900;color:var(--c-success-700);margin-bottom:var(--sp-3);letter-spacing:-0.02em}
+.feedback-wrong{font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:900;color:var(--c-danger-700);margin-bottom:var(--sp-3);letter-spacing:-0.02em}
+.gem-reward{font-size:3.5rem;margin:var(--sp-3) 0;animation:gemSpin 2s linear infinite;display:inline-block}
+@keyframes gemSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+.fairy-msg{margin:var(--sp-3) 0;font-size:var(--fs-base);font-weight:700;color:var(--text-primary);line-height:1.5}
+
+.confetti{position:fixed;width:8px;height:8px;top:-10px;z-index:999;pointer-events:none;animation:confettiFall 3.5s linear forwards}
+@keyframes confettiFall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+.modal{position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;z-index:2000;padding:var(--sp-4)}
+.modal.show{display:flex;animation:fadeIn 0.3s var(--ease-out)}
+.modal-content{background:var(--bg-primary);border:1px solid var(--border-subtle);padding:var(--sp-6);border-radius:var(--r-3xl);max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:popIn 0.5s var(--ease-spring)}
+.modal-close{float:left;background:var(--c-danger-500);color:white;border:none;width:32px;height:32px;border-radius:var(--r-full);cursor:pointer;font-size:var(--fs-lg);font-weight:bold;transition:all var(--duration-base) var(--ease-out);display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--c-danger-700);transform:rotate(90deg)}
+.modal-title{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--text-primary);text-align:center;margin-bottom:var(--sp-4);letter-spacing:-0.02em}
+
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
+.stat-card{background:var(--bg-secondary);padding:var(--sp-4);border-radius:var(--r-xl);text-align:center;border:1px solid var(--border-subtle);transition:all var(--duration-base) var(--ease-out)}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md);border-color:var(--c-primary-200)}
+.stat-card .num{font-family:var(--font-heading);font-size:var(--fs-3xl);font-weight:900;color:var(--c-primary-600);line-height:1;margin-bottom:var(--sp-1)}
+.stat-card .label{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:600}
+
+.footer{background:var(--bg-primary);border-top:1px solid var(--border-subtle);padding:var(--sp-6) var(--sp-4);margin-top:var(--sp-10);position:relative;z-index:2}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--sp-4);max-width:1400px;margin:0 auto}
+.footer-item{background:var(--bg-secondary);padding:var(--sp-3);border-radius:var(--r-lg);border:1px solid var(--border-subtle)}
+.footer-item .label{font-size:var(--fs-xs);color:var(--text-tertiary);margin-bottom:var(--sp-1);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
+.footer-item .value{font-size:var(--fs-sm);font-weight:700;color:var(--text-primary);font-family:var(--font-heading)}
+.footer-credit{text-align:center;margin-top:var(--sp-5);padding-top:var(--sp-4);border-top:1px solid var(--border-subtle);font-size:var(--fs-sm);color:var(--text-tertiary);max-width:1400px;margin-left:auto;margin-right:auto}
+
+@media (max-width:900px){.graph-layout{grid-template-columns:1fr}}
+@media (max-width:768px){
+  .header-container{padding:var(--sp-2) var(--sp-3)}
+  .brand-title{font-size:var(--fs-base)}
+  .nav-btn{padding:var(--sp-1) var(--sp-2);font-size:var(--fs-xs)}
+  .student-bar{margin:var(--sp-2);padding:var(--sp-3)}
+  .page{padding:var(--sp-4) var(--sp-3)}
+  .hero{padding:var(--sp-6) var(--sp-4)}
+  .section-title{font-size:var(--fs-2xl)}
+  .fairy-svg{width:80px}
+  .graph-section{padding:var(--sp-4)}
+  .eq-formula{font-size:var(--fs-xl)}
+  .eq-input{width:60px;font-size:var(--fs-base)}
+  .fairy-controls{top:-38px;padding:4px 8px}
+  .fairy-size-btn{width:26px;height:26px;font-size:13px}
+  .scale-container{transform:translateY(-10px)}
+}
+@media (max-width:480px){
+  .header-container{flex-direction:column;align-items:flex-start}
+  .nav-actions{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:var(--sp-1)}
+  .hero-title{font-size:var(--fs-2xl)}
+  .hero-visual{font-size:var(--fs-lg);padding:var(--sp-3)}
+}
+</style>
+</head>
+<body>
+
+<header class="top-header">
+  <div class="header-container">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div class="brand-text">
+        <div class="brand-title">المعادلات والعبارات الجبرية</div>
+        <div class="brand-subtitle">مشروع رياضيات تفاعلي • الصف السابع</div>
+      </div>
+    </div>
+    <div class="nav-actions">
+      <button class="nav-btn active" onclick="showPage('home',this)">🏠 الرئيسية</button>
+      <button class="nav-btn" onclick="showPage('concepts',this)">📖 المفاهيم</button>
+      <button class="nav-btn" onclick="showPage('expressions',this)">🔢 العبارات</button>
+      <button class="nav-btn" onclick="showPage('equations',this)">️ المعادلات</button>
+      <button class="nav-btn" onclick="showPage('scale',this)">⚖️ الميزان</button>
+      <button class="nav-btn graph-nav" onclick="showPage('graphs',this)">📈 التمثيل البياني<br>للمعادلات</button>
+      <button class="nav-btn" onclick="showPage('cards',this)">🎴 البطاقات</button>
+      <button class="nav-btn" onclick="openModal('statsModal')">📊</button>
+      <button class="nav-btn" onclick="openModal('settingsModal')">⚙️</button>
+    </div>
+  </div>
+</header>
+
+<div class="student-bar">
+  <div class="student-info"><span class="label">👩‍🎓 إعداد الطالبة</span><span class="value">تقى يونسو</span></div>
+  <div class="student-info"><span class="label">👩🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
+  <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الشعبة الأولى</span></div>
+  <div class="student-info"><span class="label">🏫 المدرسة</span><span class="value">المدرسة النموذجية للمتفوقين إناث</span></div>
+</div>
+
+<div id="home" class="page active">
+  <div class="hero">
+    <span class="hero-badge">✨ مشروع رياضيات تفاعلي للصف السابع ✨</span>
+    <h1 class="hero-title">🌷 المعادلات و<span class="accent">العبارات الجبرية</span> 🌷</h1>
+    <p class="hero-description">اكتشفي عالم الجبر بطريقة تفاعلية ممتعة! تعلمي كيف تبنين العبارات الجبرية وتحلين المعادلات باستخدام الميزان السحري والرسوم البيانية المتزامنة</p>
+    <div class="hero-visual">y = 2x + 3 ⟹ x = 4 → y = 11</div>
+    <br>
+    <button class="cta-btn" onclick="showPage('concepts',document.querySelectorAll('.nav-btn')[1])">📖 ابدئي التعلم</button>
+    <div class="stats-row">
+      <div class="stat-pill">🌟 <span class="num" id="homePoints">0</span> نقطة</div>
+      <div class="stat-pill">💎 <span class="num" id="homeGems">0</span> جوهرة</div>
+      <div class="stat-pill">✅ <span class="num" id="homeCorrect">0</span> إجابة صحيحة</div>
+    </div>
+  </div>
+</div>
+
+<div id="concepts" class="page">
+  <div class="section-header">
+    <span class="section-eyebrow">الأساسيات</span>
+    <h2 class="section-title">📖 المفاهيم الأساسية</h2>
+    <p class="section-subtitle">اضغطي على أي بطاقة لفتح الشرح والتمرين التفاعلي</p>
+  </div>
+  <div class="concepts-grid" id="conceptsGrid"></div>
+</div>
+
+<div class="concept-modal" id="conceptModal">
+  <div class="concept-modal-content">
+    <button class="modal-close" onclick="closeConceptModal()" style="float:left">✕</button>
+    <div class="concept-modal-header">
+      <div class="concept-icon" id="modalIcon" style="margin:0"></div>
+      <h2 class="concept-modal-title" id="modalTitle">عنوان المفهوم</h2>
+    </div>
+    <div class="concept-explanation" id="modalExplanation"></div>
+    <div class="concept-examples-list">
+      <h4>📚 أمثلة توضيحية</h4>
+      <div id="modalExamples"></div>
+    </div>
+    <div class="concept-exercise">
+      <h4>🎯 تمرين تفاعلي</h4>
+      <div class="exercise-q" id="exerciseQ"></div>
+      <input type="text" id="exerciseA" placeholder="اكتبي الإجابة">
+      <div class="btn-row" style="margin-top:var(--sp-3)">
+        <button class="action-btn btn-check" onclick="checkExerciseAnswer()">🌤️ تحقق</button>
+        <button class="action-btn btn-new" onclick="newExercise()">🔄 تمرين جديد</button>
+      </div>
+      <div class="feedback" id="exerciseFeedback"></div>
+    </div>
+  </div>
+</div>
+
+<div id="expressions" class="page">
+  <div class="section-header">
+    <span class="section-eyebrow">البناء والتقييم</span>
+    <h2 class="section-title"> العبارات الجبرية</h2>
+    <p class="section-subtitle">تعلمي كيف تبنين العبارات الجبرية وتقيمينها بتعويض قيم المتغيرات</p>
+  </div>
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-icon">🏗️</div><h3>بناء العبارات الجبرية من الكلام</h3></div>
+    <div class="lesson-content"><p>نحول الجمل الكلامية إلى عبارات جبرية باستخدام المتغيرات:</p><ul><li>"عدد زائد 5" ← نستخدم x للعدد المجهول</li><li>"ثلاثة أمثال عدد" ← نضرب العدد في 3</li><li>"نصف عدد ناقص 2" ← نقسم على 2 ثم نطرح</li></ul></div>
+    <div class="example-box"><span class="label">مثال:</span> "عدد زائد 5" ← <span class="math-expr">x + 5</span></div>
+    <div class="example-box"><span class="label">مثال:</span> "ثلاثة أمثال عدد" ← <span class="math-expr">3x</span></div>
+    <div class="example-box"><span class="label">مثال:</span> "نصف عدد ناقص 2" ← <span class="math-expr">x/2 - 2</span></div>
+  </div>
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-icon">🔍</div><h3>تقييم العبارات الجبرية</h3></div>
+    <div class="lesson-content"><p>لتقييم عبارة جبرية، نعوض بقيمة المتغير ثم نحسب الناتج:</p><ul><li>نعوض قيمة المتغير في كل مكان يظهر فيه</li><li>نطبق أولوية العمليات (الأقواس → الضرب/القسمة → الجمع/الطرح)</li><li>نحسب الناتج النهائي</li></ul></div>
+    <div class="example-box"><span class="label">مثال:</span> إذا x = 4، فإن <span class="math-expr">3x + 2 = 3(4) + 2 = 14</span></div>
+    <div class="example-box"><span class="label">مثال:</span> إذا y = 5، فإن <span class="math-expr">2y - 3 = 2(5) - 3 = 7</span></div>
+    <div class="question-panel">
+      <div class="question-text" id="exprQ"></div>
+      <input type="number" class="answer-input" id="exprA" placeholder="؟">
+      <div class="btn-row">
+        <button class="action-btn btn-check" onclick="checkExprAnswer()">🌤️ تحقق فوري</button>
+        <button class="action-btn btn-new" onclick="newExprQuestion()">🔄 مسألة جديدة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="equations" class="page">
+  <div class="section-header">
+    <span class="section-eyebrow">الحل والتوازن</span>
+    <h2 class="section-title">⚖️ المعادلات</h2>
+    <p class="section-subtitle">تعلمي كيف تحلين المعادلات البسيطة بإيجاد قيمة المتغير المجهول</p>
+  </div>
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-icon"></div><h3>ما هي المعادلة؟</h3></div>
+    <div class="lesson-content"><p>المعادلة هي عبارة رياضية تحتوي على علامة <strong>=</strong> تخبرنا أن الطرفين متساويان.</p><ul><li>الطرف الأيمن = الطرف الأيسر</li><li>هدفنا: إيجاد قيمة المتغير التي تجعل المعادلة صحيحة</li><li>نستخدم العمليات العكسية لعزل المتغير</li></ul></div>
+    <div class="example-box"><span class="label">مثال:</span> <span class="math-expr">x + 5 = 12 → x = 7</span></div>
+    <div class="example-box"><span class="label">مثال:</span> <span class="math-expr">3x = 15 → x = 5</span></div>
+  </div>
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-icon">🔑</div><h3>القاعدة الذهبية لحل المعادلات</h3></div>
+    <div class="lesson-content"><p><strong>ما نفعله في طرف، نفعله في الطرف الآخر!</strong> للحفاظ على التوازن.</p><ul><li>الجمع ↔ الطرح (عمليات عكسية)</li><li>الضرب ↔ القسمة (عمليات عكسية)</li><li>نعزل المتغير وحده في طرف واحد</li></ul></div>
+    <div class="example-box"><span class="label">خطوة 1:</span> <span class="math-expr">x + 8 = 15 → نطرح 8 من الطرفين</span></div>
+    <div class="example-box"><span class="label">خطوة 2:</span> <span class="math-expr">x = 15 - 8 = 7 ✓</span></div>
+    <div class="example-box"><span class="label">مثال آخر:</span> <span class="math-expr">4x = 20 → نقسم على 4 → x = 5</span></div>
+  </div>
+  <div class="lesson-card">
+    <div class="lesson-header"><div class="lesson-icon"></div><h3>تدربي على حل المعادلات</h3></div>
+    <div class="question-panel">
+      <div class="question-text" id="eqQ"></div>
+      <div style="font-size:var(--fs-sm);margin-bottom:var(--sp-3);color:var(--text-secondary)">أوجد قيمة x</div>
+      <input type="number" class="answer-input" id="eqA" placeholder="x = ؟">
+      <div class="btn-row">
+        <button class="action-btn btn-check" onclick="checkEqAnswer()">⚖️ تحقق فوري</button>
+        <button class="action-btn btn-hint" onclick="showEqHint()">💡 تلميح</button>
+        <button class="action-btn btn-new" onclick="newEqQuestion()">🔄 معادلة جديدة</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="scale" class="page">
+  <div class="section-header">
+    <span class="section-eyebrow">تفاعلي</span>
+    <h2 class="section-title">️ الميزان السحري</h2>
+    <p class="section-subtitle">شاهدي كيف يعمل توازن المعادلات بشكل بصري تفاعلي!</p>
+  </div>
+  <div class="scale-section">
+    <div class="scale-header"><h3>جربي الميزان التفاعلي</h3><p>أدخلي قيمتين وشاهدي كيف يتوازن الميزان - الكفة الأثقل تنزل للأسفل!</p></div>
+    <div class="scale-equation">
+      <div class="eq-part"><input type="number" id="scaleLeft" value="5" min="1" max="20" onchange="updateScale()"></div>
+      <div class="eq-operator">=</div>
+      <div class="eq-part"><input type="number" id="scaleRight" value="5" min="1" max="20" onchange="updateScale()"></div>
+    </div>
+    <div class="scale-container" id="scaleContainer">
+      <svg class="scale-svg" viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/></linearGradient>
+          <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6366f1"/><stop offset="50%" stop-color="#4f46e5"/><stop offset="100%" stop-color="#4338ca"/></linearGradient>
+          <linearGradient id="panGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#92400e"/></linearGradient>
+          <filter id="shadow"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-opacity="0.15"/></filter>
+        </defs>
+        <rect x="320" y="290" width="60" height="70" fill="url(#baseGrad)" rx="5" filter="url(#shadow)"/>
+        <rect x="290" y="350" width="120" height="18" fill="url(#baseGrad)" rx="8" filter="url(#shadow)"/>
+        <circle cx="350" cy="290" r="13" fill="#fbbf24" stroke="#92400e" stroke-width="3" filter="url(#shadow)"/>
+        <g id="scaleBeam" class="scale-beam">
+          <rect x="100" y="282" width="500" height="18" fill="url(#beamGrad)" rx="8" filter="url(#shadow)"/>
+          <g id="leftPan"><line x1="150" y1="300" x2="150" y2="345" stroke="#92400e" stroke-width="3"/><line x1="100" y1="300" x2="100" y2="345" stroke="#92400e" stroke-width="3"/><path d="M 80,345 Q 125,363 170,345 L 170,354 Q 125,372 80,354 Z" fill="url(#panGrad)" stroke="#92400e" stroke-width="2" filter="url(#shadow)"/><text id="leftWeight" x="125" y="338" text-anchor="middle" font-size="20" font-weight="900" fill="#fff" font-family="IBM Plex Mono, monospace">5</text></g>
+          <g id="rightPan"><line x1="550" y1="300" x2="550" y2="345" stroke="#92400e" stroke-width="3"/><line x1="600" y1="300" x2="600" y2="345" stroke="#92400e" stroke-width="3"/><path d="M 530,345 Q 575,363 620,345 L 620,354 Q 575,372 530,354 Z" fill="url(#panGrad)" stroke="#92400e" stroke-width="2" filter="url(#shadow)"/><text id="rightWeight" x="575" y="338" text-anchor="middle" font-size="20" font-weight="900" fill="#fff" font-family="IBM Plex Mono, monospace">5</text></g>
+        </g>
+      </svg>
+    </div>
+    <div id="scaleStatus" class="scale-status balanced">⚖️ متوازن! الطرفان متساويان</div>
+    <div style="text-align:center;margin-top:var(--sp-3)"><button class="cta-btn" onclick="balanceScale()" style="font-size:var(--fs-base);padding:var(--sp-2) var(--sp-5)">️ وازني الميزان تلقائياً</button></div>
+  </div>
+  <div class="lesson-card" style="margin-top:var(--sp-3)">
+    <div class="lesson-header"><div class="lesson-icon">💡</div><h3>كيف يساعدك الميزان في فهم المعادلات؟</h3></div>
+    <div class="lesson-content"><ul><li><strong>المعادلة مثل الميزان:</strong> الطرفان يجب أن يكونا متساويين دائماً</li><li><strong>إذا أضفتِ شيئاً لطرف:</strong> يجب أن تضيفي نفس الشيء للطرف الآخر</li><li><strong>إذا طرحتِ شيئاً من طرف:</strong> يجب أن تطرحي نفس الشيء من الطرف الآخر</li><li><strong>الهدف:</strong> إبقاء الميزان متوازناً بينما نعزل المتغير</li></ul></div>
+    <div class="example-box"><span class="label">مثال:</span> <span class="math-expr">x + 3 = 7 → نطرح 3 من الطرفين → x = 4</span> (الميزان يبقى متوازناً!)</div>
+  </div>
+</div>
+
+<div id="graphs" class="page">
+  <div class="section-header">
+    <span class="section-eyebrow">تفاعلي متزامن</span>
+    <h2 class="section-title">📈 التمثيل البياني للمعادلات الجبرية</h2>
+    <p class="section-subtitle">اكتبي قيم الميل والجزء المقطوع يدوياً أو استخدمي المؤشر، وشاهدي الخط يتغير فورياً!</p>
+  </div>
+  <div class="graph-section">
+    <div class="graph-header"><h3>المعادلة الخطية: y = mx + b</h3><p>عدّلي القيم وشاهدي كيف يتغير الخط فوراً</p></div>
+    <div class="graph-layout">
+      <div class="graph-canvas-wrap"><canvas class="graph-canvas" id="graphCanvas"></canvas></div>
+      <div class="graph-controls">
+        <div class="eq-editor">
+          <div class="eq-formula" id="graphEqDisplay">y = 1x + 0</div>
+          <div class="eq-inputs">
+            <div class="eq-input-group"><label>الميل (m)</label><input type="number" class="eq-input" id="mInput" step="0.5" value="1" oninput="syncGraph('m', this.value)"></div>
+            <div class="eq-input-group"><label>المقطع (b)</label><input type="number" class="eq-input" id="bInput" step="0.5" value="0" oninput="syncGraph('b', this.value)"></div>
+          </div>
+          <div style="margin-top:var(--sp-3)">
+            <input type="range" class="eq-slider" id="mSlider" min="-5" max="5" step="0.5" value="1" oninput="syncGraph('m', this.value)">
+            <input type="range" class="eq-slider" id="bSlider" min="-5" max="5" step="0.5" value="0" oninput="syncGraph('b', this.value)">
+          </div>
+        </div>
+        <div class="graph-info"><strong> ملاحظة:</strong> عندما يكون m موجباً، الخط يصعد. عندما يكون m سالباً، الخط ينزل. قيمة b تحدد تقاطع الخط مع محور y.</div>
+      </div>
+    </div>
+  </div>
+  <div class="graph-section">
+    <div class="graph-header"><h3>مقارنة معادلتين خطيتين</h3><p>أدخلي قيم المعادلتين وشاهدي نقطة التقاطع (حل جملة المعادلتين)</p></div>
+    <div class="graph-layout">
+      <div class="graph-canvas-wrap"><canvas class="graph-canvas" id="graphCanvas2"></canvas></div>
+      <div class="graph-controls comparison-box">
+        <div class="eq-editor eq1">
+          <div class="eq-formula" id="eq1Formula">y = 1x + 0</div>
+          <div class="eq-inputs">
+            <div class="eq-input-group"><label>m₁</label><input type="number" class="eq-input" id="m1Input" step="0.5" value="1" oninput="syncGraph2(1, 'm', this.value)"></div>
+            <div class="eq-input-group"><label>b₁</label><input type="number" class="eq-input" id="b1Input" step="0.5" value="0" oninput="syncGraph2(1, 'b', this.value)"></div>
+          </div>
+        </div>
+        <div class="eq-editor eq2">
+          <div class="eq-formula" id="eq2Formula">y = -1x + 3</div>
+          <div class="eq-inputs">
+            <div class="eq-input-group"><label>m₂</label><input type="number" class="eq-input" id="m2Input" step="0.5" value="-1" oninput="syncGraph2(2, 'm', this.value)"></div>
+            <div class="eq-input-group"><label>b₂</label><input type="number" class="eq-input" id="b2Input" step="0.5" value="3" oninput="syncGraph2(2, 'b', this.value)"></div>
+          </div>
+        </div>
+        <div class="intersection-display">
+          <h4>🎯 نقطة التقاطع (الحل)</h4>
+          <div class="intersection-point" id="intersectionPoint">جاري الحساب...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="cards" class="page">
+  <div class="section-header">
+    <span class="section-eyebrow">تعليمي تفاعلي</span>
+    <h2 class="section-title">🎴 البطاقات التعليمية</h2>
+    <p class="section-subtitle">اضغطي على أي بطاقة لقلبها ورؤية الأمثلة المرتبطة بالمفهوم</p>
+  </div>
+  <div class="edu-cards-grid" id="eduCardsGrid"></div>
+</div>
+
+<div class="fairy-wrap" id="fairyWrap" onclick="toggleFairySpeech(event)">
+  <div class="fairy-controls" onclick="event.stopPropagation()">
+    <button class="fairy-size-btn" onclick="resizeFairy(-10)" title="تصغير">−</button>
+    <span class="fairy-size-label" id="fairySizeLabel">100%</span>
+    <button class="fairy-size-btn" onclick="resizeFairy(10)" title="تكبير">+</button>
+  </div>
+  <svg class="fairy-svg" viewBox="0 0 200 250" id="fairySvg">
+    <ellipse cx="60" cy="110" rx="35" ry="55" fill="rgba(199,210,254,.7)" stroke="#6366f1" stroke-width="2"><animateTransform attributeName="transform" type="rotate" values="-10 60 110;10 60 110;-10 60 110" dur="1s" repeatCount="indefinite"/></ellipse>
+    <ellipse cx="140" cy="110" rx="35" ry="55" fill="rgba(199,210,254,.7)" stroke="#6366f1" stroke-width="2"><animateTransform attributeName="transform" type="rotate" values="10 140 110;-10 140 110;10 140 110" dur="1s" repeatCount="indefinite"/></ellipse>
+    <path d="M 100,130 L 70,220 L 130,220 Z" fill="#6366f1" stroke="#4338ca" stroke-width="2"/>
+    <circle cx="100" cy="130" r="8" fill="#fbbf24"/>
+    <circle cx="100" cy="90" r="30" fill="#ffe0bd" stroke="#d4a574" stroke-width="2"/>
+    <path d="M 70,80 Q 70,50 100,50 Q 130,50 130,80 Q 135,100 130,115 L 125,90 Q 100,75 75,90 L 70,115 Q 65,100 70,80 Z" fill="#4f46e5"/>
+    <circle cx="90" cy="88" r="3" fill="#0f172a"/>
+    <circle cx="110" cy="88" r="3" fill="#0f172a"/>
+    <path d="M 90,100 Q 100,108 110,100" stroke="#ec4894" stroke-width="2" fill="none"/>
+    <path d="M 80,60 L 85,50 L 90,60 L 95,50 L 100,60 L 105,50 L 110,60 L 115,50 L 120,60 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
+    <line x1="140" y1="140" x2="170" y2="110" stroke="#78350f" stroke-width="3"/>
+    <polygon points="170,110 175,100 180,110 175,120" fill="#fbbf24"><animate attributeName="opacity" values="1;.5;1" dur="1.5s" repeatCount="indefinite"/></polygon>
+  </svg>
+  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنّيتك الصغيرة ‍♀️ جاهزة لمساعدتك في تعلم الجبر! ✨<br><small style="color:var(--text-tertiary)">(اسحبيني أو مرّري عجلة الماوس!)</small></div>
+  <div class="fairy-hint">🖱️ عجلة الماوس للتكبير/التصغير</div>
+</div>
+
+<div class="feedback-overlay" id="feedbackOverlay">
+  <div class="feedback-box">
+    <div id="feedbackText"></div>
+    <div class="gem-reward" id="gemReward" style="display:none"></div>
+    <div class="fairy-msg" id="fairyFeedback"></div>
+    <button class="cta-btn" onclick="closeFeedback()" style="margin-top:var(--sp-3);font-size:var(--fs-base);padding:var(--sp-2) var(--sp-5)">متابعة ✨</button>
+  </div>
+</div>
+
+<div class="modal" id="statsModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('statsModal')">✕</button>
+    <h2 class="modal-title">📊 إحصائيات التقدم</h2>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="num" id="statPoints">0</div><div class="label">🌟 النقاط</div></div>
+      <div class="stat-card"><div class="num" id="statCorrect">0</div><div class="label">✅ صحيحة</div></div>
+      <div class="stat-card"><div class="num" id="statWrong">0</div><div class="label">❌ خاطئة</div></div>
+      <div class="stat-card"><div class="num" id="statGems">0</div><div class="label">💎 الجواهر</div></div>
+      <div class="stat-card"><div class="num" id="statAccuracy">0%</div><div class="label">🎯 الدقة</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="settingsModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
+    <h2 class="modal-title">️ الإعدادات</h2>
+    <div style="margin-bottom:var(--sp-5);padding-bottom:var(--sp-5);border-bottom:2px dashed var(--border-subtle)">
+      <h4 style="font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-3)">🧚 حجم الجنية</h4>
+      <div style="display:flex;align-items:center;gap:var(--sp-2)"><span style="font-size:var(--fs-sm)">صغيرة</span><input type="range" id="fairySizeSlider" min="60" max="200" value="100" oninput="updateFairySize(this.value)" style="flex:1"><span style="font-size:var(--fs-sm)">كبيرة</span></div>
+      <p style="font-size:var(--fs-xs);color:var(--text-tertiary);margin-top:var(--sp-2);text-align:center">💡 يمكنك أيضاً استخدام عجلة الماوس فوق الجنية أو أزرار +/-</p>
+    </div>
+    <div style="margin-bottom:var(--sp-5);padding-bottom:var(--sp-5);border-bottom:2px dashed var(--border-subtle)">
+      <h4 style="font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-3)"> إعادة ضبط موضع الجنية</h4>
+      <button class="action-btn btn-new" onclick="resetFairyPosition()" style="width:100%;justify-content:center">🔄 إعادة للموضع الافتراضي</button>
+    </div>
+    <div>
+      <h4 style="font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-3)"> الأصوات</h4>
+      <label style="display:flex;align-items:center;gap:var(--sp-2);cursor:pointer;font-weight:600"><input type="checkbox" id="soundToggle" checked onchange="toggleSound()" style="width:18px;height:18px"><span>تفعيل الأصوات</span></label>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-item"><div class="label">👩‍🎓 عمل الطالبة</div><div class="value">تقى يونسو</div></div>
+    <div class="footer-item"><div class="label">👩🏫 المدرّسة</div><div class="value">فلك عاصي</div></div>
+    <div class="footer-item"><div class="label">🎓 الصف</div><div class="value">السابع - الشعبة الأولى</div></div>
+    <div class="footer-item"><div class="label">🏫 المدرسة</div><div class="value">المدرسة النموذجية للمتفوقين إناث</div></div>
+  </div>
+  <div class="footer-credit">✨ مشروع رياضيات تفاعلي - المعادلات والعبارات الجبرية ✨</div>
+</footer>
+
+<script>
+let state = {points:0,correct:0,wrong:0,gems:[],fairySize:100,fairyX:null,fairyY:null,soundOn:true,currentExpr:null,currentEq:null,currentExercise:null,currentConceptIdx:null};
+try { const saved = localStorage.getItem('algebraProV13'); if (saved) state = {...state, ...JSON.parse(saved)}; } catch(e) {}
+function saveState() { try { localStorage.setItem('algebraProV13', JSON.stringify(state)); } catch(e) {} }
+
+let audioCtx = null;
+function playSound(type) {
+  if (!state.soundOn) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain); gain.connect(audioCtx.destination);
+    if (type === 'correct') {
+      osc.frequency.setValueAtTime(523, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
+      osc.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+    } else if (type === 'wrong') {
+      osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.3);
+    } else if (type === 'gem') {
+      osc.frequency.setValueAtTime(1047, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(2093, audioCtx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+      osc.start(); osc.stop(audioCtx.currentTime + 0.4);
+    }
+  } catch(e) {}
+}
+
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  if (id === 'graphs') { setTimeout(() => { initGraphs(); }, 100); }
+}
+function openModal(id) { document.getElementById(id).classList.add('show'); if (id === 'statsModal') renderStats(); }
+function closeModal(id) { document.getElementById(id).classList.remove('show'); }
+
+// ═══════════════════════════════════════════════════════════════
+// FAIRY DYNAMIC SIZE CONTROL
+// ═══════════════════════════════════════════════════════════════
+const FAIRY_MIN_SIZE = 60;
+const FAIRY_MAX_SIZE = 200;
+const FAIRY_DEFAULT_SIZE = 100;
+
+function resizeFairy(delta) {
+  let newSize = state.fairySize + delta;
+  newSize = Math.max(FAIRY_MIN_SIZE, Math.min(FAIRY_MAX_SIZE, newSize));
+  state.fairySize = newSize;
+  applyFairySize(newSize);
+  saveState();
+}
+
+function applyFairySize(size) {
+  document.querySelector('.fairy-svg').style.setProperty('--fairy-size', size + 'px');
+  const label = document.getElementById('fairySizeLabel');
+  if (label) {
+    const percent = Math.round((size / FAIRY_DEFAULT_SIZE) * 100);
+    label.textContent = percent + '%';
+  }
+  const slider = document.getElementById('fairySizeSlider');
+  if (slider) slider.value = size;
+}
+
+function updateFairySize(val) {
+  state.fairySize = parseInt(val);
+  applyFairySize(state.fairySize);
+  saveState();
+}
+
+const fairyWrap = document.getElementById('fairyWrap');
+if (fairyWrap) {
+  fairyWrap.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    const delta = e.deltaY > 0 ? -5 : 5;
+    resizeFairy(delta);
+  }, { passive: false });
+
+  let initialPinchDistance = 0;
+  let initialSize = state.fairySize;
+
+  fairyWrap.addEventListener('touchstart', function(e) {
+    if (e.touches.length === 2) {
+      initialPinchDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      initialSize = state.fairySize;
+    }
+  }, { passive: true });
+
+  fairyWrap.addEventListener('touchmove', function(e) {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const currentDistance = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const scale = currentDistance / initialPinchDistance;
+      const newSize = Math.round(initialSize * scale);
+      state.fairySize = Math.max(FAIRY_MIN_SIZE, Math.min(FAIRY_MAX_SIZE, newSize));
+      applyFairySize(state.fairySize);
+    }
+  }, { passive: false });
+
+  fairyWrap.addEventListener('touchend', function(e) {
+    if (e.touches.length < 2) saveState();
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FAIRY DRAG & DROP
+// ══════════════════════════════════════════════════════════════
+let isDragging = false;
+let startX, startY, initialLeft, initialTop;
+
+fairyWrap.addEventListener('mousedown', dragStart);
+fairyWrap.addEventListener('touchstart', dragStart, {passive: false});
+
+function dragStart(e) {
+  if (e.target.closest('.fairy-bubble') || e.target.closest('.fairy-controls')) return;
+  isDragging = true;
+  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+  startX = clientX;
+  startY = clientY;
+  const rect = fairyWrap.getBoundingClientRect();
+  initialLeft = rect.left;
+  initialTop = rect.top;
+  e.preventDefault();
+}
+
+document.addEventListener('mousemove', dragMove);
+document.addEventListener('touchmove', dragMove, {passive: false});
+
+function dragMove(e) {
+  if (!isDragging) return;
+  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+  const dx = clientX - startX;
+  const dy = clientY - startY;
+
+  let newLeft = initialLeft + dx;
+  let newTop = initialTop + dy;
+
+  const maxX = window.innerWidth - fairyWrap.offsetWidth;
+  const maxY = window.innerHeight - fairyWrap.offsetHeight;
+  newLeft = Math.max(0, Math.min(newLeft, maxX));
+  newTop = Math.max(0, Math.min(newTop, maxY));
+
+  fairyWrap.style.left = newLeft + 'px';
+  fairyWrap.style.top = newTop + 'px';
+  fairyWrap.style.bottom = 'auto';
+  fairyWrap.style.right = 'auto';
+  e.preventDefault();
+}
+
+document.addEventListener('mouseup', dragEnd);
+document.addEventListener('touchend', dragEnd);
+
+function dragEnd() {
+  if (!isDragging) return;
+  isDragging = false;
+  const rect = fairyWrap.getBoundingClientRect();
+  state.fairyX = rect.left;
+  state.fairyY = rect.top;
+  saveState();
+}
+
+function resetFairyPosition() {
+  state.fairyX = null;
+  state.fairyY = null;
+  fairyWrap.style.left = 'var(--sp-4)';
+  fairyWrap.style.top = 'auto';
+  fairyWrap.style.bottom = 'var(--sp-4)';
+  fairyWrap.style.right = 'auto';
+  saveState();
+  closeModal('settingsModal');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// CONCEPTS WITH EXERCISES
+// ═══════════════════════════════════════════════════════════════
+const conceptsData = [
+  {
+    icon:'🔤', title:'المتغير (Variable)',
+    desc:'حرف يمثل عدداً مجهولاً يمكن أن تتغير قيمته',
+    explanation:'المتغير هو <strong>حرف</strong> (مثل x, y, n, m) نستخدمه لتمثيل عدد مجهول أو متغير. نستخدم المتغيرات لبناء العبارات والمعادلات الجبرية.',
+    examples:['في <span class="math-expr">3x + 5</span>، المتغير هو x','في <span class="math-expr">2y - 7</span>، المتغير هو y','في <span class="math-expr">n + 4 = 10</span>، المتغير هو n'],
+    generateExercise:() => {
+      const vars = ['x','y','n','m'];
+      const v = vars[Math.floor(Math.random()*vars.length)];
+      const a = Math.floor(Math.random()*5)+2;
+      const b = Math.floor(Math.random()*10)+1;
+      const x = Math.floor(Math.random()*8)+2;
+      return {q:`إذا كانت <span class="math-expr">${v} = ${x}</span>، فما قيمة <span class="math-expr">${a}${v} + ${b}</span>؟`, a:a*x+b};
+    }
+  },
+  {
+    icon:'🔢', title:'الثابت (Constant)',
+    desc:'عدد ثابت لا تتغير قيمته في العبارة الجبرية',
+    explanation:'الثابت هو <strong>عدد</strong> لا يحتوي على متغير، وقيمته لا تتغير. يقف وحده في العبارة الجبرية.',
+    examples:['في <span class="math-expr">3x + 5</span>، الثابت هو 5','في <span class="math-expr">2y - 7</span>، الثابت هو -7','في <span class="math-expr">x + 10</span>، الثابت هو 10'],
+    generateExercise:() => {
+      const b = Math.floor(Math.random()*15)+1;
+      const a = Math.floor(Math.random()*5)+2;
+      return {q:`ما هو الثابت في العبارة <span class="math-expr">${a}x + ${b}</span>؟`, a:b};
+    }
+  },
+  {
+    icon:'✖️', title:'المعامل (Coefficient)',
+    desc:'العدد المضروب في المتغير',
+    explanation:'المعامل هو <strong>العدد</strong> الذي يُضرب في المتغير. يخبرنا كم مرة نأخذ المتغير.',
+    examples:['في <span class="math-expr">3x</span>، المعامل هو 3','في <span class="math-expr">-5y</span>، المعامل هو -5','في <span class="math-expr">x</span>، المعامل هو 1 (مخفي)'],
+    generateExercise:() => {
+      const a = Math.floor(Math.random()*9)+2;
+      return {q:`ما هو معامل x في العبارة <span class="math-expr">${a}x + 7</span>؟`, a:a};
+    }
+  },
+  {
+    icon:'➕', title:'الحد (Term)',
+    desc:'كل جزء في العبارة الجبرية مفصول بعلامة + أو -',
+    explanation:'الحد هو <strong>كل جزء</strong> من العبارة الجبرية. تفصل بين الحدود علامات + أو -.',
+    examples:['في <span class="math-expr">3x + 5 - 2y</span>، الحدود هي: 3x, 5, -2y','في <span class="math-expr">x² + 2x + 1</span>، الحدود هي: x², 2x, 1'],
+    generateExercise:() => {
+      const a = Math.floor(Math.random()*5)+2;
+      const b = Math.floor(Math.random()*5)+1;
+      return {q:`كم عدد الحدود في العبارة <span class="math-expr">${a}x + ${b}y - 3</span>؟`, a:3};
+    }
+  },
+  {
+    icon:'📝', title:'العبارة الجبرية (Expression)',
+    desc:'مجموعة أعداد ومتغيرات بدون علامة =',
+    explanation:'العبارة الجبرية هي مجموعة من <strong>الأعداد والمتغيرات وعلامات العمليات</strong> بدون علامة =.',
+    examples:['<span class="math-expr">3x + 5</span> هي عبارة جبرية','<span class="math-expr">2y - 7</span> هي عبارة جبرية','<span class="math-expr">4(x + 2)</span> هي عبارة جبرية'],
+    generateExercise:() => {
+      const x = Math.floor(Math.random()*6)+2;
+      const a = Math.floor(Math.random()*4)+2;
+      const b = Math.floor(Math.random()*8)+1;
+      return {q:`قيّمي العبارة <span class="math-expr">${a}x + ${b}</span> عندما <span class="math-expr">x = ${x}</span>`, a:a*x+b};
+    }
+  },
+  {
+    icon:'⚖️', title:'المعادلة (Equation)',
+    desc:'عبارة رياضية تحتوي على = وتساوي طرفين',
+    explanation:'المعادلة هي عبارة رياضية تحتوي على علامة <strong>=</strong> وتوضح أن <strong>الطرف الأيمن يساوي الطرف الأيسر</strong>.',
+    examples:['<span class="math-expr">3x + 5 = 20</span> هي معادلة','<span class="math-expr">2y - 7 = 11</span> هي معادلة','<span class="math-expr">x + 4 = 10</span> هي معادلة'],
+    generateExercise:() => {
+      const x = Math.floor(Math.random()*8)+2;
+      const b = Math.floor(Math.random()*8)+1;
+      return {q:`حلّي المعادلة: <span class="math-expr">x + ${b} = ${x+b}</span>. ما قيمة x؟`, a:x};
+    }
+  }
+];
+
+function renderConcepts() {
+  const grid = document.getElementById('conceptsGrid');
+  grid.innerHTML = '';
+  conceptsData.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'concept-card';
+    card.onclick = () => openConceptModal(i);
+    card.innerHTML = `<div class="concept-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p><div class="concept-example">${c.examples[0]}</div>`;
+    grid.appendChild(card);
+  });
+}
+
+function openConceptModal(idx) {
+  state.currentConceptIdx = idx;
+  const c = conceptsData[idx];
+  document.getElementById('modalIcon').textContent = c.icon;
+  document.getElementById('modalTitle').textContent = c.title;
+  document.getElementById('modalExplanation').innerHTML = c.explanation;
+  const examplesDiv = document.getElementById('modalExamples');
+  examplesDiv.innerHTML = c.examples.map(e => `<div class="ex-item">🌷 ${e}</div>`).join('');
+  newExercise();
+  document.getElementById('conceptModal').classList.add('show');
+  playSound('click');
+}
+
+function closeConceptModal() { document.getElementById('conceptModal').classList.remove('show'); }
+
+function newExercise() {
+  const c = conceptsData[state.currentConceptIdx];
+  state.currentExercise = c.generateExercise();
+  document.getElementById('exerciseQ').innerHTML = state.currentExercise.q;
+  document.getElementById('exerciseA').value = '';
+  document.getElementById('exerciseFeedback').textContent = '';
+  document.getElementById('exerciseFeedback').className = 'feedback';
+}
+
+function checkExerciseAnswer() {
+  const input = document.getElementById('exerciseA');
+  const userAns = parseInt(input.value);
+  const feedback = document.getElementById('exerciseFeedback');
+  if (isNaN(userAns)) { feedback.textContent = 'اكتبي رقم الإجابة أولاً! '; feedback.className = 'feedback wrong'; return; }
+  if (userAns === state.currentExercise.a) {
+    feedback.textContent = '🎊 أحسنتِ! إجابة صحيحة!';
+    feedback.className = 'feedback correct';
+    state.points += 10; state.correct++;
+    playSound('correct');
+    setTimeout(() => playSound('gem'), 400);
+    launchConfetti();
+  } else {
+    feedback.textContent = ` الإجابة الصحيحة هي ${state.currentExercise.a}. حاولي مرة أخرى!`;
+    feedback.className = 'feedback wrong';
+    state.wrong++; playSound('wrong');
+  }
+  input.value = ''; saveState(); updateHomeStats();
+}
+
+function generateExprQuestion() {
+  const x = Math.floor(Math.random() * 8) + 2;
+  const a = Math.floor(Math.random() * 5) + 2;
+  const b = Math.floor(Math.random() * 10) + 1;
+  return { q: `إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a: a * x + b };
+}
+function newExprQuestion() { state.currentExpr = generateExprQuestion(); document.getElementById('exprQ').innerHTML = state.currentExpr.q; document.getElementById('exprA').value = ''; }
+function checkExprAnswer() {
+  const input = document.getElementById('exprA');
+  const userAns = parseInt(input.value);
+  if (isNaN(userAns)) { showFairyMessage('اكتبي رقم الإجابة أولاً! 🌟'); return; }
+  if (userAns === state.currentExpr.a) { showCorrectFeedback(); state.points += 10; state.correct++; playSound('correct'); setTimeout(() => playSound('gem'), 400); }
+  else { showWrongFeedback(); state.wrong++; playSound('wrong'); }
+  input.value = ''; saveState(); updateHomeStats();
+}
+
+function generateEqQuestion() {
+  const types = ['add','sub','mul'];
+  const type = types[Math.floor(Math.random() * types.length)];
+  let q, a;
+  if (type === 'add') { const x = Math.floor(Math.random()*10)+1; const b = Math.floor(Math.random()*10)+1; q = `<span class="math-expr">x + ${b} = ${x+b}</span>`; a = x; }
+  else if (type === 'sub') { const x = Math.floor(Math.random()*10)+5; const b = Math.floor(Math.random()*5)+1; q = `<span class="math-expr">x - ${b} = ${x-b}</span>`; a = x; }
+  else { const x = Math.floor(Math.random()*10)+1; const b = Math.floor(Math.random()*5)+2; q = `<span class="math-expr">${b}x = ${x*b}</span>`; a = x; }
+  return {q, a, type};
+}
+function newEqQuestion() { state.currentEq = generateEqQuestion(); document.getElementById('eqQ').innerHTML = state.currentEq.q; document.getElementById('eqA').value = ''; }
+function checkEqAnswer() {
+  const input = document.getElementById('eqA');
+  const userAns = parseInt(input.value);
+  if (isNaN(userAns)) { showFairyMessage('اكتبي قيمة x! 🌟'); return; }
+  if (userAns === state.currentEq.a) { showCorrectFeedback(); state.points += 15; state.correct++; playSound('correct'); setTimeout(() => playSound('gem'), 400); }
+  else { showWrongFeedback(); state.wrong++; playSound('wrong'); }
+  input.value = ''; saveState(); updateHomeStats();
+}
+function showEqHint() {
+  const type = state.currentEq.type;
+  let hint = type === 'add' ? '💡 اطرحي العدد من الطرفين!' : type === 'sub' ? ' أضيفي العدد للطرفين!' : ' اقسمي الطرفين على المعامل!';
+  showFairyMessage(hint);
+}
+
+// ══════════════════════════════════════════════════════════════
+// SCALE - DYNAMIC BALANCE (مُصحَّح فيزيائياً)
+// ═══════════════════════════════════════════════════════════════
+function updateScale() {
+  const left = parseInt(document.getElementById('scaleLeft').value) || 0;
+  const right = parseInt(document.getElementById('scaleRight').value) || 0;
+  document.getElementById('leftWeight').textContent = left;
+  document.getElementById('rightWeight').textContent = right;
+
+  const beam = document.getElementById('scaleBeam');
+  const status = document.getElementById('scaleStatus');
+
+  // حساب الفرق النسبي لتحديد زاوية الميل ديناميكياً
+  const maxDiff = 20; // أقصى فرق متوقع
+  const maxAngle = 25; // أقصى زاوية ميل بالدرجات
+  const diff = left - right;
+  const angle = (diff / maxDiff) * maxAngle;
+  const clampedAngle = Math.max(-maxAngle, Math.min(maxAngle, angle));
+
+  // إضافة تأثير اهتزاز خفيف عند التغيير
+  beam.classList.remove('tilting');
+  void beam.offsetWidth; // trigger reflow
+  beam.classList.add('tilting');
+  setTimeout(() => beam.classList.remove('tilting'), 600);
+
+  if (left === right) {
+    beam.style.transform = 'rotate(0deg)';
+    status.textContent = '⚖️ متوازن! الطرفان متساويان';
+    status.className = 'scale-status balanced';
+  } else if (left > right) {
+    // ✅ الأيسر أثقل → ينزل للأسفل → rotate موجب (مع عقارب الساعة)
+    beam.style.transform = `rotate(${Math.abs(clampedAngle)}deg)`;
+    const diffText = Math.abs(diff);
+    status.textContent = `⬅️ الطرف الأيسر أثقل بفارق ${diffText}`;
+    status.className = 'scale-status unbalanced';
+  } else {
+    // ✅ الأيمن أثقل → ينزل للأسفل → rotate سالب (عكس عقارب الساعة)
+    beam.style.transform = `rotate(${-Math.abs(clampedAngle)}deg)`;
+    const diffText = Math.abs(diff);
+    status.textContent = `➡️ الطرف الأيمن أثقل بفارق ${diffText}`;
+    status.className = 'scale-status unbalanced';
+  }
+}
+
+function balanceScale() {
+  const left = parseInt(document.getElementById('scaleLeft').value) || 0;
+  document.getElementById('scaleRight').value = left;
+  updateScale();
+  showFairyMessage('🎉 وازنتِ الميزان!');
+  state.points += 5; saveState(); updateHomeStats(); playSound('gem');
+}
+
+// ═══════════════════════════════════════════════════════════════
+// GRAPHS
+// ═══════════════════════════════════════════════════════════════
+function formatEq(m, b) {
+  if (m === 0) return `y = ${b}`;
+  let mStr = m == 1 ? '' : (m == -1 ? '-' : m);
+  let bStr = b > 0 ? ` + ${b}` : (b < 0 ? ` - ${Math.abs(b)}` : '');
+  return `y = ${mStr}x${bStr}`;
+}
+
+let currentM = 1, currentB = 0;
+function syncGraph(type, val) {
+  val = parseFloat(val) || 0;
+  if (type === 'm') { currentM = val; document.getElementById('mSlider').value = val; document.getElementById('mInput').value = val; }
+  else { currentB = val; document.getElementById('bSlider').value = val; document.getElementById('bInput').value = val; }
+  document.getElementById('graphEqDisplay').textContent = formatEq(currentM, currentB);
+  drawGraph('graphCanvas', [{m: currentM, b: currentB, color: '#4f46e5', width: 3.5}]);
+}
+
+let m1=1, b1=0, m2=-1, b2=3;
+function syncGraph2(eqNum, type, val) {
+  val = parseFloat(val) || 0;
+  if (eqNum === 1) {
+    if (type === 'm') { m1 = val; document.getElementById('m1Input').value = val; }
+    else { b1 = val; document.getElementById('b1Input').value = val; }
+    document.getElementById('eq1Formula').textContent = formatEq(m1, b1);
+  } else {
+    if (type === 'm') { m2 = val; document.getElementById('m2Input').value = val; }
+    else { b2 = val; document.getElementById('b2Input').value = val; }
+    document.getElementById('eq2Formula').textContent = formatEq(m2, b2);
+  }
+  let intersection = null;
+  if (Math.abs(m1 - m2) > 0.001) {
+    const x = (b2 - b1) / (m1 - m2);
+    const y = m1 * x + b1;
+    intersection = {x, y};
+    document.getElementById('intersectionPoint').innerHTML = `<strong>(${x.toFixed(2)}, ${y.toFixed(2)})</strong>`;
+  } else {
+    document.getElementById('intersectionPoint').innerHTML = '<span>⚠️ لا يوجد تقاطع (متوازيان)</span>';
+  }
+  drawGraph('graphCanvas2', [
+    {m: m1, b: b1, color: '#4f46e5', width: 3.5},
+    {m: m2, b: b2, color: '#f59e0b', width: 3.5}
+  ], {intersection});
+}
+
+function drawGraph(canvasId, lines, options = {}) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+  const rect = canvas.parentElement.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = rect.width * dpr;
+  canvas.height = rect.height * dpr;
+  canvas.style.width = rect.width + 'px';
+  canvas.style.height = rect.height + 'px';
+  const ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  const W = rect.width, H = rect.height;
+  const FIXED_RANGE = 10;
+  const PADDING = 35;
+  const drawW = W - PADDING * 2;
+  const drawH = H - PADDING * 2;
+  const originX = W / 2;
+  const originY = H / 2;
+  const scale = Math.min(drawW, drawH) / (FIXED_RANGE * 2);
+
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+
+  ctx.save();
+  ctx.beginPath();
+  ctx.rect(PADDING, PADDING, drawW, drawH);
+  ctx.clip();
+
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 1;
+  for (let i = -FIXED_RANGE; i <= FIXED_RANGE; i++) {
+    const x = originX + i * scale;
+    const y = originY - i * scale;
+    ctx.beginPath(); ctx.moveTo(x, PADDING); ctx.lineTo(x, H - PADDING); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(PADDING, y); ctx.lineTo(W - PADDING, y); ctx.stroke();
+  }
+
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
+
+  ctx.fillStyle = '#334155';
+  ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
+  ctx.restore();
+
+  ctx.fillStyle = '#64748b';
+  ctx.font = 'bold 11px IBM Plex Mono, monospace';
+  ctx.textAlign = 'center';
+  for (let i = -FIXED_RANGE; i <= FIXED_RANGE; i += 2) {
+    if (i === 0) continue;
+    const x = originX + i * scale;
+    const y = originY - i * scale;
+    if (x >= PADDING && x <= W - PADDING) {
+      ctx.fillText(i, x, originY + 18);
+      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, originY - 3); ctx.lineTo(x, originY + 3); ctx.stroke();
+    }
+    if (y >= PADDING && y <= H - PADDING) {
+      ctx.textAlign = 'right'; ctx.fillText(i, originX - 8, y + 4); ctx.textAlign = 'center';
+      ctx.beginPath(); ctx.moveTo(originX - 3, y); ctx.lineTo(originX + 3, y); ctx.stroke();
+    }
+  }
+  ctx.textAlign = 'right'; ctx.fillText('0', originX - 8, originY + 18);
+  ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px IBM Plex Mono, monospace';
+  ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
+  ctx.fillText('y', originX + 8, PADDING - 5);
+
+  ctx.save();
+  ctx.beginPath(); ctx.rect(PADDING, PADDING, drawW, drawH); ctx.clip();
+  lines.forEach(line => {
+    ctx.strokeStyle = line.color || '#6366f1';
+    ctx.lineWidth = line.width || 3;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath();
+    let first = true;
+    for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
+      const x = (px - originX) / scale;
+      const y = line.m * x + line.b;
+      const py = originY - y * scale;
+      if (first) { ctx.moveTo(px, py); first = false; }
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+  });
+  if (options.intersection) {
+    const ix = originX + options.intersection.x * scale;
+    const iy = originY - options.intersection.y * scale;
+    if (ix >= PADDING && ix <= W - PADDING && iy >= PADDING && iy <= H - PADDING) {
+      ctx.fillStyle = 'rgba(244, 63, 94, 0.3)';
+      ctx.beginPath(); ctx.arc(ix, iy, 12, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#f43f5e';
+      ctx.beginPath(); ctx.arc(ix, iy, 6, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+      ctx.fillStyle = '#0f172a'; ctx.font = 'bold 12px IBM Plex Mono, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(`(${options.intersection.x.toFixed(1)}, ${options.intersection.y.toFixed(1)})`, ix + 12, iy - 12);
+    }
+  }
+  ctx.restore();
+  ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1;
+  ctx.strokeRect(PADDING, PADDING, drawW, drawH);
+}
+
+function initGraphs() {
+  syncGraph('m', currentM);
+  syncGraph2(1, 'm', m1);
+  syncGraph2(2, 'm', m2);
+}
+
+// ═══════════════════════════════════════════════════════════════
+// EDUCATIONAL FLIP CARDS
+// ═══════════════════════════════════════════════════════════════
+const eduCardsData = [
+  {icon:'📐', title:'المعادلة الخطية', desc:'معادلة من الدرجة الأولى', formula:'y = mx + b',
+   examples:['<span class="math-expr">y = 2x + 3</span>','<span class="math-expr">y = -x + 5</span>','<span class="math-expr">y = 0.5x - 2</span>']},
+  {icon:'', title:'الميل (Slope)', desc:'يحدد اتجاه ودرجة ميل الخط', formula:'m = (y₂-y₁)/(x₂-x₁)',
+   examples:['<span class="math-expr">m = 2</span>: خط صاعد حاد','<span class="math-expr">m = -1</span>: خط نازل','<span class="math-expr">m = 0</span>: خط أفقي']},
+  {icon:'📊', title:'الجزء المقطوع', desc:'نقطة تقاطع الخط مع محور y', formula:'b في y = mx + b',
+   examples:['<span class="math-expr">b = 3</span>: التقاطع (0, 3)','<span class="math-expr">b = -2</span>: التقاطع (0, -2)','<span class="math-expr">b = 0</span>: يمر بالأصل']},
+  {icon:'️', title:'حل المعادلة', desc:'إيجاد قيمة x التي تحقق المساواة', formula:'x + 3 = 7 → x = 4',
+   examples:['<span class="math-expr">2x = 10 → x = 5</span>','<span class="math-expr">x - 4 = 3 → x = 7</span>','<span class="math-expr">3x + 2 = 11 → x = 3</span>']},
+  {icon:'', title:'العمليات العكسية', desc:'الجمع ↔ الطرح، الضرب ↔ القسمة', formula:'+a ↔ -a',
+   examples:['<span class="math-expr">x + 5 = 12</span> → نطرح 5','<span class="math-expr">3x = 15</span> → نقسم على 3','<span class="math-expr">x - 2 = 8</span> → نضيف 2']},
+  {icon:'', title:'نقطة التقاطع', desc:'حل جملة معادلتين خطيتين', formula:'m₁x+b₁ = m₂x+b₂',
+   examples:['<span class="math-expr">y=x</span> و <span class="math-expr">y=-x+4</span> → (2,2)','<span class="math-expr">y=2x</span> و <span class="math-expr">y=x+3</span> → (3,6)','<span class="math-expr">y=x+1</span> و <span class="math-expr">y=2x-1</span> → (2,3)']},
+  {icon:'📉', title:'الخط التنازلي', desc:'عندما يكون الميل سالباً', formula:'m < 0',
+   examples:['<span class="math-expr">y = -x + 5</span>','<span class="math-expr">y = -2x + 3</span>','<span class="math-expr">y = -0.5x - 1</span>']},
+  {icon:'', title:'الخط التصاعدي', desc:'عندما يكون الميل موجباً', formula:'m > 0',
+   examples:['<span class="math-expr">y = x + 2</span>','<span class="math-expr">y = 3x - 1</span>','<span class="math-expr">y = 0.5x + 4</span>']}
+];
+
+function renderEduCards() {
+  const grid = document.getElementById('eduCardsGrid');
+  grid.innerHTML = '';
+  eduCardsData.forEach((c, i) => {
+    const card = document.createElement('div');
+    card.className = 'edu-card';
+    card.onclick = () => card.classList.toggle('flipped');
+    card.innerHTML = `
+      <div class="edu-card-inner">
+        <div class="edu-card-face edu-card-front">
+          <div class="edu-icon">${c.icon}</div>
+          <h4>${c.title}</h4>
+          <p>${c.desc}</p>
+          <div class="flip-hint">اضغطي للقلب 🔄</div>
+        </div>
+        <div class="edu-card-face edu-card-back">
+          <h4>${c.title}</h4>
+          <div class="examples-title">📚 أمثلة تطبيقية:</div>
+          ${c.examples.map(e => `<div class="example-item">${e}</div>`).join('')}
+          <div style="margin-top:auto;font-family:var(--font-math);font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:var(--sp-1) var(--sp-3);border-radius:var(--r-md);width:100%;direction:ltr;text-align:right">${c.formula}</div>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════
+// FEEDBACK & FAIRY
+// ═══════════════════════════════════════════════════════════════
+const fairyMessages = {
+  correct: ['أحسنتِ! أنتِ عبقرية! 🌟','رائع! استمري على هذا التألق! ✨','ممتاز! الجنية فخورة بكِ! 🧚‍♀️','بطلة! أنتِ سحر الرياضيات! ','واو! إجابة رائعة! 💫'],
+  wrong: ['حظاً أوفر في المرة القادمة! 🌱','لا تستسلمي! أنتِ قريبة من الإجابة 💪','المحاولة طريق النجاح! 🌸','فكّري بهدوء، أنتِ تستطيعين! 🌟','كل خطأ خطوة نحو التعلم! 🔮']
+};
+
+function showCorrectFeedback() {
+  const overlay = document.getElementById('feedbackOverlay');
+  const text = document.getElementById('feedbackText');
+  const gem = document.getElementById('gemReward');
+  const fairy = document.getElementById('fairyFeedback');
+  text.innerHTML = '<div class="feedback-correct">🎊 أحسنتِ!</div>';
+  const gemColors = ['💎','','🔷','🔶','💜','💚','💙','❤️','🧡','💛'];
+  const gemColor = gemColors[Math.floor(Math.random() * gemColors.length)];
+  gem.textContent = gemColor; gem.style.display = 'block';
+  fairy.textContent = fairyMessages.correct[Math.floor(Math.random() * fairyMessages.correct.length)];
+  state.gems.push({color: gemColor, time: Date.now()}); saveState();
+  overlay.classList.add('show'); launchConfetti();
+}
+
+function showWrongFeedback() {
+  const overlay = document.getElementById('feedbackOverlay');
+  const text = document.getElementById('feedbackText');
+  const gem = document.getElementById('gemReward');
+  const fairy = document.getElementById('fairyFeedback');
+  text.innerHTML = '<div class="feedback-wrong">🌱 حظاً أوفر</div>';
+  gem.style.display = 'none';
+  fairy.textContent = fairyMessages.wrong[Math.floor(Math.random() * fairyMessages.wrong.length)];
+  overlay.classList.add('show');
+}
+
+function closeFeedback() { document.getElementById('feedbackOverlay').classList.remove('show'); }
+
+function launchConfetti() {
+  const colors = ['#6366f1','#f59e0b','#10b981','#f43f5e','#8b5cf6','#ec4899','#06b6d4'];
+  for (let i = 0; i < 70; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + '%';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDuration = (3 + Math.random() * 2) + 's';
+    c.style.animationDelay = Math.random() + 's';
+    if (Math.random() > 0.5) c.style.borderRadius = '50%';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 5000);
+  }
+}
+
+function showFairyMessage(msg) {
+  const speech = document.getElementById('fairySpeech');
+  speech.innerHTML = msg; speech.classList.add('show');
+  clearTimeout(speech._timer);
+  speech._timer = setTimeout(() => speech.classList.remove('show'), 4000);
+}
+
+function toggleFairySpeech(e) {
+  if (isDragging) return;
+  const speech = document.getElementById('fairySpeech');
+  if (speech.classList.contains('show')) { speech.classList.remove('show'); }
+  else { const msgs = ['أحتاج مساعدة؟ أنا هنا! ','أنتِ بطلة حقيقية! ✨','استمري في التعلم! 📚','الجنية تحبك! 💖','كل سؤال فرصة جديدة! 🌸']; showFairyMessage(msgs[Math.floor(Math.random() * msgs.length)]); }
+}
+
+function toggleSound() { state.soundOn = document.getElementById('soundToggle').checked; saveState(); }
+
+function renderStats() {
+  document.getElementById('statPoints').textContent = state.points;
+  document.getElementById('statCorrect').textContent = state.correct;
+  document.getElementById('statWrong').textContent = state.wrong;
+  document.getElementById('statGems').textContent = state.gems.length;
+  const total = state.correct + state.wrong;
+  const acc = total > 0 ? Math.round((state.correct / total) * 100) : 0;
+  document.getElementById('statAccuracy').textContent = acc + '%';
+}
+
+function updateHomeStats() {
+  document.getElementById('homePoints').textContent = state.points;
+  document.getElementById('homeGems').textContent = state.gems.length;
+  document.getElementById('homeCorrect').textContent = state.correct;
+}
+
+function init() {
+  renderConcepts();
+  renderEduCards();
+  newExprQuestion();
+  newEqQuestion();
+  updateScale();
+  updateHomeStats();
+
+  if (state.fairyX !== null && state.fairyY !== null) {
+    fairyWrap.style.left = state.fairyX + 'px';
+    fairyWrap.style.top = state.fairyY + 'px';
+    fairyWrap.style.bottom = 'auto';
+    fairyWrap.style.right = 'auto';
+  } else {
+    fairyWrap.style.left = 'var(--sp-4)';
+    fairyWrap.style.top = 'auto';
+    fairyWrap.style.bottom = 'var(--sp-4)';
+    fairyWrap.style.right = 'auto';
+  }
+  applyFairySize(state.fairySize);
+  document.getElementById('soundToggle').checked = state.soundOn;
+
+  document.querySelectorAll('.modal, .concept-modal').forEach(m => { m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); }); });
+  window.addEventListener('resize', () => { if (document.getElementById('graphs').classList.contains('active')) { initGraphs(); } });
+}
+init();
+</script>
+</body>
+</html>
