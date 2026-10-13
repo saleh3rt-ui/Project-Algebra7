@@ -48,7 +48,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 
 .math-expr, .math-block, canvas, .equation-display, .eq-display-live,
 .values-table, .values-table td, .values-table th, input[type="number"], 
-.timer, .challenge-q, .question-text, .stat-badge .num, .stat-card .num, .gem-slot {
+.timer-text, .challenge-q, .question-text, .stat-badge .num, .stat-card .num, .gem-slot {
   font-family: var(--font-math) !important; font-variant-numeric: lining-nums tabular-nums !important;
 }
 
@@ -261,7 +261,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
   margin:var(--sp-1) 0; color:var(--text-secondary); line-height:1.7;
   position:relative; padding-right:var(--sp-3); font-size:var(--fs-sm);
 }
-.steps li::before { content:'🔹'; position:absolute; right:0; top:0; font-size:var(--fs-xs); }
+.steps li::before { content:''; position:absolute; right:0; top:0; font-size:var(--fs-xs); }
 .steps li strong { color:var(--c-primary-800); font-weight:700; }
 .intersection-result {
   background:linear-gradient(135deg,var(--c-accent-400),var(--c-accent-600));
@@ -331,16 +331,39 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
   background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
   color:white; padding:var(--sp-8); border-radius:var(--r-3xl); text-align:center;
   box-shadow:var(--shadow-lg); position:relative; overflow:hidden; border:3px solid var(--c-accent-400);
+  max-width: 600px; margin: 0 auto;
 }
-.timer {
-  font-size:var(--fs-3xl); font-weight:900; color:var(--c-accent-400); margin:var(--sp-3) 0;
+.timer-container { margin: var(--sp-4) 0; }
+.timer-text {
+  font-size:var(--fs-4xl); font-weight:900; color:var(--c-accent-400);
   font-family:var(--font-heading); text-shadow:2px 2px 4px rgba(0,0,0,0.3);
-  transition: color 0.3s;
+  transition: color 0.3s; display: block; margin-bottom: var(--sp-2);
 }
-.timer.urgent { color: var(--c-danger-500); animation: pulseRed 1s infinite; }
+.timer-text.urgent { color: var(--c-danger-500); animation: pulseRed 0.8s infinite; }
 @keyframes pulseRed { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
+.timer-bar-bg {
+  width: 100%; height: 12px; background: rgba(255,255,255,0.2);
+  border-radius: var(--r-full); overflow: hidden; margin: 0 auto; max-width: 300px;
+}
+.timer-bar-fill {
+  height: 100%; background: var(--c-accent-400); border-radius: var(--r-full);
+  transition: width 1s linear, background 0.3s;
+}
+.timer-bar-fill.urgent { background: var(--c-danger-500); }
+
 .challenge-q { font-size:var(--fs-2xl); font-weight:900; margin:var(--sp-4) 0; min-height:60px; direction:ltr; font-family:var(--font-math); }
+
+.challenge-summary {
+  background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+  border-radius: var(--r-2xl); padding: var(--sp-6); margin-top: var(--sp-4);
+  border: 2px solid var(--c-accent-400);
+}
+.challenge-summary h3 { font-size: var(--fs-xl); margin-bottom: var(--sp-3); color: var(--c-accent-400); }
+.summary-stats { display: flex; justify-content: center; gap: var(--sp-6); margin-bottom: var(--sp-4); }
+.summary-stat { text-align: center; }
+.summary-stat .val { font-size: var(--fs-3xl); font-weight: 900; display: block; }
+.summary-stat .lbl { font-size: var(--fs-sm); opacity: 0.9; }
 
 .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:var(--sp-4); }
 .flip-card { perspective:1000px; height:240px; cursor:pointer; }
@@ -475,7 +498,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
     <button class="nav-btn active" onclick="showPage('home',this)">🏠 الرئيسية</button>
     <button class="nav-btn" onclick="showPage('lessons',this)">📚 الدروس</button>
     <button class="nav-btn" onclick="showPage('graph',this)">📈 المادة الإثرائية</button>
-    <button class="nav-btn" onclick="showPage('challenge',this)">⏱️ التحدي</button>
+    <button class="nav-btn" onclick="showPage('challenge',this)">️ التحدي</button>
     <button class="nav-btn" onclick="showPage('cards',this)">🎴 البطاقات</button>
     <button class="nav-btn" onclick="openModal('statsModal')">📊</button>
     <button class="nav-btn" onclick="openModal('gardenModal')">🌺</button>
@@ -487,7 +510,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
   <div class="student-info"><span class="label">👩‍🎓 إعداد الطالبة</span><span class="value">تقى يونسو</span></div>
   <div class="student-info"><span class="label">‍🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
   <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الشعبة الأولى</span></div>
-  <div class="student-info"><span class="label">🏫 المدرسة</span><span class="value">المدرسة النموذجية للمتفوقين إناث</span></div>
+  <div class="student-info"><span class="label"> المدرسة</span><span class="value">المدرسة النموذجية للمتفوقين إناث</span></div>
 </div>
 
 <div class="container">
@@ -586,7 +609,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
       </div>
       <div class="enrichment-equations-panel">
         <div class="eq-control-card eq1-card">
-          <h4>📗 المعادلة الأولى: y = m₁x + b₁</h4>
+          <h4> المعادلة الأولى: y = m₁x + b₁</h4>
           <div class="eq-control-row">
             <label>m₁:</label><input type="number" id="m1Input" step="0.5" value="2">
             <input type="range" id="m1Slider" min="-5" max="5" step="0.5" value="2">
@@ -610,7 +633,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
           <div class="eq-display-live" id="eq2Display">y = -x + 4</div>
         </div>
         <div class="solution-card">
-          <h4>🎯 الحل الجبري (نقطة التقاطع)</h4>
+          <h4> الحل الجبري (نقطة التقاطع)</h4>
           <p style="margin-bottom:var(--sp-2);color:var(--text-secondary);font-size:var(--fs-sm)">نساوي الطرفين عند التقاطع:</p>
           <div id="algebraicSteps"></div>
           <div class="intersection-result" id="intersectionResult">✨ نقطة التقاطع: <span class="math-expr">(1, 3)</span> ✨</div>
@@ -622,25 +645,42 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
 
 <div id="challenge" class="page">
   <div class="challenge-box">
-    <h2 style="font-size:var(--fs-2xl);margin-bottom:var(--sp-3)">⏱️ تحدي الـ 20 ثانية</h2>
-    <div class="timer" id="timer">20</div>
-    <div class="challenge-q" id="challengeQuestion">اضغط ابدأ للتحدي!</div>
-    <input type="text" id="challengeAnswer" class="answer-input" placeholder="؟" style="display:none">
-    <div class="btn-row">
-      <button class="btn btn-new" id="startChallengeBtn" onclick="startChallenge()">🎈 ابدأ التحدي</button>
-      <button class="btn btn-check" id="checkChallengeBtn" onclick="checkChallengeAnswer()" style="display:none">🌤️ تحقق فوري</button>
-      <button class="btn btn-hint" id="newChallengeBtn" onclick="newChallenge()" style="display:none">🔄 تحدي جديد</button>
+    <h2 style="font-size:var(--fs-2xl);margin-bottom:var(--sp-3)">⏱️ تحدي السرعة (20 ثانية)</h2>
+    <div id="challengeIdle">
+      <p style="font-size:var(--fs-lg); margin-bottom:var(--sp-5); opacity:0.9;">حلّي أكبر عدد ممكن من المسائل قبل انتهاء الوقت!</p>
+      <button class="btn btn-new" onclick="startChallenge()" style="font-size:var(--fs-lg); padding: var(--sp-3) var(--sp-6);">🚀 ابدأ التحدي الآن</button>
     </div>
-    <div id="challengeResult" style="margin-top:var(--sp-3);font-size:var(--fs-lg);font-weight:700;min-height:40px"></div>
+    <div id="challengePlaying" style="display:none;">
+      <div class="timer-container">
+        <span class="timer-text" id="timerText">20</span>
+        <div class="timer-bar-bg"><div class="timer-bar-fill" id="timerBar" style="width: 100%;"></div></div>
+      </div>
+      <div class="challenge-q" id="challengeQuestion">جاري التحميل...</div>
+      <input type="number" id="challengeAnswer" class="answer-input" placeholder="؟" style="display:none">
+      <div class="btn-row">
+        <button class="btn btn-check" id="checkChallengeBtn" onclick="checkChallengeAnswer()">🌤️ تحقق (Enter)</button>
+      </div>
+      <div id="challengeInlineFeedback" style="margin-top:var(--sp-3);font-size:var(--fs-lg);font-weight:700;min-height:30px;"></div>
+    </div>
+    <div id="challengeEnded" style="display:none;">
+      <div class="challenge-summary">
+        <h3>🎉 انتهى الوقت!</h3>
+        <div class="summary-stats">
+          <div class="summary-stat"><span class="val" style="color:var(--c-success-500)" id="summaryCorrect">0</span><span class="lbl">إجابات صحيحة</span></div>
+          <div class="summary-stat"><span class="val" style="color:var(--c-accent-400)" id="summaryPoints">0</span><span class="lbl">نقاط مكتسبة</span></div>
+        </div>
+        <button class="btn btn-new" onclick="resetChallengeUI()" style="font-size:var(--fs-lg); padding: var(--sp-3) var(--sp-6);">🔄 لعب مرة أخرى</button>
+      </div>
+    </div>
   </div>
 </div>
 
 <div id="cards" class="page">
   <div class="hero" style="padding:var(--sp-6)">
-    <h2 style="font-size:var(--fs-2xl)">🎴 البطاقات التعليمية التفاعلية</h2>
+    <h2 style="font-size:var(--fs-2xl)"> البطاقات التعليمية التفاعلية</h2>
     <p>اضغط على أي بطاقة لقلبها ورؤية الإجابة! 🌷</p>
     <div class="btn-row">
-      <button class="btn btn-new" onclick="shuffleCards()">🍃 خلط البطاقات</button>
+      <button class="btn btn-new" onclick="shuffleCards()"> خلط البطاقات</button>
       <button class="btn btn-hint" onclick="resetCards()">🔄 إعادة البطاقات</button>
     </div>
   </div>
@@ -670,7 +710,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
       <animate attributeName="opacity" values="1;.5;1" dur="1.5s" repeatCount="indefinite"/>
     </polygon>
   </svg>
-  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنية الرياضيات! 🧚‍♀️<br><small style="color:var(--text-tertiary);font-size:0.8rem">(اسحبيني لتغيير مكاني!)</small></div>
+  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنية الرياضيات! 🧚♀️<br><small style="color:var(--text-tertiary);font-size:0.8rem">(اسحبيني لتغيير مكاني!)</small></div>
 </div>
 
 <div class="feedback-overlay" id="feedbackOverlay">
@@ -691,7 +731,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
       <div class="stat-card"><div class="num" id="statWrong">0</div><div class="label">❌ خاطئة</div></div>
       <div class="stat-card"><div class="num" id="statGems">0</div><div class="label">🌸 الجواهر</div></div>
       <div class="stat-card"><div class="num" id="statAccuracy">0%</div><div class="label">🎯 الدقة</div></div>
-      <div class="stat-card"><div class="num" id="statStreak">0</div><div class="label">🔥 أفضل تتابع</div></div>
+      <div class="stat-card"><div class="num" id="statStreak">0</div><div class="label"> أفضل تتابع</div></div>
     </div>
   </div>
 </div>
@@ -717,22 +757,21 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
         <input type="range" id="fairySizeSlider" min="70" max="180" value="110" oninput="updateFairySize(this.value)" style="flex:1">
         <span style="font-size:var(--fs-sm)">كبيرة</span>
       </div>
-      <p style="font-size:var(--fs-xs);color:var(--text-tertiary);margin-top:var(--sp-2);text-align:center">💡 اسحبي الجنية مباشرة على الشاشة لتغيير مكانها</p>
     </div>
 
     <div class="settings-section">
-      <h4>📍 إعادة ضبط موضع الجنية</h4>
+      <h4> إعادة ضبط موضع الجنية</h4>
       <button class="btn btn-new" onclick="resetFairyPosition()" style="width:100%;padding:var(--sp-3)">🔄 إعادة للموضع الافتراضي</button>
     </div>
 
     <div class="settings-section">
       <h4>🌺 تصفير الشجرة (الجواهر)</h4>
-      <button class="btn btn-new" onclick="resetGarden()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">🗑️ تصفير جميع الجواهر</button>
+      <button class="btn btn-danger" onclick="resetGarden()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">️ تصفير جميع الجواهر</button>
     </div>
     
     <div class="settings-section">
       <h4>🔄 تصفير النقاط والإحصائيات</h4>
-      <button class="btn btn-danger" onclick="resetPoints()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">🗑️ تصفير النقاط، الإجابات، والجواهر</button>
+      <button class="btn btn-danger" onclick="resetPoints()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">️ تصفير النقاط، الإجابات، والجواهر</button>
     </div>
     
     <div>
@@ -748,7 +787,7 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-item"><div class="label">👩‍💻 عمل الطالبة</div><div class="value">تقى يونسو</div></div>
-    <div class="footer-item"><div class="label">👩‍🏫 المدرّسة</div><div class="value">فلك عاصي</div></div>
+    <div class="footer-item"><div class="label">👩🏫 المدرّسة</div><div class="value">فلك عاصي</div></div>
     <div class="footer-item"><div class="label">🎓 الصف</div><div class="value">السابع - الشعبة الأولى</div></div>
     <div class="footer-item"><div class="label">🏫 المدرسة</div><div class="value">المدرسة النموذجية للمتفوقين إناث</div></div>
   </div>
@@ -758,10 +797,14 @@ canvas#singleGraph, canvas#dualGraph { width:100%; height:100%; display:block; }
 let state = {
   points: 0, correct: 0, wrong: 0, gems: [], streak: 0, maxStreak: 0,
   fairySize: 110, fairyX: null, fairyY: null, soundOn: true,
-  currentChallenge: null, challengeTimer: null, challengeTime: 20,
   singleEq: { m: 1, b: 0 },
   eq1: { m: 2, b: 1 },
   eq2: { m: -1, b: 4 }
+};
+
+let challengeState = {
+  isActive: false, timeLeft: 20, timerInterval: null,
+  currentQuestion: null, correctInRound: 0, pointsInRound: 0
 };
 
 try {
@@ -781,7 +824,6 @@ function playSound(type) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.connect(gain); gain.connect(audioCtx.destination);
-    
     if (type === 'correct') {
       osc.frequency.setValueAtTime(523, audioCtx.currentTime);
       osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
@@ -811,9 +853,7 @@ function showPage(id, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
-  if (id === 'graph') {
-    setTimeout(() => { initSingleGraph(); initDualGraph(); }, 100);
-  }
+  if (id === 'graph') setTimeout(() => { initSingleGraph(); initDualGraph(); }, 100);
 }
 
 function openModal(id) {
@@ -864,12 +904,10 @@ function updateSingleDisplays() {
   document.getElementById('singleMInput').value = m; document.getElementById('singleBInput').value = b;
   document.getElementById('singleMSlider').value = m; document.getElementById('singleBSlider').value = b;
   document.getElementById('singleYHeader').textContent = `y = ${eqText.replace('y = ', '')}`;
-  
   let explanation = '<strong>📘 التفسير الحالي:</strong><br>';
   if (m > 0) explanation += `الميل = ${m} (موجب) → الخط يصعد بمقدار ${Math.abs(m)} وحدة رأسياً لكل وحدة أفقية. `;
   else if (m < 0) explanation += `الميل = ${m} (سالب) → الخط ينزل بمقدار ${Math.abs(m)} وحدة رأسياً لكل وحدة أفقية. `;
   else explanation += 'الميل = 0 → الخط أفقي تماماً. ';
-  
   if (b > 0) explanation += `<br>الجزء المقطوع = ${b} → الخط يقطع محور y عند (0, ${b}) فوق الأصل.`;
   else if (b < 0) explanation += `<br>الجزء المقطوع = ${b} → الخط يقطع محور y عند (0, ${b}) تحت الأصل.`;
   else explanation += '<br>الجزء المقطوع = 0 → الخط يمر بنقطة الأصل (0, 0).';
@@ -897,11 +935,9 @@ function drawSingleGraph() {
   const W = canvas.width, H = canvas.height;
   const RANGE = 8, PADDING = 40, originX = W / 2, originY = H / 2;
   const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
-  
   function toScreenX(x) { return originX + x * scale; }
   function toScreenY(y) { return originY - y * scale; }
   function toMathX(px) { return (px - originX) / scale; }
-  
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
   ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
   for (let i = -RANGE; i <= RANGE; i++) {
@@ -912,19 +948,16 @@ function drawSingleGraph() {
   ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
-  
   ctx.fillStyle = '#334155';
   ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
   ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
-  
   ctx.fillStyle = '#64748b'; ctx.font = 'bold 11px IBM Plex Mono, monospace'; ctx.textAlign = 'center';
   for (let i = -RANGE; i <= RANGE; i++) {
     if (i === 0) continue;
     const x = toScreenX(i), y = toScreenY(i);
     if (x >= PADDING && x <= W - PADDING) {
       ctx.fillText(i, x, originY + 18);
-      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(x, originY - 3); ctx.lineTo(x, originY + 3); ctx.stroke();
+      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(x, originY - 3); ctx.lineTo(x, originY + 3); ctx.stroke();
     }
     if (y >= PADDING && y <= H - PADDING) {
       ctx.textAlign = 'right'; ctx.fillText(i, originX - 8, y + 4); ctx.textAlign = 'center';
@@ -935,7 +968,6 @@ function drawSingleGraph() {
   ctx.fillStyle = '#0f1419'; ctx.font = 'bold 13px IBM Plex Mono, monospace';
   ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
   ctx.fillText('y', originX + 8, PADDING - 8);
-  
   ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath();
   let first = true;
   for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
@@ -943,7 +975,6 @@ function drawSingleGraph() {
     if (first) { ctx.moveTo(px, py); first = false; } else ctx.lineTo(px, py);
   }
   ctx.stroke();
-  
   ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(toScreenX(singlePoint1.x), toScreenY(singlePoint1.y), 10, 0, Math.PI * 2); ctx.fill();
   ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
   ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(toScreenX(singlePoint2.x), toScreenY(singlePoint2.y), 10, 0, Math.PI * 2); ctx.fill();
@@ -956,23 +987,19 @@ function setupSingleGraphEvents() {
   const rect = canvas.getBoundingClientRect();
   const W = rect.width, H = rect.height, RANGE = 8, PADDING = 40, originX = W / 2, originY = H / 2;
   const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
-  
   function toScreenX(x) { return originX + x * scale; }
   function toScreenY(y) { return originY - y * scale; }
   function toMathX(px) { return (px - originX) / scale; }
   function toMathY(py) { return (originY - py) / scale; }
-  
   function getDistance(clientX, clientY, point) {
     const rect = canvas.getBoundingClientRect();
     const px = clientX - rect.left, py = clientY - rect.top;
     return Math.sqrt(Math.pow(px - toScreenX(point.x), 2) + Math.pow(py - toScreenY(point.y), 2));
   }
-  
   function handleStart(clientX, clientY) {
     if (getDistance(clientX, clientY, singlePoint1) < 20) { isDraggingSingle = 'p1'; canvas.style.cursor = 'grabbing'; }
     else if (getDistance(clientX, clientY, singlePoint2) < 20) { isDraggingSingle = 'p2'; canvas.style.cursor = 'grabbing'; }
   }
-  
   function handleMove(clientX, clientY) {
     if (!isDraggingSingle) {
       canvas.style.cursor = (getDistance(clientX, clientY, singlePoint1) < 20 || getDistance(clientX, clientY, singlePoint2) < 20) ? 'grab' : 'crosshair';
@@ -981,15 +1008,11 @@ function setupSingleGraphEvents() {
     const rect = canvas.getBoundingClientRect();
     let mathX = Math.max(-RANGE, Math.min(RANGE, Math.round(toMathX(clientX - rect.left) * 2) / 2));
     let mathY = Math.max(-RANGE, Math.min(RANGE, Math.round(toMathY(clientY - rect.top) * 2) / 2));
-    
     if (isDraggingSingle === 'p1') { singlePoint1.x = 0; singlePoint1.y = mathY; }
     else { singlePoint2.x = mathX; singlePoint2.y = mathY; }
-    
     updateSingleEquationFromPoints(); drawSingleGraph();
   }
-  
   function handleEnd() { isDraggingSingle = null; canvas.style.cursor = 'crosshair'; }
-  
   canvas.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
   canvas.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
   canvas.addEventListener('mouseup', handleEnd); canvas.addEventListener('mouseleave', handleEnd);
@@ -1060,11 +1083,9 @@ function drawDualGraph() {
   const W = canvas.width, H = canvas.height;
   const RANGE = 8, PADDING = 40, originX = W / 2, originY = H / 2;
   const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
-  
   function toScreenX(x) { return originX + x * scale; }
   function toScreenY(y) { return originY - y * scale; }
   function toMathX(px) { return (px - originX) / scale; }
-  
   ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, W, H);
   ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
   for (let i = -RANGE; i <= RANGE; i++) {
@@ -1075,11 +1096,9 @@ function drawDualGraph() {
   ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
-  
   ctx.fillStyle = '#334155';
   ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
   ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
-  
   ctx.fillStyle = '#64748b'; ctx.font = 'bold 11px IBM Plex Mono, monospace'; ctx.textAlign = 'center';
   for (let i = -RANGE; i <= RANGE; i++) {
     if (i === 0) continue;
@@ -1097,7 +1116,6 @@ function drawDualGraph() {
   ctx.fillStyle = '#0f1419'; ctx.font = 'bold 13px IBM Plex Mono, monospace';
   ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
   ctx.fillText('y', originX + 8, PADDING - 8);
-  
   ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath();
   let first = true;
   for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
@@ -1105,14 +1123,12 @@ function drawDualGraph() {
     if (first) { ctx.moveTo(px, py); first = false; } else ctx.lineTo(px, py);
   }
   ctx.stroke();
-  
   ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 3; ctx.beginPath(); first = true;
   for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
     const x = toMathX(px), y = state.eq2.m * x + state.eq2.b, py = toScreenY(y);
     if (first) { ctx.moveTo(px, py); first = false; } else ctx.lineTo(px, py);
   }
   ctx.stroke();
-  
   if (Math.abs(state.eq1.m - state.eq2.m) > 0.001) {
     const ix = (state.eq2.b - state.eq1.b) / (state.eq1.m - state.eq2.m);
     const iy = state.eq1.m * ix + state.eq1.b;
@@ -1125,7 +1141,6 @@ function drawDualGraph() {
       ctx.fillText(`(${ix.toFixed(1)}, ${iy.toFixed(1)})`, isx + 12, isy - 12);
     }
   }
-  
   eq1Points.forEach(p => {
     ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(toScreenX(p.x), toScreenY(p.y), 10, 0, Math.PI * 2); ctx.fill();
     ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
@@ -1142,17 +1157,14 @@ function setupDualGraphEvents() {
   const rect = canvas.getBoundingClientRect();
   const W = rect.width, H = rect.height, RANGE = 8, PADDING = 40, originX = W / 2, originY = H / 2;
   const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
-  
   function toScreenX(x) { return originX + x * scale; }
   function toScreenY(y) { return originY - y * scale; }
   function toMathX(px) { return (px - originX) / scale; }
   function toMathY(py) { return (originY - py) / scale; }
-  
   function getDistance(clientX, clientY, point) {
     const rect = canvas.getBoundingClientRect();
     return Math.sqrt(Math.pow((clientX - rect.left) - toScreenX(point.x), 2) + Math.pow((clientY - rect.top) - toScreenY(point.y), 2));
   }
-  
   function handleStart(clientX, clientY) {
     const allPoints = [{point: eq1Points[0], id: 'eq1p0'}, {point: eq1Points[1], id: 'eq1p1'}, {point: eq2Points[0], id: 'eq2p0'}, {point: eq2Points[1], id: 'eq2p1'}];
     let minDist = Infinity, closest = null;
@@ -1162,7 +1174,6 @@ function setupDualGraphEvents() {
     });
     if (minDist < 22) { isDraggingDual = closest; canvas.style.cursor = 'grabbing'; }
   }
-  
   function handleMove(clientX, clientY) {
     if (!isDraggingDual) {
       let minDist = Infinity;
@@ -1172,17 +1183,13 @@ function setupDualGraphEvents() {
     const rect = canvas.getBoundingClientRect();
     let mathX = Math.max(-RANGE, Math.min(RANGE, Math.round(toMathX(clientX - rect.left) * 2) / 2));
     let mathY = Math.max(-RANGE, Math.min(RANGE, Math.round(toMathY(clientY - rect.top) * 2) / 2));
-    
     if (isDraggingDual === 'eq1p0') { eq1Points[0].x = 0; eq1Points[0].y = mathY; }
     else if (isDraggingDual === 'eq1p1') { eq1Points[1].x = mathX; eq1Points[1].y = mathY; }
     else if (isDraggingDual === 'eq2p0') { eq2Points[0].x = 0; eq2Points[0].y = mathY; }
     else if (isDraggingDual === 'eq2p1') { eq2Points[1].x = mathX; eq2Points[1].y = mathY; }
-    
     updateEquationsFromPoints(); drawDualGraph();
   }
-  
   function handleEnd() { isDraggingDual = null; canvas.style.cursor = 'crosshair'; }
-  
   canvas.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
   canvas.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
   canvas.addEventListener('mouseup', handleEnd); canvas.addEventListener('mouseleave', handleEnd);
@@ -1227,12 +1234,10 @@ function updateValuesTable() {
     const row = document.createElement('tr');
     if (ix !== null && Math.abs(x - ix) < 0.01) row.className = 'intersection';
     else if (x === 0) row.className = 'highlight';
-    
     let note = '';
     if (ix !== null && Math.abs(x - ix) < 0.01) note = '⭐ نقطة التقاطع!';
     else if (x === 0) note = 'تقاطع مع محور y';
     else if (Math.abs(y2) < 0.01) note = 'تقاطع y₂ مع محور x';
-    
     row.innerHTML = `<td>${x}</td><td>${y1.toFixed(1)}</td><td>${y2.toFixed(1)}</td><td>${note}</td>`;
     tbody.appendChild(row);
   });
@@ -1242,7 +1247,6 @@ function updateAlgebraicSolution() {
   const stepsDiv = document.getElementById('algebraicSteps'), resultDiv = document.getElementById('intersectionResult');
   if (!stepsDiv || !resultDiv) return;
   const m1 = state.eq1.m, b1 = state.eq1.b, m2 = state.eq2.m, b2 = state.eq2.b;
-  
   if (Math.abs(m1 - m2) < 0.001) {
     stepsDiv.innerHTML = `<p style="color:var(--c-danger-500);font-weight:700;text-align:center;padding:var(--sp-3);font-size:var(--fs-sm)">⚠️ الخطان متوازيان (نفس الميل = ${m1}) ولا يتقاطعان!</p>`;
     resultDiv.innerHTML = '⚠️ لا يوجد تقاطع'; return;
@@ -1250,7 +1254,6 @@ function updateAlgebraicSolution() {
   const ix = (b2 - b1) / (m1 - m2), iy = m1 * ix + b1;
   const m1Str = m1 === 1 ? '' : (m1 === -1 ? '-' : m1), b1Str = b1 > 0 ? `+ ${b1}` : (b1 < 0 ? `- ${Math.abs(b1)}` : '');
   const m2Str = m2 === 1 ? '' : (m2 === -1 ? '-' : m2), b2Str = b2 > 0 ? `+ ${b2}` : (b2 < 0 ? `- ${Math.abs(b2)}` : '');
-  
   stepsDiv.innerHTML = `
     <div class="eq-line eq1" style="text-align:center;font-size:var(--fs-base);margin:var(--sp-2) 0">${m1Str}x ${b1Str} = ${m2Str}x ${b2Str}</div>
     <ul class="steps">
@@ -1259,7 +1262,7 @@ function updateAlgebraicSolution() {
       <li><strong>الخطوة 3:</strong> نقسم: <span class="math-expr">x = ${ix.toFixed(2)}</span></li>
       <li><strong>الخطوة 4:</strong> نعوض: <span class="math-expr">y = ${m1}(${ix.toFixed(2)}) + ${b1} = ${iy.toFixed(2)}</span></li>
     </ul>`;
-  resultDiv.innerHTML = `✨ نقطة التقاطع: <span class="math-expr" style="font-size:var(--fs-base)">(${ix.toFixed(2)}, ${iy.toFixed(2)})</span> ✨`;
+  resultDiv.innerHTML = `✨ نقطة التقاطع: <span class="math-expr" style="font-size:var(--fs-base)">(${ix.toFixed(2)}, ${iy.toFixed(2)})</span> `;
 }
 
 // === LESSONS ===
@@ -1267,7 +1270,7 @@ const lessons = [
   { icon: '📝', title: 'العبارة الجبرية', content: 'العبارة الجبرية هي عبارة رياضية تتكون من <strong>أعداد ومتغيرات وعلامات عمليات</strong>، وتكون على الصورة <span class="math-expr">ax + b</span>.', examples: ['<span class="math-expr">3x + 5</span> هي عبارة جبرية', '<span class="math-expr">2y - 7</span> هي عبارة جبرية'], generate: () => { const x = Math.floor(Math.random() * 8) + 2, a = Math.floor(Math.random() * 5) + 2, b = Math.floor(Math.random() * 10) + 1; return { q: `إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a: a * x + b }; }},
   { icon: '🔤', title: 'مكونات العبارة الجبرية', content: 'تتكون من:<br><strong>المتغير:</strong> حرف يمثل عدداً مجهولاً.<br><strong>الثابت:</strong> عدد لا يتغير.<br><strong>المعامل:</strong> العدد المضروب في المتغير.', examples: ['في <span class="math-expr">3x + 5</span>: المتغير <span class="math-expr">x</span>، الثابت <span class="math-expr">5</span>، المعامل <span class="math-expr">3</span>'], generate: () => { const b = Math.floor(Math.random() * 15) + 1, a = Math.floor(Math.random() * 5) + 2; return { q: `ما هو الثابت في العبارة <span class="math-expr">${a}x + ${b}</span>؟`, a: b }; }},
   { icon: '➕', title: 'الحدود المتشابهة', content: '<strong>الحدود المتشابهة:</strong> حدود تحتوي على نفس المتغير ونفس الأس.', examples: ['<span class="math-expr">3x</span> و <span class="math-expr">5x</span> حدود متشابهة', '<span class="math-expr">3x</span> و <span class="math-expr">3y</span> حدود غير متشابهة'], generate: () => { const terms = ['3x + 5x', '2y + 7y', '4a + 6a'], answers = [8, 9, 10]; const idx = Math.floor(Math.random() * terms.length); return { q: `بسّطي: <span class="math-expr">${terms[idx]}</span> = ?`, a: answers[idx] }; }},
-  { icon: '⚖️', title: 'ما هي المعادلة؟', content: 'المعادلة هي عبارة رياضية تحتوي على علامة <span class="math-expr">=</span> وتوضح أن <strong>الطرف الأيمن يساوي الطرف الأيسر</strong>.', examples: ['<span class="math-expr">2x + 3 = 11</span> هي معادلة'], generate: () => { const x = Math.floor(Math.random() * 8) + 2, b = Math.floor(Math.random() * 8) + 1; return { q: `حلّي المعادلة: <span class="math-expr">x + ${b} = ${x + b}</span>. ما قيمة <span class="math-expr">x</span>؟`, a: x }; }},
+  { icon: '️', title: 'ما هي المعادلة؟', content: 'المعادلة هي عبارة رياضية تحتوي على علامة <span class="math-expr">=</span> وتوضح أن <strong>الطرف الأيمن يساوي الطرف الأيسر</strong>.', examples: ['<span class="math-expr">2x + 3 = 11</span> هي معادلة'], generate: () => { const x = Math.floor(Math.random() * 8) + 2, b = Math.floor(Math.random() * 8) + 1; return { q: `حلّي المعادلة: <span class="math-expr">x + ${b} = ${x + b}</span>. ما قيمة <span class="math-expr">x</span>؟`, a: x }; }},
   { icon: '🔑', title: 'حل المعادلات البسيطة', content: '<strong>القاعدة الذهبية:</strong> ما نفعله في طرف، يجب أن نفعله في الطرف الآخر للحفاظ على التوازن.', examples: ['<span class="math-expr">x + 8 = 15</span> → نطرح 8 → <span class="math-expr">x = 7</span>'], generate: () => { const type = Math.floor(Math.random() * 3); if (type === 0) { const x = Math.floor(Math.random() * 10) + 1, b = Math.floor(Math.random() * 10) + 1; return { q: `<span class="math-expr">x + ${b} = ${x + b}</span>، ما قيمة <span class="math-expr">x</span>؟`, a: x }; } else if (type === 1) { const x = Math.floor(Math.random() * 10) + 5, b = Math.floor(Math.random() * 5) + 1; return { q: `<span class="math-expr">x - ${b} = ${x - b}</span>، ما قيمة <span class="math-expr">x</span>؟`, a: x }; } else { const x = Math.floor(Math.random() * 10) + 1, b = Math.floor(Math.random() * 5) + 2; return { q: `<span class="math-expr">${b}x = ${x * b}</span>، ما قيمة <span class="math-expr">x</span>؟`, a: x }; }}},
   { icon: '🔍', title: 'التحقق من حل المعادلة', content: 'للتحقق من صحة الحل، نعوض بقيمة المجهول التي وجدناها في المعادلة الأصلية.', examples: ['المعادلة: <span class="math-expr">2x + 1 = 9</span>، الحل: <span class="math-expr">x = 4</span>. التحقق: <span class="math-expr">2(4) + 1 = 9</span> ✓'], generate: () => { const x = Math.floor(Math.random() * 8) + 2, a = Math.floor(Math.random() * 4) + 2, c = Math.floor(Math.random() * 10) + 1; return { q: `تحققي: إذا كانت <span class="math-expr">${a}x + ${c} = ${a * x + c}</span>، فما قيمة <span class="math-expr">x</span>؟`, a: x }; }}
 ];
@@ -1299,9 +1302,7 @@ function checkAnswer(i) {
   const input = document.getElementById('a' + i);
   const userAns = parseInt(input.value);
   const correctAns = parseInt(card.dataset.answer);
-  
   if (isNaN(userAns)) { showFairyMessage('اكتبي رقم الإجابة أولاً! 🌟'); return; }
-  
   if (userAns === correctAns) {
     input.classList.add('input-correct');
     setTimeout(() => input.classList.remove('input-correct'), 1000);
@@ -1322,7 +1323,7 @@ function checkAnswer(i) {
 }
 
 function showHint(i) {
-  const hints = ['عوّضي قيمة x في العبارة واحسبي الناتج 🌟', 'الثابت هو العدد الذي لا يحتوي على متغير 🔮', 'الحدود المتشابهة لها نفس المتغير ونفس الأس 💫', 'استخدمي العملية العكسية لعزل x ⚖️', 'ما تفعلينه في طرف، افعليه في الآخر! ⚖️', 'عوّضي بقيمة x في المعادلة الأصلية للتحقق 🎯'];
+  const hints = ['عوّضي قيمة x في العبارة واحسبي الناتج 🌟', 'الثابت هو العدد الذي لا يحتوي على متغير 🔮', 'الحدود المتشابهة لها نفس المتغير ونفس الأس 💫', 'استخدمي العملية العكسية لعزل x ⚖️', 'ما تفعلينه في طرف، افعليه في الآخر! ️', 'عوّضي بقيمة x في المعادلة الأصلية للتحقق 🎯'];
   showFairyMessage(hints[i]);
 }
 
@@ -1336,100 +1337,121 @@ function newQuestion(i) {
 
 // === CHALLENGE ===
 function startChallenge() {
-  state.challengeTime = 20; // تم التعديل إلى 20 ثانية
-  document.getElementById('timer').textContent = '20';
-  document.getElementById('timer').classList.remove('urgent');
-  document.getElementById('startChallengeBtn').style.display = 'none';
+  challengeState.isActive = true;
+  challengeState.timeLeft = 20;
+  challengeState.correctInRound = 0;
+  challengeState.pointsInRound = 0;
+  document.getElementById('challengeIdle').style.display = 'none';
+  document.getElementById('challengeEnded').style.display = 'none';
+  document.getElementById('challengePlaying').style.display = 'block';
   document.getElementById('challengeAnswer').style.display = 'inline-block';
-  document.getElementById('checkChallengeBtn').style.display = 'inline-flex';
-  document.getElementById('newChallengeBtn').style.display = 'none';
-  document.getElementById('challengeResult').textContent = '';
-  newChallenge();
-  
-  if (state.challengeTimer) clearInterval(state.challengeTimer);
-  state.challengeTimer = setInterval(() => {
-    state.challengeTime--;
-    const timerEl = document.getElementById('timer');
-    timerEl.textContent = state.challengeTime;
-    if (state.challengeTime <= 5) timerEl.classList.add('urgent'); // تم تعديل العتبة لتناسب 20 ثانية
-    if (state.challengeTime <= 0) {
-      clearInterval(state.challengeTimer);
-      document.getElementById('challengeResult').innerHTML = '⏰ انتهى الوقت!';
-      endChallenge();
-    }
+  document.getElementById('challengeAnswer').focus();
+  updateTimerUI();
+  generateChallengeQuestion();
+  if (challengeState.timerInterval) clearInterval(challengeState.timerInterval);
+  challengeState.timerInterval = setInterval(() => {
+    challengeState.timeLeft--;
+    updateTimerUI();
+    if (challengeState.timeLeft <= 0) endChallenge();
   }, 1000);
 }
 
-function newChallenge() {
-  // إعادة ضبط العداد إلى 20 ثانية عند طلب تحدي جديد
-  state.challengeTime = 20;
-  document.getElementById('timer').textContent = '20';
-  document.getElementById('timer').classList.remove('urgent');
-  
+function updateTimerUI() {
+  const timerText = document.getElementById('timerText');
+  const timerBar = document.getElementById('timerBar');
+  timerText.textContent = challengeState.timeLeft;
+  const percentage = (challengeState.timeLeft / 20) * 100;
+  timerBar.style.width = percentage + '%';
+  if (challengeState.timeLeft <= 5) {
+    timerText.classList.add('urgent');
+    timerBar.classList.add('urgent');
+  } else {
+    timerText.classList.remove('urgent');
+    timerBar.classList.remove('urgent');
+  }
+}
+
+function generateChallengeQuestion() {
   const type = Math.floor(Math.random() * 3);
   let q, a;
   if (type === 0) { const x = Math.floor(Math.random() * 10) + 1, b = Math.floor(Math.random() * 10) + 1; q = `x + ${b} = ${x + b}`; a = x; }
   else if (type === 1) { const x = Math.floor(Math.random() * 10) + 5, b = Math.floor(Math.random() * 5) + 1; q = `x - ${b} = ${x - b}`; a = x; }
   else { const x = Math.floor(Math.random() * 10) + 1, b = Math.floor(Math.random() * 5) + 2; q = `${b}x = ${x * b}`; a = x; }
-  state.currentChallenge = { q, a };
+  challengeState.currentQuestion = { q, a };
   document.getElementById('challengeQuestion').innerHTML = `<span class="math-expr">${q}</span>`;
   document.getElementById('challengeAnswer').value = '';
-  document.getElementById('challengeResult').textContent = '';
-
-  // إعادة تشغيل العداد التنازلي فوراً
-  if (state.challengeTimer) clearInterval(state.challengeTimer);
-  state.challengeTimer = setInterval(() => {
-    state.challengeTime--;
-    const timerEl = document.getElementById('timer');
-    timerEl.textContent = state.challengeTime;
-    if (state.challengeTime <= 5) timerEl.classList.add('urgent');
-    if (state.challengeTime <= 0) {
-      clearInterval(state.challengeTimer);
-      document.getElementById('challengeResult').innerHTML = '⏰ انتهى الوقت!';
-      endChallenge();
-    }
-  }, 1000);
+  document.getElementById('challengeInlineFeedback').textContent = '';
+  document.getElementById('challengeAnswer').focus();
 }
 
 function checkChallengeAnswer() {
+  if (!challengeState.isActive) return;
   const input = document.getElementById('challengeAnswer');
   const userAns = parseInt(input.value);
-  if (isNaN(userAns)) { showFairyMessage('اكتبي رقم الإجابة أولاً! 🌟'); return; }
-  
-  if (state.challengeTimer) { clearInterval(state.challengeTimer); state.challengeTimer = null; }
-  
-  if (userAns === state.currentChallenge.a) {
-    document.getElementById('challengeResult').innerHTML = '✅ <span style="color: var(--c-success-500); font-size: 1.4rem;">صحيح! أحسنتِ!</span>';
+  if (isNaN(userAns)) { showFairyMessage('اكتبي رقم الإجابة أولاً! '); return; }
+  if (userAns === challengeState.currentQuestion.a) {
+    challengeState.correctInRound++;
+    challengeState.pointsInRound += 5;
     state.points += 5; state.correct++; state.streak++;
     if (state.streak > state.maxStreak) state.maxStreak = state.streak;
-    playSound('correct'); launchConfetti(); animateFairy('happy');
+    input.classList.add('input-correct');
+    playSound('correct');
+    document.getElementById('challengeInlineFeedback').innerHTML = '<span style="color:var(--c-success-500)">✅ صحيح!</span>';
+    setTimeout(() => {
+      input.classList.remove('input-correct');
+      if (challengeState.isActive) generateChallengeQuestion();
+    }, 600);
   } else {
-    document.getElementById('challengeResult').innerHTML = '❌ <span style="color: var(--c-danger-500); font-size: 1.4rem;">حاولي مرة أخرى</span>';
     state.wrong++; state.streak = 0;
-    playSound('wrong'); animateFairy('sad');
+    input.classList.add('input-wrong');
+    playSound('wrong');
+    document.getElementById('challengeInlineFeedback').innerHTML = '<span style="color:var(--c-danger-500)">❌ حاولي مرة أخرى</span>';
+    setTimeout(() => {
+      input.classList.remove('input-wrong');
+      input.value = '';
+      input.focus();
+    }, 500);
   }
-  input.value = '';
-  document.getElementById('checkChallengeBtn').style.display = 'none';
-  document.getElementById('newChallengeBtn').style.display = 'inline-flex';
   saveState(); updateHomeStats();
 }
 
 function endChallenge() {
-  document.getElementById('startChallengeBtn').style.display = 'inline-flex';
-  document.getElementById('challengeAnswer').style.display = 'none';
-  document.getElementById('checkChallengeBtn').style.display = 'none';
-  document.getElementById('newChallengeBtn').style.display = 'none';
-  document.getElementById('timer').classList.remove('urgent');
-  document.getElementById('timer').textContent = '20'; // تم التعديل إلى 20
-  document.getElementById('challengeQuestion').textContent = 'اضغط ابدأ للتحدي!';
-  document.getElementById('challengeResult').textContent = '';
+  challengeState.isActive = false;
+  clearInterval(challengeState.timerInterval);
+  document.getElementById('challengePlaying').style.display = 'none';
+  document.getElementById('challengeEnded').style.display = 'block';
+  document.getElementById('summaryCorrect').textContent = challengeState.correctInRound;
+  document.getElementById('summaryPoints').textContent = challengeState.pointsInRound;
+  if (challengeState.correctInRound > 0) {
+    playSound('gem');
+    launchConfetti();
+    animateFairy('happy');
+  }
 }
+
+function resetChallengeUI() {
+  document.getElementById('challengeEnded').style.display = 'none';
+  document.getElementById('challengeIdle').style.display = 'block';
+  document.getElementById('timerText').textContent = '20';
+  document.getElementById('timerBar').style.width = '100%';
+  document.getElementById('timerText').classList.remove('urgent');
+  document.getElementById('timerBar').classList.remove('urgent');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const challengeInput = document.getElementById('challengeAnswer');
+  if (challengeInput) {
+    challengeInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { e.preventDefault(); checkChallengeAnswer(); }
+    });
+  }
+});
 
 // === CARDS ===
 const potions = [
   { q: '2x + 3 = 11', a: 'x = 4', sol: '2x = 8 → x = 4', c1: '#486581', c2: '#102a43' },
   { q: '3x - 5 = 10', a: 'x = 5', sol: '3x = 15 → x = 5', c1: '#334e68', c2: '#243b53' },
-  { q: '4x = 20', a: 'x = 5', sol: 'x = 20 ÷ 4 = 5', c1: '#2d5a87', c2: '#1e3a5f' },
+  { q: '4x = 20', a: 'x = 5', sol: 'x = 20  4 = 5', c1: '#2d5a87', c2: '#1e3a5f' },
   { q: 'x + 7 = 15', a: 'x = 8', sol: 'x = 15 - 7 = 8', c1: '#c9a961', c2: '#9a7b3f' },
   { q: '5x - 2 = 13', a: 'x = 3', sol: '5x = 15 → x = 3', c1: '#b8944f', c2: '#7c6230' },
   { q: '2(x + 3) = 14', a: 'x = 4', sol: 'x + 3 = 7 → x = 4', c1: '#486581', c2: '#334e68' }
@@ -1444,7 +1466,7 @@ function renderCards() {
       <div class="flip-inner">
         <div class="flip-front" style="background: linear-gradient(135deg, ${p.c1}, ${p.c2});">
           <h4>🧪 بطاقة ${i + 1}</h4><div class="q">${p.q}</div>
-          <div style="margin-top: 10px; font-size: 0.85rem; opacity: 0.9;">اضغطي للقلب 🔄</div>
+          <div style="margin-top: 10px; font-size: 0.85rem; opacity: 0.9;">اضغطي للقلب </div>
         </div>
         <div class="flip-back">
           <div style="font-size: 1.8rem; margin-bottom: 8px;">🧪</div>
@@ -1459,13 +1481,13 @@ function resetCards() { document.querySelectorAll('.flip-card').forEach(c => c.c
 
 // === FEEDBACK & FAIRY ===
 const fairyMessages = {
-  correct: ['أحسنتِ! أنتِ عبقرية! 🌟', 'رائع! استمري على هذا التألق! ✨', 'ممتاز! الجنية فخورة بكِ! 🧚‍♀️', 'بطلة! أنتِ سحر الرياضيات! 🔮'],
+  correct: ['أحسنتِ! أنتِ عبقرية! 🌟', 'رائع! استمري على هذا التألق! ', 'ممتاز! الجنية فخورة بكِ! 🧚‍♀️', 'بطلة! أنتِ سحر الرياضيات! 🔮'],
   wrong: ['حظاً أوفر في المرة القادمة! 🌱', 'لا تستسلمي! أنتِ قريبة من الإجابة 💪', 'المحاولة طريق النجاح! 🌸', 'فكّري بهدوء، أنتِ تستطيعين! 🌟']
 };
 
 function showCorrectFeedback() {
   document.getElementById('feedbackText').innerHTML = '<div class="feedback-correct">🎊 أحسنتِ! 🎊</div>';
-  const gemColors = ['💎', '💠', '🔷', '🔹', '💜', '💚', '💙', '❤️', '🧡', '💛'];
+  const gemColors = ['💎', '💠', '', '🔹', '💜', '💚', '💙', '❤️', '🧡', '💛'];
   const gemColor = gemColors[Math.floor(Math.random() * gemColors.length)];
   document.getElementById('gemReward').textContent = gemColor;
   document.getElementById('gemReward').style.display = 'block';
@@ -1477,7 +1499,7 @@ function showCorrectFeedback() {
 }
 
 function showWrongFeedback() {
-  document.getElementById('feedbackText').innerHTML = '<div class="feedback-wrong">🌱 حظاً أوفر 🌱</div>';
+  document.getElementById('feedbackText').innerHTML = '<div class="feedback-wrong"> حظاً أوفر 🌱</div>';
   document.getElementById('gemReward').style.display = 'none';
   document.getElementById('feedbackOverlay').classList.add('show');
   setTimeout(() => { showFairyMessage(fairyMessages.wrong[Math.floor(Math.random() * fairyMessages.wrong.length)]); }, 500);
@@ -1511,7 +1533,7 @@ function toggleFairySpeech(e) {
   const speech = document.getElementById('fairySpeech');
   if (speech.classList.contains('show')) { speech.classList.remove('show'); }
   else {
-    const msgs = ['أحتاج مساعدة؟ أنا هنا! 🌟', 'أنتِ بطلة حقيقية! ✨', 'استمري في التعلم! 📚', 'الجنية تحبك! 💖', 'كل سؤال فرصة جديدة! 🌸'];
+    const msgs = ['أحتاج مساعدة؟ أنا هنا! 🌟', 'أنتِ بطلة حقيقية! ✨', 'استمري في التعلم! ', 'الجنية تحبك! 💖', 'كل سؤال فرصة جديدة! 🌸'];
     showFairyMessage(msgs[Math.floor(Math.random() * msgs.length)]);
   }
 }
@@ -1570,25 +1592,89 @@ function fairyDragEnd() {
   }
 }
 
+// ══════════════════════════════════════════════════════════════
+// ✅ إصلاح أزرار التصفير - الدوال المُحسَّنة
+// ══════════════════════════════════════════════════════════════
+
 function resetFairyPosition() {
-  state.fairyX = null; state.fairyY = null;
-  fairyWrap.style.position = 'fixed'; fairyWrap.style.left = 'var(--sp-5)';
-  fairyWrap.style.top = 'auto'; fairyWrap.style.bottom = 'var(--sp-5)'; fairyWrap.style.right = 'auto';
-  saveState(); closeModal('settingsModal');
-}
-
-function applyFairyPosition() {
-  if (state.fairyX !== null && state.fairyY !== null) {
-    fairyWrap.style.position = 'fixed'; fairyWrap.style.left = state.fairyX + 'px';
-    fairyWrap.style.top = state.fairyY + 'px'; fairyWrap.style.bottom = 'auto'; fairyWrap.style.right = 'auto';
-  }
-}
-
-function updateFairySize(val) {
-  state.fairySize = parseInt(val);
-  document.documentElement.style.setProperty('--fairy-size', val + 'px');
+  // 1. إعادة تعيين القيم
+  state.fairyX = null;
+  state.fairyY = null;
+  
+  // 2. تطبيق الموضع الافتراضي فوراً
+  fairyWrap.style.position = 'fixed';
+  fairyWrap.style.left = 'var(--sp-5)';
+  fairyWrap.style.top = 'auto';
+  fairyWrap.style.bottom = 'var(--sp-5)';
+  fairyWrap.style.right = 'auto';
+  
+  // 3. حفظ الحالة
   saveState();
+  
+  // 4. إغلاق المودال وإظهار رسالة تأكيد
+  closeModal('settingsModal');
+  setTimeout(() => {
+    showFairyMessage('✅ تم إعادة الجنية لموضعها الأصلي!');
+    playSound('correct');
+  }, 300);
 }
+
+function resetGarden() {
+  // 1. تأكيد العملية
+  if (!confirm('هل أنتِ متأكدة من تصفير جميع الجواهر؟\n\nسيتم حذف جميع الجواهر المكتسبة!')) {
+    return;
+  }
+  
+  // 2. تصفير الجواهر
+  state.gems = [];
+  
+  // 3. حفظ الحالة
+  saveState();
+  
+  // 4. تحديث جميع الواجهات فوراً (حتى داخل المودال المفتوح)
+  updateHomeStats();
+  renderGarden();
+  renderStats(); // تحديث إحصائيات المودال إذا كان مفتوحاً
+  
+  // 5. إغلاق المودال وإظهار رسالة نجاح
+  closeModal('settingsModal');
+  setTimeout(() => {
+    alert('✅ تم تصفير جميع الجواهر بنجاح! 🌳');
+    playSound('gem');
+  }, 300);
+}
+
+function resetPoints() {
+  // 1. تأكيد العملية مع تفاصيل واضحة
+  if (!confirm('️ هل أنتِ متأكدة من تصفير جميع النقاط والإحصائيات؟\n\nسيتم تصفير:\n• النقاط: ' + state.points + '\n• الإجابات الصحيحة: ' + state.correct + '\n• الإجابات الخاطئة: ' + state.wrong + '\n• الجواهر: ' + state.gems.length + '\n• سلسلة التتابع: ' + state.streak + '\n\nلا يمكن التراجع عن هذا الإجراء!')) {
+    return;
+  }
+  
+  // 2. تصفير جميع الإحصائيات
+  state.points = 0;
+  state.correct = 0;
+  state.wrong = 0;
+  state.gems = [];
+  state.streak = 0;
+  state.maxStreak = 0;
+  
+  // 3. حفظ الحالة
+  saveState();
+  
+  // 4. تحديث جميع الواجهات فوراً
+  updateHomeStats();
+  renderGarden();
+  renderStats(); // تحديث إحصائيات المودال إذا كان مفتوحاً
+  
+  // 5. إغلاق المودال وإظهار رسالة نجاح
+  closeModal('settingsModal');
+  setTimeout(() => {
+    alert('✅ تم تصفير جميع الإحصائيات بنجاح! 🌟\n\nالنقاط: 0\nالإجابات الصحيحة: 0\nالجواهر: 0');
+    playSound('correct');
+  }, 300);
+}
+
+function toggleSound() { state.soundOn = document.getElementById('soundToggle').checked; saveState(); }
 
 // === STATS & GARDEN ===
 function renderStats() {
@@ -1610,7 +1696,9 @@ function updateHomeStats() {
 }
 
 function renderGarden() {
-  const grid = document.getElementById('gardenGrid'); grid.innerHTML = '';
+  const grid = document.getElementById('gardenGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
   const total = Math.max(20, state.gems.length + 5);
   for (let i = 0; i < total; i++) {
     const slot = document.createElement('div');
@@ -1619,31 +1707,6 @@ function renderGarden() {
     grid.appendChild(slot);
   }
 }
-
-function resetGarden() {
-  if (confirm('هل أنتِ متأكدة من تصفير جميع الجواهر؟')) {
-    state.gems = []; saveState(); updateHomeStats(); renderGarden();
-    alert('تم تصفير الجواهر بنجاح! 🌳');
-  }
-}
-
-function resetPoints() {
-  if (confirm('هل أنتِ متأكدة من تصفير جميع النقاط والإحصائيات؟\n\nسيتم تصفير:\n- النقاط\n- الإجابات الصحيحة\n- الإجابات الخاطئة\n- الجواهر\n- سلسلة التتابع')) {
-    state.points = 0;
-    state.correct = 0;
-    state.wrong = 0;
-    state.gems = [];
-    state.streak = 0;
-    state.maxStreak = 0;
-    saveState();
-    updateHomeStats();
-    renderGarden();
-    alert('تم تصفير جميع الإحصائيات بنجاح! 🌟');
-    closeModal('settingsModal');
-  }
-}
-
-function toggleSound() { state.soundOn = document.getElementById('soundToggle').checked; saveState(); }
 
 // === INITIALIZATION ===
 function init() {
