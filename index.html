@@ -1,674 +1,885 @@
-import os, shutil
-file_path = "index.html"
-backup_path = file_path + ".bak"
-
-if os.path.exists(file_path): 
-    shutil.copy2(file_path, backup_path)
-    print("✅ تم إنشاء نسخة احتياطية")
-
-content = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>المعادلات والعبارات الجبرية | تقى يونسو</title>
+<title>مغامرة العبارات الجبرية والمعادلات | تقى يونسو</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;700;900&family=Cairo:wght@400;600;700;900&family=Tajawal:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --c-primary-50:#eef2ff; --c-primary-100:#e0e7ff; --c-primary-200:#c7d2fe;
-  --c-primary-400:#818cf8; --c-primary-500:#6366f1; --c-primary-600:#4f46e5;
-  --c-primary-700:#4338ca; --c-primary-800:#3730a3; --c-primary-900:#312e81;
-  --c-accent-50:#fffbeb; --c-accent-200:#fde68a; --c-accent-400:#fbbf24;
-  --c-accent-500:#f59e0b; --c-accent-600:#d97706; --c-accent-700:#b45309;
-  --c-success-50:#ecfdf5; --c-success-500:#10b981; --c-success-700:#047857;
-  --c-danger-50:#fff1f2; --c-danger-500:#f43f5e; --c-danger-700:#be123c;
-  --c-slate-50:#f8fafc; --c-slate-100:#f1f5f9; --c-slate-200:#e2e8f0;
-  --c-slate-300:#cbd5e1; --c-slate-400:#94a3b8; --c-slate-500:#64748b;
-  --c-slate-600:#475569; --c-slate-700:#334155; --c-slate-800:#1e293b;
-  --c-slate-900:#0f172a;
-  --text-primary:#0f172a; --text-secondary:#334155; --text-tertiary:#64748b;
-  --bg-primary:#ffffff; --bg-secondary:#f8fafc; --bg-tertiary:#f1f5f9;
-  --border-subtle:#e2e8f0; --border-default:#cbd5e1;
+  --c-primary-50:#f0f4f8;
+  --c-primary-100:#d9e2ec;
+  --c-primary-200:#bcccdc;
+  --c-primary-400:#829ab1;
+  --c-primary-600:#486581;
+  --c-primary-700:#334e68;
+  --c-primary-800:#243b53;
+  --c-primary-900:#102a43;
+  --c-accent-50:#faf8f0;
+  --c-accent-100:#f0ebd8;
+  --c-accent-400:#c9a961;
+  --c-accent-600:#9a7b3f;
+  --c-success-500:#2d8a5e;
+  --c-danger-500:#c53030;
+  --text-primary:#1a202c;
+  --text-secondary:#4a5568;
+  --text-tertiary:#718096;
+  --bg-primary:#ffffff;
+  --bg-secondary:#f5f7fa;
+  --bg-tertiary:#edf2f7;
+  --border-subtle:#e2e8f0;
   --font-display:'Noto Kufi Arabic',sans-serif;
   --font-heading:'Cairo',sans-serif;
   --font-body:'Tajawal',sans-serif;
   --font-math:'IBM Plex Mono',monospace;
-  --fs-xs:0.8rem; --fs-sm:0.95rem; --fs-base:1.1rem; --fs-lg:1.25rem;
-  --fs-xl:1.4rem; --fs-2xl:1.6rem; --fs-3xl:1.9rem; --fs-4xl:2.2rem;
-  --sp-1:0.2rem; --sp-2:0.4rem; --sp-3:0.6rem; --sp-4:0.8rem;
-  --sp-5:1rem; --sp-6:1.2rem; --sp-8:1.6rem; --sp-10:2rem;
-  --r-sm:0.35rem; --r-md:0.5rem; --r-lg:0.7rem; --r-xl:0.9rem;
-  --r-2xl:1.2rem; --r-3xl:1.5rem; --r-full:9999px;
-  --shadow-sm:0 1px 2px rgba(15,23,42,0.06);
-  --shadow-md:0 3px 6px rgba(15,23,42,0.08);
-  --shadow-lg:0 8px 12px rgba(15,23,42,0.1);
+  --fs-xs:0.78rem;
+  --fs-sm:0.92rem;
+  --fs-base:1rem;
+  --fs-lg:1.12rem;
+  --fs-xl:1.25rem;
+  --fs-2xl:1.4rem;
+  --fs-3xl:1.6rem;
+  --fs-4xl:1.85rem;
+  --sp-1:0.2rem;
+  --sp-2:0.4rem;
+  --sp-3:0.6rem;
+  --sp-4:0.85rem;
+  --sp-5:1rem;
+  --sp-6:1.2rem;
+  --sp-8:1.6rem;
+  --sp-10:2rem;
+  --r-sm:0.35rem;
+  --r-md:0.5rem;
+  --r-lg:0.7rem;
+  --r-xl:0.95rem;
+  --r-2xl:1.1rem;
+  --r-3xl:1.3rem;
+  --r-full:9999px;
+  --shadow-sm:0 1px 3px rgba(16,42,67,0.08);
+  --shadow-md:0 4px 12px rgba(16,42,67,0.1);
+  --shadow-lg:0 10px 24px rgba(16,42,67,0.12);
   --ease-out:cubic-bezier(0.16,1,0.3,1);
-  --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
-  --duration-base:200ms;
+  --duration-base:250ms;
 }
 
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;font-size:15px}
-body{font-family:var(--font-body);font-size:var(--fs-base);line-height:1.6;color:var(--text-primary);background:var(--bg-secondary);min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(99,102,241,0.06) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(245,158,11,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
-
-.math-expr{direction:ltr;unicode-bidi:isolate;display:inline-block;font-family:var(--font-math);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:0.1em 0.4em;border-radius:6px;border:1px solid var(--c-primary-200);vertical-align:middle;white-space:nowrap}
-
-.top-header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(15px);-webkit-backdrop-filter:blur(15px);border-bottom:1px solid var(--border-subtle);box-shadow:var(--shadow-sm)}
-.header-container{max-width:1400px;margin:0 auto;padding:var(--sp-3) var(--sp-5);display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3);flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:var(--sp-3)}
-.brand-mark{width:44px;height:44px;background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-800));border-radius:var(--r-xl);display:flex;align-items:center;justify-content:center;font-size:1.4rem;color:white;box-shadow:var(--shadow-md);flex-shrink:0}
-.brand-text{display:flex;flex-direction:column;gap:1px}
-.brand-title{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:900;color:var(--text-primary);line-height:1.15;letter-spacing:-0.02em}
-.brand-subtitle{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:500}
-.nav-actions{display:flex;gap:var(--sp-1);flex-wrap:wrap;align-items:center}
-.nav-btn{background:transparent;border:1px solid transparent;color:var(--text-secondary);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-full);cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:var(--fs-sm);transition:all var(--duration-base) var(--ease-out);display:inline-flex;align-items:center;gap:var(--sp-1);white-space:nowrap}
-.nav-btn:hover{background:var(--bg-tertiary);color:var(--text-primary)}
-.nav-btn.active{background:var(--c-primary-600);color:white;box-shadow:var(--shadow-md)}
-.nav-btn.graph-nav{font-size:0.8rem;white-space:normal;text-align:center;line-height:1.2;max-width:120px}
-
-.student-bar{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-3) var(--sp-5);margin:var(--sp-3) auto;max-width:1400px;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--sp-2);position:relative;z-index:2}
-.student-info{display:flex;flex-direction:column;gap:2px;padding:var(--sp-2) var(--sp-3);background:var(--bg-secondary);border-radius:var(--r-md);border:1px solid var(--border-subtle)}
-.student-info .label{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:600;text-transform:uppercase;letter-spacing:0.04em}
-.student-info .value{font-size:var(--fs-sm);font-weight:700;color:var(--text-primary);font-family:var(--font-heading)}
-
-.page{display:none;padding:var(--sp-5) var(--sp-4);animation:pageEnter 0.4s var(--ease-out);position:relative;z-index:2;max-width:1400px;margin:0 auto}
-.page.active{display:block}
-@keyframes pageEnter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-.hero{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-10) var(--sp-8);text-align:center;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c-primary-500),var(--c-accent-500),var(--c-primary-500));background-size:200% 100%;animation:shimmer 3s linear infinite}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-.hero-badge{display:inline-flex;align-items:center;gap:var(--sp-2);background:var(--c-accent-50);color:var(--c-accent-700);padding:var(--sp-1) var(--sp-4);border-radius:var(--r-full);font-weight:700;font-size:var(--fs-sm);border:1px solid var(--c-accent-200);margin-bottom:var(--sp-4)}
-.hero-title{font-family:var(--font-display);font-size:clamp(var(--fs-3xl),4vw,var(--fs-4xl));font-weight:900;color:var(--text-primary);line-height:1.15;letter-spacing:-0.02em;margin-bottom:var(--sp-3)}
-.hero-title .accent{background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-800));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
-.hero-description{font-size:var(--fs-lg);color:var(--text-secondary);max-width:620px;margin:0 auto var(--sp-6);line-height:1.6;font-weight:500}
-.hero-visual{font-family:var(--font-math);font-size:var(--fs-2xl);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:var(--sp-4) var(--sp-6);border-radius:var(--r-2xl);display:inline-block;margin:var(--sp-5) 0;border:2px solid var(--c-primary-200);letter-spacing:0.04em;direction:ltr}
-.cta-btn{background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-700));color:white;border:none;padding:var(--sp-3) var(--sp-6);border-radius:var(--r-full);font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;cursor:pointer;box-shadow:var(--shadow-lg);transition:all var(--duration-base) var(--ease-out);display:inline-flex;align-items:center;gap:var(--sp-2)}
-.cta-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.stats-row{display:flex;justify-content:center;gap:var(--sp-3);margin-top:var(--sp-6);flex-wrap:wrap}
-.stat-pill{background:var(--bg-secondary);border:1px solid var(--border-subtle);padding:var(--sp-2) var(--sp-4);border-radius:var(--r-full);font-weight:700;color:var(--text-primary);display:flex;align-items:center;gap:var(--sp-2);box-shadow:var(--shadow-sm);font-size:var(--fs-sm)}
-.stat-pill .num{color:var(--c-primary-600);font-size:var(--fs-xl);font-weight:900;font-family:var(--font-heading)}
-
-.section-header{text-align:center;margin-bottom:var(--sp-6);max-width:680px;margin-left:auto;margin-right:auto}
-.section-eyebrow{display:inline-block;font-family:var(--font-heading);font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-600);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--sp-2)}
-.section-title{font-family:var(--font-display);font-size:clamp(var(--fs-2xl),3.5vw,var(--fs-4xl));font-weight:900;color:var(--text-primary);line-height:1.15;letter-spacing:-0.02em;margin-bottom:var(--sp-2)}
-.section-subtitle{font-size:var(--fs-base);color:var(--text-secondary);line-height:1.55}
 
 /* ══════════════════════════════════════════════════════════════
-   GRAPH SECTION - HIGH-PRECISION MATHEMATICAL ZOOM
+   توحيد الأرقام - استخدام الأرقام اللاتينية فقط
    ══════════════════════════════════════════════════════════════ */
-.graph-section{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-6);box-shadow:var(--shadow-lg);margin:var(--sp-4) 0;position:relative;overflow:visible}
-.graph-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c-accent-500),var(--c-primary-500));border-radius:var(--r-3xl) var(--r-3xl) 0 0}
-.graph-header{text-align:center;margin-bottom:var(--sp-4)}
-.graph-header h3{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--text-primary);margin-bottom:var(--sp-2);letter-spacing:-0.02em}
-.graph-header p{font-size:var(--fs-sm);color:var(--text-secondary);max-width:560px;margin:0 auto}
-
-.graph-layout{
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: var(--sp-6);
-  align-items: start;
-}
-
-/* حاوية الرسم: ثابتة الأبعاد، الزوم يحدث داخلياً رياضياً */
-.graph-canvas-wrap{
-  background: var(--bg-primary);
-  border: 2px solid var(--border-subtle);
-  border-radius: var(--r-xl);
-  padding: var(--sp-2);
-  position: relative;
-  width: 100%;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
-  cursor: crosshair;
-  touch-action: none;
-}
-
-/* Canvas بدون أي CSS transform - الزوم رياضي بحت */
-.graph-canvas{
-  width: 100%;
-  height: 100%;
-  display: block;
-  /* 🔑 لا transform هنا - يمنع التشويش */
-}
-
-.zoom-badge{
-  position:absolute;
-  top:12px;
-  right:12px;
-  background:rgba(15,23,42,0.85);
-  color:white;
-  padding:6px 12px;
-  border-radius:20px;
-  font-family:var(--font-math);
-  font-size:12px;
-  font-weight:700;
-  pointer-events:none;
-  z-index:5;
-  backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.2);
-  display:flex;
-  align-items:center;
-  gap:6px;
-  transition:all 0.3s var(--ease-out);
-}
-.zoom-badge.zooming{background:rgba(99,102,241,0.9);transform:scale(1.05)}
-
-.graph-tooltip{
-  position:absolute;
-  background:rgba(15,23,42,0.92);
-  color:white;
-  padding:6px 10px;
-  border-radius:8px;
-  font-family:var(--font-math);
-  font-size:12px;
-  font-weight:700;
-  pointer-events:none;
-  display:none;
-  z-index:10;
-  backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,0.2);
-  white-space:nowrap;
-  line-height:1.4;
-}
-
-/* عمود الشرح: ثابت تماماً */
-.graph-controls{
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.65;
+  color: var(--text-primary);
   background: var(--bg-secondary);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--r-xl);
-  padding: var(--sp-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
-  max-height: calc(100vh - 180px);
-  overflow-y: auto;
-  position: sticky;
-  top: 100px;
-  width: 100%;
-  box-sizing: border-box;
-  scrollbar-width: thin;
-  scrollbar-color: var(--c-slate-300) var(--bg-secondary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-variant-numeric: lining-nums tabular-nums;
+  -moz-font-feature-settings: "lnum";
+  -webkit-font-feature-settings: "lnum";
+  font-feature-settings: "lnum";
 }
-.graph-controls::-webkit-scrollbar{width:6px}
-.graph-controls::-webkit-scrollbar-track{background:var(--bg-secondary);border-radius:3px}
-.graph-controls::-webkit-scrollbar-thumb{background:var(--c-slate-300);border-radius:3px}
 
-.zoom-toolbar{
-  display:flex;
-  align-items:center;
-  gap:var(--sp-2);
+/* فرض الأرقام اللاتينية على جميع العناصر */
+body, body *, input, button, table, td, th {
+  font-variant-numeric: lining-nums !important;
+}
+
+.math-expr, .math-block, canvas, .equation-display, .eq-display-live,
+.values-table, .values-table td, .values-table th,
+input[type="number"], .timer, .challenge-q, .question-text,
+.stat-badge .num, .stat-card .num, .gem-slot {
+  font-family: var(--font-math) !important;
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+
+.math-expr{
+  direction:ltr !important;unicode-bidi:isolate !important;
+  display:inline-block;font-family:var(--font-math);font-weight:600;
+  font-size:0.95em;color:var(--c-primary-800);
   background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
-  border:2px solid var(--c-primary-200);
-  border-radius:var(--r-lg);
-  padding:var(--sp-2) var(--sp-3);
+  padding:0.1em 0.4em;border-radius:5px;border:1px solid var(--c-primary-200);
+  vertical-align:middle;white-space:nowrap;margin:0 0.15em;
+  letter-spacing:0.02em;box-shadow:0 1px 2px rgba(16,42,67,0.05);
+  isolation:isolate;
+  font-variant-numeric: lining-nums tabular-nums !important;
 }
-.zoom-toolbar-label{font-size:var(--fs-xs);font-weight:700;color:var(--c-primary-700);flex:1}
-.zoom-btn{
-  width:32px;height:32px;border:none;border-radius:50%;
-  background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));
-  color:white;font-size:16px;font-weight:900;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s var(--ease-out);font-family:var(--font-heading);line-height:1;
+.math-expr *,.math-block *{direction:ltr !important;unicode-bidi:isolate !important}
+
+.top-header{
+  background:linear-gradient(135deg,var(--c-primary-800),var(--c-primary-900));
+  padding:var(--sp-3) var(--sp-5);box-shadow:var(--shadow-lg);
+  position:sticky;top:0;z-index:100;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:var(--sp-3);
+  border-bottom:3px solid var(--c-accent-400);
 }
-.zoom-btn:hover{transform:scale(1.1);box-shadow:0 2px 8px rgba(99,102,241,0.4)}
-.zoom-btn:active{transform:scale(0.95)}
-.zoom-btn.reset{background:linear-gradient(135deg,var(--c-accent-500),var(--c-accent-700));width:auto;border-radius:var(--r-full);padding:0 var(--sp-3);font-size:var(--fs-xs)}
-.zoom-level-display{font-family:var(--font-math);font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-700);min-width:50px;text-align:center}
-
-.eq-text-input{width:100%;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-lg);font-family:var(--font-math);font-weight:700;text-align:center;border:2px solid var(--border-default);border-radius:var(--r-lg);background:var(--bg-primary);color:var(--text-primary);direction:ltr;transition:all var(--duration-base) var(--ease-out)}
-.eq-text-input:focus{outline:none;border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
-.eq-text-label{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:600;text-align:center;margin-bottom:var(--sp-1)}
-
-.eq-display{background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));border:3px solid var(--c-primary-400);border-radius:var(--r-xl);padding:var(--sp-3) var(--sp-4);text-align:center;font-family:var(--font-math);font-size:1.5rem;font-weight:900;color:var(--c-primary-800);direction:ltr;letter-spacing:0.05em;box-shadow:var(--shadow-sm);line-height:1.3}
-
-.eq-explanation{background:var(--c-primary-50);border-right:4px solid var(--c-primary-500);border-radius:var(--r-md);padding:var(--sp-3);font-size:var(--fs-sm);color:var(--c-primary-900);line-height:1.6}
-.eq-explanation strong{color:var(--c-primary-700)}
-
-.values-table{width:100%;border-collapse:collapse;font-family:var(--font-math);font-size:var(--fs-sm)}
-.values-table th{background:var(--c-primary-100);color:var(--c-primary-700);padding:var(--sp-2);font-weight:700;border:1px solid var(--c-primary-200)}
-.values-table td{padding:var(--sp-1) var(--sp-2);text-align:center;border:1px solid var(--border-subtle);direction:ltr}
-.values-table tr:nth-child(even) td{background:var(--bg-secondary)}
-
-.slider-group{display:flex;flex-direction:column;gap:var(--sp-1)}
-.slider-label{display:flex;justify-content:space-between;align-items:center;font-size:var(--fs-sm);font-weight:600;color:var(--text-primary)}
-.slider-label .val{font-family:var(--font-math);font-weight:700;color:var(--c-primary-600);font-size:var(--fs-base)}
-.slider-group input[type="range"]{-webkit-appearance:none;appearance:none;width:100%;height:6px;background:var(--c-primary-100);border-radius:3px;outline:none;cursor:pointer}
-.slider-group input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;background:var(--c-primary-600);border-radius:50%;cursor:pointer;box-shadow:0 2px 4px rgba(0,0,0,0.2);border:2px solid white}
-
-.display-options{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-2)}
-.display-option{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-2);background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-md);cursor:pointer;font-size:var(--fs-xs);font-weight:600;transition:all var(--duration-base) var(--ease-out)}
-.display-option:hover{border-color:var(--c-primary-300)}
-.display-option input{cursor:pointer}
-.display-option.checked{background:var(--c-primary-50);border-color:var(--c-primary-300)}
-
-.comparison-box{display:flex;flex-direction:column;gap:var(--sp-3)}
-.eq-editor{background:var(--bg-primary);border:2px solid var(--border-default);border-radius:var(--r-xl);padding:var(--sp-3);text-align:center;transition:all var(--duration-base) var(--ease-out)}
-.eq-editor:focus-within{border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
-.eq-editor.eq1{border-color:var(--c-primary-200);background:var(--c-primary-50)}
-.eq-editor.eq1 .eq-formula{color:var(--c-primary-700)}
-.eq-editor.eq2{border-color:var(--c-accent-200);background:var(--c-accent-50)}
-.eq-editor.eq2 .eq-formula{color:var(--c-accent-700)}
-.eq-formula{font-family:var(--font-math);font-size:var(--fs-xl);font-weight:900;margin-bottom:var(--sp-2);direction:ltr;letter-spacing:0.05em}
-.eq-inputs{display:flex;gap:var(--sp-2);justify-content:center;align-items:center}
-.eq-input-group{display:flex;flex-direction:column;align-items:center;gap:var(--sp-1)}
-.eq-input-group label{font-size:var(--fs-xs);font-weight:700;color:var(--text-tertiary);text-transform:uppercase}
-.eq-input{width:60px;padding:var(--sp-1);font-size:var(--fs-base);font-family:var(--font-math);font-weight:700;text-align:center;border:2px solid var(--border-default);border-radius:var(--r-md);background:var(--bg-secondary);color:var(--text-primary)}
-.eq-input:focus{outline:none;border-color:var(--c-primary-500)}
-
-.intersection-display{background:linear-gradient(135deg,var(--c-danger-50),#fee2e2);border:2px solid var(--c-danger-200);border-radius:var(--r-xl);padding:var(--sp-3);text-align:center}
-.intersection-display h4{font-family:var(--font-heading);font-size:var(--fs-base);font-weight:800;color:var(--c-danger-700);margin-bottom:var(--sp-2)}
-.intersection-point{font-family:var(--font-math);font-size:var(--fs-xl);font-weight:900;color:var(--c-danger-700);direction:ltr}
-
-.graph-legend{display:flex;gap:var(--sp-3);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-3);font-size:var(--fs-xs)}
-.legend-item{display:flex;align-items:center;gap:var(--sp-1)}
-.legend-color{width:16px;height:3px;border-radius:2px}
-
-.zoom-hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(15,23,42,0.75);color:white;padding:4px 12px;border-radius:16px;font-size:11px;pointer-events:none;z-index:5;opacity:0;transition:opacity 0.3s;backdrop-filter:blur(8px)}
-.graph-canvas-wrap:hover .zoom-hint{opacity:1}
-
-@media (max-width:900px){
-  .graph-layout{grid-template-columns:1fr}
-  .graph-controls{max-height:none;position:static}
+.brand{display:flex;align-items:center;gap:var(--sp-3);color:white}
+.brand-mark{
+  width:44px;height:44px;background:rgba(201,169,97,0.2);border-radius:var(--r-lg);
+  display:flex;align-items:center;justify-content:center;font-size:1.4rem;
+  border:2px solid rgba(201,169,97,0.4);animation:logoPulse 3s infinite;
 }
-@media (max-width:768px){
-  .header-container{padding:var(--sp-2) var(--sp-3)}
-  .brand-title{font-size:var(--fs-base)}
-  .nav-btn{padding:var(--sp-1) var(--sp-2);font-size:var(--fs-xs)}
-  .student-bar{margin:var(--sp-2);padding:var(--sp-3)}
-  .page{padding:var(--sp-4) var(--sp-3)}
-  .hero{padding:var(--sp-6) var(--sp-4)}
-  .section-title{font-size:var(--fs-2xl)}
-  .graph-section{padding:var(--sp-4)}
+@keyframes logoPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.brand-text h1{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:900;text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+.brand-text p{font-size:var(--fs-xs);opacity:0.9;color:var(--c-accent-100)}
+.nav-actions{display:flex;gap:var(--sp-1);flex-wrap:wrap;align-items:center}
+.nav-btn{
+  background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:white;
+  padding:var(--sp-2) var(--sp-3);border-radius:var(--r-full);cursor:pointer;
+  font-family:var(--font-body);font-weight:700;font-size:var(--fs-xs);
+  transition:all var(--duration-base) var(--ease-out);
+  display:inline-flex;align-items:center;gap:var(--sp-1);
+}
+.nav-btn:hover{background:rgba(255,255,255,0.2);transform:translateY(-2px)}
+.nav-btn.active{background:var(--c-accent-400);color:var(--c-primary-900);border-color:var(--c-accent-400)}
+
+.student-bar{
+  background:var(--bg-primary);padding:var(--sp-3) var(--sp-5);margin:var(--sp-4) auto;
+  max-width:1400px;border-radius:var(--r-2xl);box-shadow:var(--shadow-md);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--sp-2);
+  position:relative;z-index:2;border:1px solid var(--border-subtle);
+}
+.student-info{
+  display:flex;flex-direction:column;gap:var(--sp-1);padding:var(--sp-2) var(--sp-3);
+  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
+  border-radius:var(--r-md);border:1px solid var(--c-primary-100);
+}
+.student-info .label{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:600}
+.student-info .value{font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-800);font-family:var(--font-heading)}
+
+.container{max-width:1400px;margin:0 auto;padding:var(--sp-4);position:relative;z-index:2}
+.page{display:none;animation:fadeIn 0.6s var(--ease-out)}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.hero{
+  background:var(--bg-primary);border-radius:var(--r-3xl);padding:var(--sp-8) var(--sp-6);
+  text-align:center;box-shadow:var(--shadow-lg);margin-bottom:var(--sp-5);
+  border:2px solid var(--border-subtle);position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,var(--c-primary-700),var(--c-accent-400),var(--c-primary-700))}
+.hero h2{font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:900;color:var(--c-primary-800);margin-bottom:var(--sp-3)}
+.hero p{font-size:var(--fs-lg);color:var(--text-secondary);margin-bottom:var(--sp-5)}
+.hero-stats{display:flex;justify-content:center;gap:var(--sp-3);flex-wrap:wrap;margin-top:var(--sp-5)}
+.stat-badge{
+  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
+  padding:var(--sp-2) var(--sp-4);border-radius:var(--r-full);font-weight:700;
+  display:flex;align-items:center;gap:var(--sp-2);border:2px solid var(--c-primary-200);
+  box-shadow:var(--shadow-sm);color:var(--c-primary-800);font-size:var(--fs-sm);
+}
+.stat-badge .num{color:var(--c-accent-600);font-size:var(--fs-xl);font-weight:900;font-family:var(--font-heading)}
+
+/* ══════════════════════════════════════════════════════════════
+   SINGLE EQUATION SECTION - NEW
+   ══════════════════════════════════════════════════════════════ */
+.single-eq-section{
+  background:var(--bg-primary);border-radius:var(--r-3xl);padding:var(--sp-6);
+  box-shadow:var(--shadow-lg);margin-bottom:var(--sp-5);border:2px solid var(--border-subtle);
+  position:relative;overflow:hidden;
+}
+.single-eq-section::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--c-primary-700),var(--c-accent-400))}
+.single-eq-header{text-align:center;margin-bottom:var(--sp-5)}
+.single-eq-header h3{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-800);margin-bottom:var(--sp-2)}
+.single-eq-header p{font-size:var(--fs-base);color:var(--text-secondary)}
+
+/* Side by side layout */
+.single-eq-layout{
+  display:grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap:var(--sp-4);
+  align-items:start;
+}
+@media (max-width:1000px){
+  .single-eq-layout{grid-template-columns:1fr}
 }
 
-.concepts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--sp-4);margin-bottom:var(--sp-6)}
-.concept-card{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-5);box-shadow:var(--shadow-sm);transition:all var(--duration-base) var(--ease-out);position:relative;overflow:hidden;cursor:pointer}
-.concept-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px);border-color:var(--c-primary-200)}
-.concept-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;box-shadow:var(--shadow-sm);margin-bottom:var(--sp-3)}
-.concept-card h3{font-family:var(--font-heading);font-size:var(--fs-xl);font-weight:800;color:var(--text-primary);margin-bottom:var(--sp-2);line-height:1.3}
-.concept-card p{font-size:var(--fs-base);color:var(--text-secondary);line-height:1.6;margin-bottom:var(--sp-3)}
+.single-eq-graph{
+  background:var(--bg-tertiary);border-radius:var(--r-xl);padding:var(--sp-4);
+  border:2px solid var(--border-subtle);box-shadow:var(--shadow-sm);
+}
+.single-eq-graph h4{
+  font-family:var(--font-display);font-size:var(--fs-lg);font-weight:700;
+  color:var(--c-primary-800);margin-bottom:var(--sp-3);text-align:center;
+}
+.single-graph-wrap{
+  position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;
+  border-radius:var(--r-lg);background:linear-gradient(135deg,#ffffff,#f8fafc);
+  touch-action:none;user-select:none;cursor:crosshair;
+  border:2px solid var(--border-subtle);box-shadow:inset 0 2px 10px rgba(16,42,67,0.05);
+}
+canvas#singleGraph{width:100%;height:100%;display:block}
 
-.lesson-card{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-6);margin-bottom:var(--sp-4);box-shadow:var(--shadow-sm)}
-.lesson-header{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-4);padding-bottom:var(--sp-3);border-bottom:2px solid var(--bg-secondary)}
-.lesson-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:white;box-shadow:var(--shadow-sm);flex-shrink:0}
-.lesson-header h3{font-family:var(--font-display);font-size:var(--fs-xl);font-weight:800;color:var(--text-primary);line-height:1.15}
-.lesson-content{font-size:var(--fs-base);line-height:1.6;color:var(--text-secondary);margin-bottom:var(--sp-4);direction:rtl;text-align:right}
-.lesson-content ul{list-style:none;padding:0;margin:var(--sp-2) 0}
-.lesson-content li{padding:var(--sp-1) 0;padding-right:var(--sp-5);position:relative;font-size:var(--fs-base)}
-.lesson-content li::before{content:'◆';position:absolute;right:0;color:var(--c-primary-500);font-size:var(--fs-sm);top:50%;transform:translateY(-50%)}
-.example-box{background:var(--c-accent-50);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-md);margin:var(--sp-2) 0;border-right:3px solid var(--c-accent-500);font-family:var(--font-heading);font-size:var(--fs-base);font-weight:600;color:var(--c-accent-700);direction:rtl;text-align:right}
+.single-eq-controls{
+  display:flex;flex-direction:column;gap:var(--sp-3);
+}
 
-.question-panel{background:linear-gradient(135deg,var(--c-primary-50),var(--c-primary-100));border:2px solid var(--c-primary-200);border-radius:var(--r-2xl);padding:var(--sp-5);margin:var(--sp-5) 0 var(--sp-3);text-align:center}
-.question-text{font-family:var(--font-heading);font-size:clamp(var(--fs-xl),2.5vw,var(--fs-2xl));font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-4);line-height:1.6;direction:rtl;text-align:right}
-.answer-input{padding:var(--sp-2) var(--sp-4);font-size:var(--fs-xl);border-radius:var(--r-lg);border:2px solid var(--border-default);text-align:center;width:140px;font-family:var(--font-math);font-weight:700;background:var(--bg-primary);color:var(--text-primary)}
-.answer-input:focus{outline:none;border-color:var(--c-primary-500);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
-.btn-row{display:flex;gap:var(--sp-2);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-4)}
-.action-btn{padding:var(--sp-2) var(--sp-4);border:none;border-radius:var(--r-full);font-family:var(--font-body);font-size:var(--fs-sm);font-weight:700;cursor:pointer;transition:all var(--duration-base) var(--ease-out);display:inline-flex;align-items:center;gap:var(--sp-1);box-shadow:var(--shadow-sm)}
-.action-btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
-.btn-check{background:linear-gradient(135deg,var(--c-success-500),var(--c-success-700));color:white}
+.eq-control-card-single{
+  background:var(--bg-tertiary);border-radius:var(--r-lg);padding:var(--sp-3);
+  border:2px solid var(--border-subtle);box-shadow:var(--shadow-sm);
+  transition:all var(--duration-base) var(--ease-out);
+}
+.eq-control-card-single:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.eq-control-card-single{border-right:4px solid #6366f1}
+
+.eq-control-card-single h4{
+  font-family:var(--font-display);font-size:var(--fs-base);font-weight:700;
+  margin-bottom:var(--sp-2);color:#1e40af;
+}
+
+.eq-control-row{
+  display:flex;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-2);
+  background:var(--bg-primary);padding:var(--sp-2);border-radius:var(--r-md);
+  border:1px solid var(--border-subtle);
+}
+.eq-control-row label{
+  font-family:var(--font-math);font-weight:700;font-size:var(--fs-sm);
+  min-width:28px;color:var(--c-primary-800);
+}
+.eq-control-row input[type="number"]{
+  flex:1;padding:var(--sp-1) var(--sp-2);border:2px solid var(--border-subtle);
+  border-radius:var(--r-md);font-family:var(--font-math);font-size:var(--fs-sm);
+  font-weight:700;text-align:center;transition:all var(--duration-base);
+  background:white;color:var(--text-primary);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+.eq-control-row input[type="number"]:focus{
+  outline:none;border-color:var(--c-primary-600);
+  box-shadow:0 0 0 3px rgba(72,101,129,0.2);
+}
+.eq-control-row input[type="range"]{
+  flex:1.5;accent-color:var(--c-primary-600);cursor:pointer;height:6px;
+}
+
+.eq-display-live-single{
+  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
+  border:2px solid var(--c-primary-300);border-radius:var(--r-md);
+  padding:var(--sp-3);text-align:center;font-family:var(--font-math);
+  font-size:var(--fs-xl);font-weight:900;color:var(--c-primary-900);
+  direction:ltr;margin-top:var(--sp-2);letter-spacing:0.05em;
+  box-shadow:var(--shadow-sm);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+
+/* Explanation Box */
+.concept-explanation{
+  background:linear-gradient(135deg,var(--c-accent-50),var(--c-primary-50));
+  border-right:4px solid var(--c-accent-400);border-radius:var(--r-lg);
+  padding:var(--sp-4);margin-top:var(--sp-3);
+}
+.concept-explanation h5{
+  font-family:var(--font-display);font-size:var(--fs-base);font-weight:700;
+  color:var(--c-primary-800);margin-bottom:var(--sp-2);
+}
+.concept-explanation p{
+  font-size:var(--fs-sm);color:var(--text-secondary);line-height:1.7;margin-bottom:var(--sp-2);
+}
+.concept-explanation ul{
+  list-style:none;padding-right:var(--sp-3);
+}
+.concept-explanation li{
+  font-size:var(--fs-sm);color:var(--text-primary);margin:var(--sp-1) 0;
+  position:relative;padding-right:var(--sp-4);
+}
+.concept-explanation li::before{
+  content:'🔹';position:absolute;right:0;top:0;
+}
+.concept-explanation strong{color:var(--c-primary-800);font-weight:700}
+
+.drag-instruction{
+  background:linear-gradient(135deg,var(--c-accent-50),var(--c-primary-50));
+  border:2px dashed var(--c-accent-400);border-radius:var(--r-md);
+  padding:var(--sp-2);text-align:center;font-size:var(--fs-xs);
+  color:var(--c-accent-700);margin-top:var(--sp-3);font-weight:600;
+}
+
+.single-graph-legend{
+  display:flex;gap:var(--sp-3);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-2);
+  font-size:var(--fs-xs);
+}
+.legend-item{display:flex;align-items:center;gap:var(--sp-1);color:var(--text-secondary)}
+.legend-color{width:18px;height:4px;border-radius:2px}
+.legend-color.dot{width:12px;height:12px;border-radius:50%;border:2px solid white;box-shadow:var(--shadow-sm)}
+
+/* Values Table */
+.values-table-container{
+  background:var(--bg-tertiary);border-radius:var(--r-xl);padding:var(--sp-4);
+  border:2px solid var(--border-subtle);box-shadow:var(--shadow-sm);margin-top:var(--sp-3);
+  overflow-x:auto;
+}
+.values-table-container h4{
+  font-family:var(--font-display);font-size:var(--fs-lg);font-weight:700;
+  color:var(--c-primary-800);margin-bottom:var(--sp-3);text-align:center;
+}
+.values-table{
+  width:100%;border-collapse:separate;border-spacing:0;
+  font-family:var(--font-math);font-size:var(--fs-xs);
+  background:var(--bg-primary);border-radius:var(--r-md);overflow:hidden;
+  box-shadow:var(--shadow-xs);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+.values-table th{
+  background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
+  color:white;padding:var(--sp-2) var(--sp-3);font-weight:700;text-align:center;
+  border:1px solid rgba(255,255,255,0.2);font-size:var(--fs-sm);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+.values-table td{
+  padding:var(--sp-2) var(--sp-3);text-align:center;
+  border:1px solid var(--border-subtle);direction:ltr;
+  color:var(--text-primary);font-weight:600;font-size:var(--fs-sm);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+.values-table tr:nth-child(even) td{background:var(--c-primary-50)}
+.values-table tr.highlight td{
+  background:linear-gradient(135deg,var(--c-accent-50),var(--c-primary-50));
+  font-weight:700;color:var(--c-accent-700);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ENRICHMENT SECTION (Dual Equations)
+   ══════════════════════════════════════════════════════════════ */
+.enrichment-section{
+  background:var(--bg-primary);border-radius:var(--r-3xl);padding:var(--sp-6);
+  box-shadow:var(--shadow-lg);margin-bottom:var(--sp-5);border:2px solid var(--border-subtle);
+  position:relative;overflow:hidden;
+}
+.enrichment-section::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--c-primary-700),var(--c-accent-400))}
+.enrichment-header{text-align:center;margin-bottom:var(--sp-4)}
+.enrichment-header h3{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-800);margin-bottom:var(--sp-2)}
+.enrichment-header p{font-size:var(--fs-base);color:var(--text-secondary)}
+
+.enrichment-split{
+  display:grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap:var(--sp-4);
+  margin-bottom:var(--sp-5);
+}
+@media (max-width:1000px){
+  .enrichment-split{grid-template-columns:1fr}
+}
+
+.enrichment-graph-panel{
+  background:var(--bg-tertiary);border-radius:var(--r-xl);padding:var(--sp-4);
+  border:2px solid var(--border-subtle);box-shadow:var(--shadow-sm);
+}
+.enrichment-graph-panel h4{
+  font-family:var(--font-display);font-size:var(--fs-lg);font-weight:700;
+  color:var(--c-primary-800);margin-bottom:var(--sp-3);text-align:center;
+}
+
+.enrichment-equations-panel{
+  display:flex;flex-direction:column;gap:var(--sp-3);
+}
+
+.eq-control-card{
+  background:var(--bg-tertiary);border-radius:var(--r-lg);padding:var(--sp-3);
+  border:2px solid var(--border-subtle);box-shadow:var(--shadow-sm);
+  transition:all var(--duration-base) var(--ease-out);
+}
+.eq-control-card:hover{box-shadow:var(--shadow-md);transform:translateY(-1px)}
+.eq-control-card.eq1-card{border-right:4px solid #3b82f6}
+.eq-control-card.eq2-card{border-right:4px solid #ef4444}
+
+.eq-control-card h4{
+  font-family:var(--font-display);font-size:var(--fs-base);font-weight:700;
+  margin-bottom:var(--sp-2);display:flex;align-items:center;gap:var(--sp-2);
+}
+.eq-control-card.eq1-card h4{color:#1e40af}
+.eq-control-card.eq2-card h4{color:#991b1b}
+
+.eq-display-live{
+  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
+  border:2px solid var(--c-primary-300);border-radius:var(--r-md);
+  padding:var(--sp-2);text-align:center;font-family:var(--font-math);
+  font-size:var(--fs-lg);font-weight:900;color:var(--c-primary-900);
+  direction:ltr;margin-top:var(--sp-2);letter-spacing:0.05em;
+  box-shadow:var(--shadow-sm);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+
+.dual-graph-wrap{
+  position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;
+  border-radius:var(--r-lg);background:linear-gradient(135deg,#ffffff,#f8fafc);
+  touch-action:none;user-select:none;cursor:crosshair;
+  border:2px solid var(--border-subtle);box-shadow:inset 0 2px 10px rgba(16,42,67,0.05);
+}
+canvas#dualGraph{width:100%;height:100%;display:block}
+
+.dual-graph-legend{
+  display:flex;gap:var(--sp-3);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-2);
+  font-size:var(--fs-xs);
+}
+
+.solution-card{
+  background:var(--bg-tertiary);border-radius:var(--r-xl);padding:var(--sp-4);
+  border:2px solid var(--border-subtle);box-shadow:var(--shadow-sm);
+}
+.solution-card h4{
+  font-family:var(--font-display);font-size:var(--fs-lg);font-weight:700;
+  color:var(--c-primary-800);margin-bottom:var(--sp-3);
+  padding-bottom:var(--sp-2);border-bottom:2px dashed var(--border-subtle);
+}
+.steps{list-style:none;margin:var(--sp-2) 0;padding-right:var(--sp-4)}
+.steps li{
+  margin:var(--sp-1) 0;color:var(--text-secondary);line-height:1.7;
+  position:relative;padding-right:var(--sp-3);font-size:var(--fs-sm);
+}
+.steps li::before{content:'🔹';position:absolute;right:0;top:0;font-size:var(--fs-xs)}
+.steps li strong{color:var(--c-primary-800);font-weight:700}
+
+.intersection-result{
+  background:linear-gradient(135deg,var(--c-accent-400),var(--c-accent-600));
+  color:white;padding:var(--sp-3);border-radius:var(--r-md);
+  margin:var(--sp-3) 0;font-weight:700;font-size:var(--fs-base);
+  text-align:center;box-shadow:var(--shadow-md);direction:ltr;
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+
+/* Lessons */
+.lessons-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:var(--sp-4);margin-bottom:var(--sp-5)}
+.lesson-card{
+  background:var(--bg-primary);border-radius:var(--r-2xl);padding:var(--sp-4);
+  box-shadow:var(--shadow-md);border:2px solid var(--border-subtle);
+  transition:all var(--duration-base) var(--ease-out);
+  display:flex;flex-direction:column;height:100%;
+}
+.lesson-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--c-primary-300)}
+.lesson-header{display:flex;align-items:center;gap:var(--sp-3);margin-bottom:var(--sp-3);padding-bottom:var(--sp-2);border-bottom:2px dashed var(--c-primary-100)}
+.lesson-icon{
+  width:48px;height:48px;background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
+  border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;
+  font-size:1.5rem;color:white;flex-shrink:0;box-shadow:var(--shadow-md);
+}
+.lesson-card h3{font-family:var(--font-display);font-size:var(--fs-lg);font-weight:900;color:var(--c-primary-800);flex:1}
+.lesson-content{font-size:var(--fs-sm);line-height:1.7;color:var(--text-primary);margin-bottom:var(--sp-3);flex:1}
+.lesson-content strong{color:var(--c-primary-800);font-weight:700}
+.example-box{
+  background:linear-gradient(135deg,var(--c-accent-50),var(--c-primary-50));
+  padding:var(--sp-2) var(--sp-3);border-radius:var(--r-md);margin:var(--sp-2) 0;
+  font-weight:700;font-size:var(--fs-sm);color:var(--c-primary-900);
+  font-family:var(--font-math);border-right:4px solid var(--c-accent-400);
+  box-shadow:var(--shadow-sm);direction:ltr;text-align:right;
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+.question-box{
+  background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
+  color:white;padding:var(--sp-4);border-radius:var(--r-xl);text-align:center;
+  margin-top:auto;position:relative;overflow:hidden;box-shadow:var(--shadow-lg);
+}
+.question-text{font-size:var(--fs-lg);font-weight:900;margin-bottom:var(--sp-3);font-family:var(--font-math);direction:ltr}
+.answer-input{
+  padding:var(--sp-2) var(--sp-4);font-size:var(--fs-lg);border-radius:var(--r-md);
+  border:3px solid var(--c-accent-400);text-align:center;width:130px;
+  font-family:var(--font-math);font-weight:700;background:white;color:var(--text-primary);
+  margin:var(--sp-2);transition:all var(--duration-base);
+  font-variant-numeric: lining-nums tabular-nums !important;
+}
+.answer-input:focus{outline:none;border-color:var(--c-primary-500);box-shadow:0 0 0 4px rgba(72,101,129,0.2);transform:scale(1.05)}
+.btn-row{display:flex;gap:var(--sp-2);justify-content:center;flex-wrap:wrap;margin-top:var(--sp-3)}
+.btn{
+  padding:var(--sp-2) var(--sp-4);border:none;border-radius:var(--r-full);
+  font-family:var(--font-body);font-weight:700;font-size:var(--fs-sm);
+  cursor:pointer;transition:all var(--duration-base);display:inline-flex;align-items:center;gap:var(--sp-1);
+  box-shadow:var(--shadow-md);
+}
+.btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.btn-check{background:linear-gradient(135deg,var(--c-success-500),#059669);color:white}
 .btn-hint{background:linear-gradient(135deg,var(--c-accent-400),var(--c-accent-600));color:white}
-.btn-new{background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));color:white}
+.btn-new{background:linear-gradient(135deg,var(--c-primary-600),var(--c-primary-800));color:white}
 
-.scale-section{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-5);box-shadow:var(--shadow-lg);margin:var(--sp-3) 0}
-.scale-container{display:flex;justify-content:center;margin:var(--sp-2) 0;transform:translateY(-20px)}
-.scale-svg{width:100%;max-width:600px;height:auto}
-.scale-beam{transition:transform 0.8s cubic-bezier(0.34,1.56,0.64,1);transform-origin:350px 120px;will-change:transform}
-.scale-status{text-align:center;margin-top:var(--sp-3);padding:var(--sp-2);border-radius:var(--r-lg);font-family:var(--font-heading);font-size:var(--fs-base);font-weight:700}
-.scale-status.balanced{background:var(--c-success-50);color:var(--c-success-700);border:2px solid var(--c-success-500)}
-.scale-status.unbalanced{background:var(--c-danger-50);color:var(--c-danger-700);border:2px solid var(--c-danger-500)}
-.scale-equation{background:var(--bg-secondary);border:2px solid var(--border-subtle);border-radius:var(--r-2xl);padding:var(--sp-3);margin-bottom:var(--sp-3);display:flex;align-items:center;justify-content:center;gap:var(--sp-3);flex-wrap:wrap}
-.scale-equation input{width:75px;padding:var(--sp-2);font-size:var(--fs-xl);font-family:var(--font-math);font-weight:700;text-align:center;border:2px solid var(--border-default);border-radius:var(--r-lg);background:var(--bg-primary)}
+.challenge-box{
+  background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
+  color:white;padding:var(--sp-8);border-radius:var(--r-3xl);text-align:center;
+  box-shadow:var(--shadow-lg);position:relative;overflow:hidden;border:3px solid var(--c-accent-400);
+}
+.timer{font-size:var(--fs-3xl);font-weight:900;color:var(--c-accent-400);margin:var(--sp-3) 0;font-family:var(--font-heading);text-shadow:2px 2px 4px rgba(0,0,0,0.3)}
+.challenge-q{font-size:var(--fs-2xl);font-weight:900;margin:var(--sp-4) 0;min-height:60px;direction:ltr;font-family:var(--font-math)}
 
-.edu-cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--sp-4);margin-bottom:var(--sp-4)}
-.edu-card{perspective:1000px;height:220px;cursor:pointer}
-.edu-card-inner{position:relative;width:100%;height:100%;transition:transform 0.7s var(--ease-spring);transform-style:preserve-3d}
-.edu-card.flipped .edu-card-inner{transform:rotateY(180deg)}
-.edu-card-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r-2xl);padding:var(--sp-4);display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:var(--shadow-md);border:2px solid var(--border-subtle);text-align:center}
-.edu-card-front{background:linear-gradient(135deg,var(--c-primary-500),var(--c-primary-700));color:white}
-.edu-card-back{background:var(--bg-primary);color:var(--text-primary);transform:rotateY(180deg);justify-content:flex-start;padding-top:var(--sp-4)}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:var(--sp-4)}
+.flip-card{perspective:1000px;height:240px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transition:transform 0.7s var(--ease-out);transform-style:preserve-3d}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{
+  position:absolute;inset:0;backface-visibility:hidden;border-radius:var(--r-2xl);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:var(--sp-4);box-shadow:var(--shadow-lg);border:3px solid var(--c-accent-400);
+}
+.flip-front{background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));color:white}
+.flip-back{background:var(--bg-primary);color:var(--text-primary);transform:rotateY(180deg);border:3px solid var(--c-primary-500)}
+.flip-front h4{font-size:var(--fs-lg);margin-bottom:var(--sp-3);font-family:var(--font-heading)}
+.flip-front .q{font-size:var(--fs-lg);font-weight:900;direction:ltr;font-family:var(--font-math)}
+.flip-back .answer{font-size:var(--fs-lg);font-weight:900;color:var(--c-primary-700);margin:var(--sp-2) 0;direction:ltr;font-family:var(--font-math)}
+.flip-back .solution{font-size:var(--fs-sm);line-height:1.6;text-align:center;color:var(--text-secondary)}
 
-.fairy-wrap{position:fixed;z-index:50;cursor:grab;touch-action:none;user-select:none}
+.fairy-wrap{
+  position:fixed;bottom:var(--sp-5);left:var(--sp-5);z-index:50;
+  cursor:grab;transition:transform 0.2s var(--ease-out);
+  touch-action:none;user-select:none;
+}
 .fairy-wrap:active{cursor:grabbing}
-.fairy-svg{width:var(--fairy-size,100px);height:auto;filter:drop-shadow(0 6px 15px rgba(99,102,241,0.25));pointer-events:none;transition:width 0.15s var(--ease-out)}
-.fairy-bubble{position:absolute;bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);background:var(--bg-primary);border:1px solid var(--border-subtle);padding:var(--sp-3);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);min-width:200px;max-width:260px;font-size:var(--fs-sm);display:none;text-align:center;line-height:1.5;z-index:11}
+.fairy-wrap.dragging{transform:scale(1.15);z-index:60}
+.fairy-svg{
+  width:var(--fairy-size,110px);height:auto;
+  filter:drop-shadow(0 10px 20px rgba(72,101,129,0.4));pointer-events:none;
+}
+.fairy-bubble{
+  position:absolute;bottom:calc(100% + var(--sp-2));left:50%;
+  transform:translateX(-50%);background:var(--bg-primary);
+  padding:var(--sp-3);border-radius:var(--r-xl);box-shadow:var(--shadow-lg);
+  min-width:220px;max-width:300px;font-size:var(--fs-sm);
+  display:none;animation:popIn 0.4s var(--ease-spring);
+  text-align:center;border:2px solid var(--c-primary-500);color:var(--text-primary);
+  pointer-events:none;
+}
 .fairy-bubble.show{display:block}
+@keyframes popIn{from{transform:translateX(-50%) scale(0);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
 
-.feedback-overlay{position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(6px);display:none;justify-content:center;align-items:center;z-index:1000;padding:var(--sp-4)}
+.feedback-overlay{
+  position:fixed;inset:0;background:rgba(16,42,67,0.75);backdrop-filter:blur(8px);
+  display:none;justify-content:center;align-items:center;z-index:1000;padding:var(--sp-4);
+}
 .feedback-overlay.show{display:flex}
-.feedback-box{background:var(--bg-primary);border:3px solid var(--c-accent-400);padding:var(--sp-8);border-radius:var(--r-3xl);text-align:center;box-shadow:var(--shadow-lg);animation:popIn 0.5s var(--ease-spring);max-width:440px;width:100%}
-@keyframes popIn{0%{transform:scale(0.5) rotate(-10deg);opacity:0}100%{transform:scale(1) rotate(0);opacity:1}}
-.feedback-correct{font-family:var(--font-display);font-size:var(--fs-4xl);font-weight:900;color:var(--c-success-700);margin-bottom:var(--sp-3)}
-.feedback-wrong{font-family:var(--font-display);font-size:var(--fs-3xl);font-weight:900;color:var(--c-danger-700);margin-bottom:var(--sp-3)}
-.gem-reward{font-size:3.5rem;margin:var(--sp-3) 0;animation:gemSpin 2s linear infinite;display:inline-block}
-@keyframes gemSpin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+.feedback-box{
+  background:var(--bg-primary);padding:var(--sp-8);border-radius:var(--r-3xl);
+  text-align:center;box-shadow:var(--shadow-xl);animation:popIn 0.6s var(--ease-spring);
+  max-width:450px;width:100%;border:4px solid var(--c-accent-400);
+}
+.feedback-correct{font-size:var(--fs-3xl);font-weight:900;color:var(--c-success-500);margin-bottom:var(--sp-3);font-family:var(--font-display)}
+.feedback-wrong{font-size:var(--fs-2xl);font-weight:900;color:var(--c-danger-500);margin-bottom:var(--sp-3);font-family:var(--font-display)}
+.gem{font-size:4rem;margin:var(--sp-3) 0;animation:spin 2s linear infinite}
+@keyframes spin{from{transform:rotateY(0)}to{transform:rotateY(360deg)}}
+.confetti{position:fixed;width:10px;height:10px;top:-10px;z-index:999;pointer-events:none;animation:fall 5s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
 
-.confetti{position:fixed;width:8px;height:8px;top:-10px;z-index:999;pointer-events:none;animation:confettiFall 3.5s linear forwards}
-@keyframes confettiFall{to{transform:translateY(110vh) rotate(720deg);opacity:0}}
-
-.modal{position:fixed;inset:0;background:rgba(15,23,42,0.75);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:center;z-index:2000;padding:var(--sp-4)}
+.modal{position:fixed;inset:0;background:rgba(16,42,67,0.75);backdrop-filter:blur(10px);display:none;justify-content:center;align-items:center;z-index:2000;padding:var(--sp-4)}
 .modal.show{display:flex}
-.modal-content{background:var(--bg-primary);border:1px solid var(--border-subtle);padding:var(--sp-6);border-radius:var(--r-3xl);max-width:600px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg);animation:popIn 0.5s var(--ease-spring)}
-.modal-close{float:left;background:var(--c-danger-500);color:white;border:none;width:32px;height:32px;border-radius:var(--r-full);cursor:pointer;font-size:var(--fs-lg);font-weight:bold}
-.modal-title{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--text-primary);text-align:center;margin-bottom:var(--sp-4)}
+.modal-content{
+  background:var(--bg-primary);padding:var(--sp-6);border-radius:var(--r-3xl);
+  max-width:650px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow-xl);animation:popIn 0.5s var(--ease-spring);
+  border:3px solid var(--c-primary-500);
+}
+.modal-close{float:left;background:var(--c-danger-500);color:white;border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.2rem;font-weight:bold;transition:all var(--duration-base)}
+.modal-close:hover{background:var(--c-danger-700);transform:rotate(90deg)}
+.modal-title{text-align:center;font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-800);margin-bottom:var(--sp-5)}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:var(--sp-3)}
+.stat-card{
+  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
+  padding:var(--sp-4);border-radius:var(--r-md);text-align:center;
+  border:2px solid var(--c-primary-200);transition:all var(--duration-base);box-shadow:var(--shadow-sm);
+}
+.stat-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-md)}
+.stat-card .num{font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-700);font-family:var(--font-heading)}
+.stat-card .label{font-size:var(--fs-xs);color:var(--text-tertiary);margin-top:var(--sp-1)}
+.garden-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:var(--sp-2);
+  padding:var(--sp-4);background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
+  border-radius:var(--r-xl);margin-top:var(--sp-4);border:1px solid var(--border-subtle);
+}
+.gem-slot{
+  aspect-ratio:1;background:var(--bg-primary);border:2px dashed var(--c-primary-300);
+  border-radius:var(--r-lg);display:flex;justify-content:center;align-items:center;
+  font-size:1.8rem;transition:all var(--duration-base);
+}
+.gem-slot.filled{
+  border-style:solid;background:linear-gradient(135deg,var(--c-accent-400),var(--c-primary-100));
+  animation:gemPop 0.6s var(--ease-spring);box-shadow:var(--shadow-md);
+}
+@keyframes gemPop{0%{transform:scale(0) rotate(-180deg)}60%{transform:scale(1.3) rotate(10deg)}100%{transform:scale(1) rotate(0)}}
+.settings-section{margin-bottom:var(--sp-5);padding-bottom:var(--sp-5);border-bottom:2px dashed var(--border-subtle)}
+.settings-section h4{font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;color:var(--c-primary-800);margin-bottom:var(--sp-3);display:flex;align-items:center;gap:var(--sp-2)}
 
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:var(--sp-3);margin-top:var(--sp-4)}
-.stat-card{background:var(--bg-secondary);padding:var(--sp-4);border-radius:var(--r-xl);text-align:center;border:1px solid var(--border-subtle)}
-.stat-card .num{font-family:var(--font-heading);font-size:var(--fs-3xl);font-weight:900;color:var(--c-primary-600);line-height:1;margin-bottom:var(--sp-1)}
-.stat-card .label{font-size:var(--fs-xs);color:var(--text-tertiary);font-weight:600}
-
-.footer{background:var(--bg-primary);border-top:1px solid var(--border-subtle);padding:var(--sp-6) var(--sp-4);margin-top:var(--sp-10)}
-.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--sp-4);max-width:1400px;margin:0 auto}
-.footer-item{background:var(--bg-secondary);padding:var(--sp-3);border-radius:var(--r-lg);border:1px solid var(--border-subtle)}
+.footer{background:var(--bg-primary);padding:var(--sp-5);margin-top:var(--sp-8);text-align:center;box-shadow:var(--shadow-md);border-top:3px solid var(--c-primary-700);border:1px solid var(--border-subtle)}
+.footer-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--sp-3);max-width:1200px;margin:0 auto}
+.footer-item{background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));padding:var(--sp-3);border-radius:var(--r-md);border:1px solid var(--border-subtle)}
 .footer-item .label{font-size:var(--fs-xs);color:var(--text-tertiary);margin-bottom:var(--sp-1);font-weight:600}
-.footer-item .value{font-size:var(--fs-sm);font-weight:700;color:var(--text-primary);font-family:var(--font-heading)}
-.footer-credit{text-align:center;margin-top:var(--sp-5);padding-top:var(--sp-4);border-top:1px solid var(--border-subtle);font-size:var(--fs-sm);color:var(--text-tertiary)}
+.footer-item .value{font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-800);font-family:var(--font-heading)}
+
+@media (max-width:768px){
+  .top-header{flex-direction:column;align-items:flex-start}
+  .nav-actions{width:100%;overflow-x:auto}
+  .hero h2{font-size:var(--fs-2xl)}
+  .lessons-grid{grid-template-columns:1fr}
+  .student-bar{grid-template-columns:1fr}
+  .fairy-svg{width:80px}
+  .enrichment-split{grid-template-columns:1fr}
+  .single-eq-layout{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
 
 <header class="top-header">
-  <div class="header-container">
-    <div class="brand">
-      <div class="brand-mark"></div>
-      <div class="brand-text">
-        <div class="brand-title">المعادلات والعبارات الجبرية</div>
-        <div class="brand-subtitle">مشروع رياضيات تفاعلي • الصف السابع</div>
-      </div>
+  <div class="brand">
+    <div class="brand-mark">📐</div>
+    <div class="brand-text">
+      <h1>مغامرة العبارات الجبرية والمعادلات</h1>
+      <p>تقى يونسو • الصف السابع</p>
     </div>
-    <div class="nav-actions">
-      <button class="nav-btn active" onclick="showPage('home',this)">🏠 الرئيسية</button>
-      <button class="nav-btn" onclick="showPage('concepts',this)">📖 المفاهيم</button>
-      <button class="nav-btn" onclick="showPage('expressions',this)">🔢 العبارات</button>
-      <button class="nav-btn" onclick="showPage('equations',this)">️ المعادلات</button>
-      <button class="nav-btn" onclick="showPage('scale',this)">⚖️ الميزان</button>
-      <button class="nav-btn graph-nav" onclick="showPage('graphs',this)">📈 التمثيل البياني<br>للمعادلات</button>
-      <button class="nav-btn" onclick="showPage('cards',this)">🎴 البطاقات</button>
-      <button class="nav-btn" onclick="openModal('statsModal')">📊</button>
-      <button class="nav-btn" onclick="openModal('settingsModal')">⚙️</button>
-    </div>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn active" onclick="showPage('home',this)"> الرئيسية</button>
+    <button class="nav-btn" onclick="showPage('lessons',this)"> الدروس</button>
+    <button class="nav-btn" onclick="showPage('graph',this)">📈 المادة الإثرائية: الرسم البياني</button>
+    <button class="nav-btn" onclick="showPage('challenge',this)">️ التحدي</button>
+    <button class="nav-btn" onclick="showPage('cards',this)">🎴 البطاقات</button>
+    <button class="nav-btn" onclick="openModal('statsModal')">📊</button>
+    <button class="nav-btn" onclick="openModal('gardenModal')">🌺</button>
+    <button class="nav-btn" onclick="openModal('settingsModal')">⚙️</button>
   </div>
 </header>
 
 <div class="student-bar">
   <div class="student-info"><span class="label">👩‍🎓 إعداد الطالبة</span><span class="value">تقى يونسو</span></div>
-  <div class="student-info"><span class="label">👩‍🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
+  <div class="student-info"><span class="label">‍🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
   <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الشعبة الأولى</span></div>
   <div class="student-info"><span class="label">🏫 المدرسة</span><span class="value">المدرسة النموذجية للمتفوقين إناث</span></div>
 </div>
 
+<div class="container">
+
 <div id="home" class="page active">
   <div class="hero">
-    <span class="hero-badge">✨ مشروع رياضيات تفاعلي للصف السابع ✨</span>
-    <h1 class="hero-title">🌷 المعادلات و<span class="accent">العبارات الجبرية</span> 🌷</h1>
-    <p class="hero-description">اكتشفي عالم الجبر بطريقة تفاعلية ممتعة!</p>
-    <div class="hero-visual">y = 2x + 3 ⟹ x = 4 → y = 11</div>
-    <br>
-    <button class="cta-btn" onclick="showPage('concepts',document.querySelectorAll('.nav-btn')[1])"> ابدئي التعلم</button>
-    <div class="stats-row">
-      <div class="stat-pill">🌟 <span class="num" id="homePoints">0</span> نقطة</div>
-      <div class="stat-pill">💎 <span class="num" id="homeGems">0</span> جوهرة</div>
-      <div class="stat-pill">✅ <span class="num" id="homeCorrect">0</span> إجابة صحيحة</div>
+    <h2>📐 مغامرة العبارات الجبرية والمعادلات 📐</h2>
+    <p>تعلمي الرياضيات بأسلوب أكاديمي تفاعلي مع الجنية الصغيرة!</p>
+    <div class="hero-stats">
+      <div class="stat-badge">🌟 <span class="num" id="homePoints">0</span> نقطة</div>
+      <div class="stat-badge">🌸 <span class="num" id="homeGems">0</span> جوهرة</div>
+      <div class="stat-badge">✅ <span class="num" id="homeCorrect">0</span> إجابة صحيحة</div>
     </div>
   </div>
 </div>
 
-<div id="concepts" class="page">
-  <div class="section-header">
-    <span class="section-eyebrow">الأساسيات</span>
-    <h2 class="section-title"> المفاهيم الأساسية</h2>
-    <p class="section-subtitle">اضغطي على أي بطاقة لفتح الشرح والتمرين التفاعلي</p>
-  </div>
-  <div class="concepts-grid" id="conceptsGrid"></div>
+<div id="lessons" class="page">
+  <div class="lessons-grid" id="lessonsGrid"></div>
 </div>
 
-<div id="expressions" class="page">
-  <div class="section-header">
-    <span class="section-eyebrow">البناء والتقييم</span>
-    <h2 class="section-title">🔢 العبارات الجبرية</h2>
-    <p class="section-subtitle">تعلمي كيف تبنين العبارات الجبرية وتقيمينها بتعويض قيم المتغيرات</p>
-  </div>
-  <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon">🏗️</div><h3>بناء العبارات الجبرية من الكلام</h3></div>
-    <div class="lesson-content"><p>نحول الجمل الكلامية إلى عبارات جبرية:</p><ul><li>"عدد زائد 5" ← نستخدم x للعدد المجهول</li><li>"ثلاثة أمثال عدد" ← نضرب العدد في 3</li><li>"نصف عدد ناقص 2" ← نقسم على 2 ثم نطرح</li></ul></div>
-    <div class="example-box"><span class="label">مثال:</span> "عدد زائد 5" ← <span class="math-expr">x + 5</span></div>
-    <div class="example-box"><span class="label">مثال:</span> "ثلاثة أمثال عدد" ← <span class="math-expr">3x</span></div>
-  </div>
-  <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon">🔍</div><h3>تقييم العبارات الجبرية</h3></div>
-    <div class="lesson-content"><p>لتقييم عبارة جبرية، نعوض بقيمة المتغير ثم نحسب الناتج:</p><ul><li>نعوض قيمة المتغير في كل مكان يظهر فيه</li><li>نطبق أولوية العمليات</li><li>نحسب الناتج النهائي</li></ul></div>
-    <div class="example-box"><span class="label">مثال:</span> إذا x = 4، فإن <span class="math-expr">3x + 2 = 14</span></div>
-    <div class="question-panel">
-      <div class="question-text" id="exprQ"></div>
-      <input type="number" class="answer-input" id="exprA" placeholder="؟">
-      <div class="btn-row">
-        <button class="action-btn btn-check" onclick="checkExprAnswer()">️ تحقق فوري</button>
-        <button class="action-btn btn-new" onclick="newExprQuestion()">🔄 مسألة جديدة</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- ══════════════════════════════════════════════════════════════
+     GRAPH PAGE - NOW WITH SINGLE EQUATION + DUAL EQUATIONS
+     ══════════════════════════════════════════════════════════════ -->
+<div id="graph" class="page">
 
-<div id="equations" class="page">
-  <div class="section-header">
-    <span class="section-eyebrow">الحل والتوازن</span>
-    <h2 class="section-title">⚖️ المعادلات</h2>
-    <p class="section-subtitle">تعلمي كيف تحلين المعادلات البسيطة</p>
-  </div>
-  <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon">🎯</div><h3>ما هي المعادلة؟</h3></div>
-    <div class="lesson-content"><p>المعادلة هي عبارة رياضية تحتوي على علامة <strong>=</strong> تخبرنا أن الطرفين متساويان.</p><ul><li>الطرف الأيمن = الطرف الأيسر</li><li>هدفنا: إيجاد قيمة المتغير</li><li>نستخدم العمليات العكسية</li></ul></div>
-    <div class="example-box"><span class="label">مثال:</span> <span class="math-expr">x + 5 = 12 → x = 7</span></div>
-  </div>
-  <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon">🔑</div><h3>القاعدة الذهبية</h3></div>
-    <div class="lesson-content"><p><strong>ما نفعله في طرف، نفعله في الطرف الآخر!</strong></p><ul><li>الجمع ↔ الطرح</li><li>الضرب ↔ القسمة</li></ul></div>
-    <div class="example-box"><span class="label">خطوة 1:</span> <span class="math-expr">x + 8 = 15 → نطرح 8</span></div>
-    <div class="example-box"><span class="label">خطوة 2:</span> <span class="math-expr">x = 15 - 8 = 7 ✓</span></div>
-  </div>
-  <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon">🎮</div><h3>تدربي على الحل</h3></div>
-    <div class="question-panel">
-      <div class="question-text" id="eqQ"></div>
-      <div style="font-size:var(--fs-sm);margin-bottom:var(--sp-3);color:var(--text-secondary)">أوجد قيمة x</div>
-      <input type="number" class="answer-input" id="eqA" placeholder="x = ؟">
-      <div class="btn-row">
-        <button class="action-btn btn-check" onclick="checkEqAnswer()">⚖️ تحقق فوري</button>
-        <button class="action-btn btn-hint" onclick="showEqHint()">💡 تلميح</button>
-        <button class="action-btn btn-new" onclick="newEqQuestion()">🔄 معادلة جديدة</button>
-      </div>
+  <!-- SINGLE EQUATION SECTION -->
+  <div class="single-eq-section">
+    <div class="single-eq-header">
+      <h3>📘 المعادلة الخطية: y = mx + b</h3>
+      <p>تفاعلي ثنائي الاتجاه - اسحبي النقاط أو غيّري القيم وشاهدي التأثير الفوري!</p>
     </div>
-  </div>
-</div>
 
-<div id="scale" class="page">
-  <div class="section-header">
-    <span class="section-eyebrow">تفاعلي</span>
-    <h2 class="section-title">️ الميزان السحري</h2>
-    <p class="section-subtitle">شاهدي كيف يعمل توازن المعادلات!</p>
-  </div>
-  <div class="scale-section">
-    <div class="scale-equation">
-      <input type="number" id="scaleLeft" value="5" min="1" max="20" onchange="updateScale()">
-      <span style="font-size:var(--fs-2xl);font-weight:900;color:var(--c-primary-600)">=</span>
-      <input type="number" id="scaleRight" value="5" min="1" max="20" onchange="updateScale()">
-    </div>
-    <div class="scale-container">
-      <svg class="scale-svg" viewBox="0 0 700 380">
-        <defs>
-          <linearGradient id="baseGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#b45309"/></linearGradient>
-          <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#6366f1"/><stop offset="100%" stop-color="#4338ca"/></linearGradient>
-          <linearGradient id="panGrad" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#fbbf24"/><stop offset="100%" stop-color="#92400e"/></linearGradient>
-        </defs>
-        <rect x="320" y="290" width="60" height="70" fill="url(#baseGrad)" rx="5"/>
-        <rect x="290" y="350" width="120" height="18" fill="url(#baseGrad)" rx="8"/>
-        <circle cx="350" cy="290" r="13" fill="#fbbf24" stroke="#92400e" stroke-width="3"/>
-        <g id="scaleBeam" class="scale-beam">
-          <rect x="100" y="282" width="500" height="18" fill="url(#beamGrad)" rx="8"/>
-          <g id="leftPan"><line x1="150" y1="300" x2="150" y2="345" stroke="#92400e" stroke-width="3"/><line x1="100" y1="300" x2="100" y2="345" stroke="#92400e" stroke-width="3"/><path d="M 80,345 Q 125,363 170,345 L 170,354 Q 125,372 80,354 Z" fill="url(#panGrad)" stroke="#92400e" stroke-width="2"/><text id="leftWeight" x="125" y="338" text-anchor="middle" font-size="20" font-weight="900" fill="#fff" font-family="IBM Plex Mono">5</text></g>
-          <g id="rightPan"><line x1="550" y1="300" x2="550" y2="345" stroke="#92400e" stroke-width="3"/><line x1="600" y1="300" x2="600" y2="345" stroke="#92400e" stroke-width="3"/><path d="M 530,345 Q 575,363 620,345 L 620,354 Q 575,372 530,354 Z" fill="url(#panGrad)" stroke="#92400e" stroke-width="2"/><text id="rightWeight" x="575" y="338" text-anchor="middle" font-size="20" font-weight="900" fill="#fff" font-family="IBM Plex Mono">5</text></g>
-        </g>
-      </svg>
-    </div>
-    <div id="scaleStatus" class="scale-status balanced">⚖️ متوازن! الطرفان متساويان</div>
-    <div style="text-align:center;margin-top:var(--sp-3)"><button class="cta-btn" onclick="balanceScale()">⚖️ وازني الميزان</button></div>
-  </div>
-</div>
+    <div class="single-eq-layout">
+      <!-- Left: Graph -->
+      <div class="single-eq-graph">
+        <h4>📊 الرسم البياني للمعادلة</h4>
+        <div class="single-graph-wrap" id="singleGraphWrap">
+          <canvas id="singleGraph"></canvas>
+        </div>
+        <div class="drag-instruction">
+          💡 <strong>اسحبي النقاط:</strong> النقطة الزرقاء (0, b) تغير الجزء المقطوع، والنقطة الحمراء تغير الميل
+        </div>
+        <div class="single-graph-legend">
+          <div class="legend-item"><div class="legend-color dot" style="background:#3b82f6"></div><span>نقطة المقطع (0, b)</span></div>
+          <div class="legend-item"><div class="legend-color dot" style="background:#ef4444"></div><span>نقطة الميل</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#6366f1"></div><span>الخط البياني</span></div>
+        </div>
+      </div>
 
-<div id="graphs" class="page">
-  <div class="section-header">
-    <span class="section-eyebrow">محاكاة بصرية تفاعلية</span>
-    <h2 class="section-title">📈 التمثيل البياني للمعادلات الجبرية</h2>
-    <p class="section-subtitle">استكشفي العلاقة بين المعادلة وشكلها البياني مع تكبير عالي الدقة</p>
-  </div>
-  
-  <div class="graph-section">
-    <div class="graph-header">
-      <h3> استكشاف المعادلة الخطية: y = mx + b</h3>
-      <p>حرّكي المعاملات وشاهدي التأثير الفوري - تكبير رياضي عالي الدقة بدون تشويش</p>
-    </div>
-    <div class="graph-layout">
-      <div>
-        <div class="graph-canvas-wrap" id="graphCanvasWrap">
-          <canvas class="graph-canvas" id="graphCanvas"></canvas>
-          <div class="graph-tooltip" id="graphTooltip"></div>
-          <div class="zoom-badge" id="zoomBadge">🔍 <span id="zoomLevelText">100%</span></div>
-          <div class="zoom-hint">🖱️ مرّري عجلة الماوس للتكبير/التصغير</div>
+      <!-- Right: Controls + Explanation + Table -->
+      <div class="single-eq-controls">
+        <div class="eq-control-card-single">
+          <h4>🎛️ التحكم بالمعادلة: y = mx + b</h4>
+          <div class="eq-control-row">
+            <label>m:</label>
+            <input type="number" id="singleMInput" step="0.5" value="1">
+            <input type="range" id="singleMSlider" min="-5" max="5" step="0.5" value="1">
+          </div>
+          <div class="eq-control-row">
+            <label>b:</label>
+            <input type="number" id="singleBInput" step="0.5" value="0">
+            <input type="range" id="singleBSlider" min="-5" max="5" step="0.5" value="0">
+          </div>
+          <div class="eq-display-live-single" id="singleEqDisplay">y = 1x + 0</div>
         </div>
-        <div class="graph-legend">
-          <div class="legend-item"><div class="legend-color" style="background:#4f46e5"></div><span>الخط y = mx + b</span></div>
-          <div class="legend-item"><div class="legend-color" style="background:#10b981"></div><span>مثلث الميل</span></div>
-          <div class="legend-item"><div class="legend-color" style="background:#f43f5e"></div><span>نقطة التقاطع (0,b)</span></div>
-          <div class="legend-item"><div class="legend-color" style="background:#8b5cf6"></div><span>تقاطع مع x</span></div>
+
+        <div class="concept-explanation">
+          <h5>📘 فهم المعادلة y = mx + b</h5>
+          <p>
+            المعادلة الخطية تصف علاقة مباشرة بين متغيرين <span class="math-expr">x</span> و <span class="math-expr">y</span>.
+            كل نقطة على الخط تحقق هذه المعادلة.
+          </p>
+          <ul>
+            <li><strong>m (الميل):</strong> يحدد انحدار الخط. إذا كان <span class="math-expr">m > 0</span> يصعد الخط، وإذا كان <span class="math-expr">m < 0</span> ينزل، وإذا كان <span class="math-expr">m = 0</span> يكون أفقياً.</li>
+            <li><strong>b (الجزء المقطوع):</strong> هو قيمة <span class="math-expr">y</span> عندما <span class="math-expr">x = 0</span>، أي نقطة تقاطع الخط مع محور y.</li>
+          </ul>
+          <p id="singleEqExplanation" style="margin-top:var(--sp-2);padding:var(--sp-2);background:var(--bg-primary);border-radius:var(--r-md);font-size:var(--fs-xs)"></p>
         </div>
-      </div>
-      <div class="graph-controls">
-        <div class="zoom-toolbar">
-          <div class="zoom-toolbar-label">🔍 التكبير/التصغير</div>
-          <button class="zoom-btn" onclick="zoomGraph(-0.2)" title="تصغير">−</button>
-          <div class="zoom-level-display" id="zoomDisplay">100%</div>
-          <button class="zoom-btn" onclick="zoomGraph(0.2)" title="تكبير">+</button>
-          <button class="zoom-btn reset" onclick="resetZoom()" title="إعادة ضبط">🔄</button>
+
+        <!-- Dynamic Values Table -->
+        <div class="values-table-container">
+          <h4>📋 جدول القيم الديناميكي</h4>
+          <table class="values-table">
+            <thead>
+              <tr>
+                <th>x</th>
+                <th id="singleYHeader">y = 1x + 0</th>
+              </tr>
+            </thead>
+            <tbody id="singleValuesTableBody"></tbody>
+          </table>
         </div>
-        
-        <div>
-          <div class="eq-text-label">✍️ اكتبي المعادلة بصيغة y = mx + b</div>
-          <input type="text" class="eq-text-input" id="eqTextInput" value="2x + 1" placeholder="مثال: 2x + 1 أو -x + 3" oninput="parseEquation()">
-        </div>
-        
-        <div class="eq-display" id="graphEqDisplay">y = 2x + 1</div>
-        
-        <div class="slider-group">
-          <div class="slider-label"><span> الميل (m):</span><span class="val" id="mVal">2</span></div>
-          <input type="range" id="mSlider" min="-5" max="5" step="0.5" value="2" oninput="syncGraph('m', this.value)">
-        </div>
-        <div class="slider-group">
-          <div class="slider-label"><span>📊 الجزء المقطوع (b):</span><span class="val" id="bVal">1</span></div>
-          <input type="range" id="bSlider" min="-5" max="5" step="0.5" value="1" oninput="syncGraph('b', this.value)">
-        </div>
-        
-        <div class="eq-explanation" id="eqExplanation">
-          <strong> الشرح:</strong> الميل = 2 يعني أن الخط يصعد وحدتين رأسياً لكل وحدة أفقية. الجزء المقطوع = 1 يعني أن الخط يقطع محور y عند النقطة (0, 1).
-        </div>
-        
-        <div style="font-size:var(--fs-xs);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-1)">⚙️ خيارات العرض:</div>
-        <div class="display-options">
-          <label class="display-option checked"><input type="checkbox" id="showTriangle" checked onchange="drawGraph1()"> <span> مثلث الميل</span></label>
-          <label class="display-option checked"><input type="checkbox" id="showPoints" checked onchange="drawGraph1()"> <span>📍 نقاط مميزة</span></label>
-          <label class="display-option"><input type="checkbox" id="showGrid" checked onchange="drawGraph1()"> <span>📏 الشبكة</span></label>
-          <label class="display-option"><input type="checkbox" id="animatePoint" onchange="toggleAnimation()"> <span>✨ تحريك نقطة</span></label>
-        </div>
-        
-        <div style="font-size:var(--fs-xs);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-1)"> جدول القيم:</div>
-        <table class="values-table" id="valuesTable">
-          <thead><tr><th>x</th><th>y</th></tr></thead>
-          <tbody id="valuesBody"></tbody>
-        </table>
       </div>
     </div>
   </div>
-  
-  <div class="graph-section">
-    <div class="graph-header">
-      <h3>⚔️ مقارنة معادلتين خطيتين</h3>
-      <p>أدخلي معادلتين وشاهدي نقطة التقاطع (حل جملة المعادلتين)</p>
+
+  <!-- DUAL EQUATIONS SECTION (Enrichment) -->
+  <div class="enrichment-section">
+    <div class="enrichment-header">
+      <h3>🔬 الفقرة الإثرائية: حل جملة معادلتين بيانياً</h3>
+      <p>شاهدي المعادلتين والرسم البياني جنباً إلى جنب - أي تغيير ينعكس فوراً!</p>
     </div>
-    <div class="graph-layout">
-      <div>
-        <div class="graph-canvas-wrap" id="graphCanvasWrap2">
-          <canvas class="graph-canvas" id="graphCanvas2"></canvas>
-          <div class="graph-tooltip" id="graphTooltip2"></div>
+
+    <div class="enrichment-split">
+      <div class="enrichment-graph-panel">
+        <h4>🎯 الرسم البياني التفاعلي للمعادلتين</h4>
+        <div class="dual-graph-wrap" id="dualGraphWrap">
+          <canvas id="dualGraph"></canvas>
         </div>
-        <div class="graph-legend">
-          <div class="legend-item"><div class="legend-color" style="background:#4f46e5"></div><span>المعادلة 1</span></div>
-          <div class="legend-item"><div class="legend-color" style="background:#f59e0b"></div><span>المعادلة 2</span></div>
-          <div class="legend-item"><div class="legend-color" style="background:#f43f5e;border-radius:50%;width:12px;height:12px"></div><span>نقطة التقاطع</span></div>
+        <div class="drag-instruction">
+          💡 <strong>اسحبي النقاط:</strong> الزرقاء للمعادلة الأولى، الحمراء للثانية. شاهدي المعادلات تتغير فوراً!
+        </div>
+        <div class="dual-graph-legend">
+          <div class="legend-item"><div class="legend-color" style="background:#3b82f6"></div><span>المعادلة 1</span></div>
+          <div class="legend-item"><div class="legend-color" style="background:#ef4444"></div><span>المعادلة 2</span></div>
+          <div class="legend-item"><div class="legend-color dot" style="background:#f59e0b"></div><span>نقطة التقاطع</span></div>
+        </div>
+
+        <div class="values-table-container" style="margin-top:var(--sp-4)">
+          <h4>📊 جدول القيم الديناميكي للمعادلتين</h4>
+          <table class="values-table">
+            <thead>
+              <tr>
+                <th>x</th>
+                <th id="y1Header">y₁ = 2x + 1</th>
+                <th id="y2Header">y₂ = -x + 4</th>
+                <th>ملاحظة</th>
+              </tr>
+            </thead>
+            <tbody id="valuesTableBody"></tbody>
+          </table>
         </div>
       </div>
-      <div class="graph-controls comparison-box">
-        <div class="eq-editor eq1">
-          <div class="eq-formula" id="eq1Formula">y = 1x + 0</div>
-          <div class="eq-inputs">
-            <div class="eq-input-group"><label>m₁</label><input type="number" class="eq-input" id="m1Input" step="0.5" value="1" oninput="syncGraph2(1, 'm', this.value)"></div>
-            <div class="eq-input-group"><label>b₁</label><input type="number" class="eq-input" id="b1Input" step="0.5" value="0" oninput="syncGraph2(1, 'b', this.value)"></div>
+
+      <div class="enrichment-equations-panel">
+        <div class="eq-control-card eq1-card">
+          <h4>📗 المعادلة الأولى: y = m₁x + b₁</h4>
+          <div class="eq-control-row">
+            <label>m₁:</label>
+            <input type="number" id="m1Input" step="0.5" value="2">
+            <input type="range" id="m1Slider" min="-5" max="5" step="0.5" value="2">
+          </div>
+          <div class="eq-control-row">
+            <label>b₁:</label>
+            <input type="number" id="b1Input" step="0.5" value="1">
+            <input type="range" id="b1Slider" min="-5" max="5" step="0.5" value="1">
+          </div>
+          <div class="eq-display-live" id="eq1Display">y = 2x + 1</div>
+        </div>
+
+        <div class="eq-control-card eq2-card">
+          <h4>📕 المعادلة الثانية: y = m₂x + b₂</h4>
+          <div class="eq-control-row">
+            <label>m₂:</label>
+            <input type="number" id="m2Input" step="0.5" value="-1">
+            <input type="range" id="m2Slider" min="-5" max="5" step="0.5" value="-1">
+          </div>
+          <div class="eq-control-row">
+            <label>b₂:</label>
+            <input type="number" id="b2Input" step="0.5" value="4">
+            <input type="range" id="b2Slider" min="-5" max="5" step="0.5" value="4">
+          </div>
+          <div class="eq-display-live" id="eq2Display">y = -x + 4</div>
+        </div>
+
+        <div class="solution-card">
+          <h4>🎯 الحل الجبري (نقطة التقاطع)</h4>
+          <p style="margin-bottom:var(--sp-2);color:var(--text-secondary);font-size:var(--fs-sm)">
+            نساوي الطرفين عند التقاطع:
+          </p>
+          <div id="algebraicSteps"></div>
+          <div class="intersection-result" id="intersectionResult">
+            ✨ نقطة التقاطع: <span class="math-expr">(1, 3)</span> ✨
           </div>
         </div>
-        <div class="eq-editor eq2">
-          <div class="eq-formula" id="eq2Formula">y = -1x + 3</div>
-          <div class="eq-inputs">
-            <div class="eq-input-group"><label>m₂</label><input type="number" class="eq-input" id="m2Input" step="0.5" value="-1" oninput="syncGraph2(2, 'm', this.value)"></div>
-            <div class="eq-input-group"><label>b₂</label><input type="number" class="eq-input" id="b2Input" step="0.5" value="3" oninput="syncGraph2(2, 'b', this.value)"></div>
-          </div>
-        </div>
-        <div class="intersection-display">
-          <h4>🎯 نقطة التقاطع (الحل)</h4>
-          <div class="intersection-point" id="intersectionPoint">جاري الحساب...</div>
-        </div>
-        <div class="eq-explanation" id="intersectionExplanation">
-          <strong>💡 ملاحظة:</strong> نقطة التقاطع هي الحل المشترك للمعادلتين.
-        </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="challenge" class="page">
+  <div class="challenge-box">
+    <h2 style="font-size:var(--fs-2xl);margin-bottom:var(--sp-3)">⏱️ تحدي الـ 30 ثانية</h2>
+    <div class="timer" id="timer">30</div>
+    <div class="challenge-q" id="challengeQuestion">اضغط ابدأ للتحدي!</div>
+    <input type="text" id="challengeAnswer" class="answer-input" placeholder="؟" style="display:none">
+    <div class="btn-row">
+      <button class="btn btn-new" id="startChallengeBtn" onclick="startChallenge()">🎈 ابدأ التحدي</button>
+      <button class="btn btn-check" id="checkChallengeBtn" onclick="checkChallengeAnswer()" style="display:none">🌤️ تحقق فوري</button>
+      <button class="btn btn-hint" id="newChallengeBtn" onclick="newChallenge()" style="display:none">🔄 تحدي جديد</button>
+    </div>
+    <div id="challengeResult" style="margin-top:var(--sp-3);font-size:var(--fs-lg);font-weight:700;min-height:40px"></div>
   </div>
 </div>
 
 <div id="cards" class="page">
-  <div class="section-header">
-    <span class="section-eyebrow">تعليمي تفاعلي</span>
-    <h2 class="section-title">🎴 البطاقات التعليمية</h2>
-    <p class="section-subtitle">اضغطي على أي بطاقة لقلبها ورؤية الأمثلة</p>
+  <div class="hero" style="padding:var(--sp-6)">
+    <h2 style="font-size:var(--fs-2xl)"> البطاقات التعليمية التفاعلية</h2>
+    <p>اضغط على أي بطاقة لقلبها ورؤية الإجابة! 🌷</p>
+    <div class="btn-row">
+      <button class="btn btn-new" onclick="shuffleCards()">🍃 خلط البطاقات</button>
+      <button class="btn btn-hint" onclick="resetCards()">🔄 إعادة البطاقات</button>
+    </div>
   </div>
-  <div class="edu-cards-grid" id="eduCardsGrid"></div>
+  <div class="cards-grid" id="cardsGrid"></div>
 </div>
 
+</div>
+
+<!-- Fairy -->
 <div class="fairy-wrap" id="fairyWrap" onclick="toggleFairySpeech(event)">
   <svg class="fairy-svg" viewBox="0 0 200 250">
-    <ellipse cx="60" cy="110" rx="35" ry="55" fill="rgba(199,210,254,.7)" stroke="#6366f1" stroke-width="2"><animateTransform attributeName="transform" type="rotate" values="-10 60 110;10 60 110;-10 60 110" dur="1s" repeatCount="indefinite"/></ellipse>
-    <ellipse cx="140" cy="110" rx="35" ry="55" fill="rgba(199,210,254,.7)" stroke="#6366f1" stroke-width="2"><animateTransform attributeName="transform" type="rotate" values="10 140 110;-10 140 110;10 140 110" dur="1s" repeatCount="indefinite"/></ellipse>
-    <path d="M 100,130 L 70,220 L 130,220 Z" fill="#6366f1" stroke="#4338ca" stroke-width="2"/>
-    <circle cx="100" cy="130" r="8" fill="#fbbf24"/>
+    <ellipse cx="60" cy="110" rx="35" ry="55" fill="rgba(217,226,236,0.7)" stroke="#486581" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" values="-10 60 110;10 60 110;-10 60 110" dur="1s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="140" cy="110" rx="35" ry="55" fill="rgba(224,233,242,0.7)" stroke="#486581" stroke-width="2">
+      <animateTransform attributeName="transform" type="rotate" values="10 140 110;-10 140 110;10 140 110" dur="1s" repeatCount="indefinite"/>
+    </ellipse>
+    <path d="M 100,130 L 70,220 L 130,220 Z" id="fairyDress" fill="#486581" stroke="#334e68" stroke-width="2"/>
+    <circle cx="100" cy="130" r="8" fill="#c9a961"/>
     <circle cx="100" cy="90" r="30" fill="#ffe0bd" stroke="#d4a574" stroke-width="2"/>
-    <path d="M 70,80 Q 70,50 100,50 Q 130,50 130,80 Q 135,100 130,115 L 125,90 Q 100,75 75,90 L 70,115 Q 65,100 70,80 Z" fill="#4f46e5"/>
-    <circle cx="90" cy="88" r="3" fill="#0f172a"/>
-    <circle cx="110" cy="88" r="3" fill="#0f172a"/>
-    <path d="M 90,100 Q 100,108 110,100" stroke="#ec4894" stroke-width="2" fill="none"/>
-    <path d="M 80,60 L 85,50 L 90,60 L 95,50 L 100,60 L 105,50 L 110,60 L 115,50 L 120,60 Z" fill="#fbbf24" stroke="#b45309" stroke-width="1"/>
+    <path id="fairyHair" d="M 70,80 Q 70,50 100,50 Q 130,50 130,80 Q 135,100 130,115 L 125,90 Q 100,75 75,90 L 70,115 Q 65,100 70,80 Z" fill="#c9a961"/>
+    <circle cx="90" cy="88" r="3" fill="#0f1419"/>
+    <circle cx="110" cy="88" r="3" fill="#0f1419"/>
+    <path d="M 90,100 Q 100,108 110,100" stroke="#486581" stroke-width="2" fill="none"/>
+    <path d="M 80,60 L 85,50 L 90,60 L 95,50 L 100,60 L 105,50 L 110,60 L 115,50 L 120,60 Z" fill="#c9a961" stroke="#9a7b3f" stroke-width="1"/>
     <line x1="140" y1="140" x2="170" y2="110" stroke="#78350f" stroke-width="3"/>
-    <polygon points="170,110 175,100 180,110 175,120" fill="#fbbf24"><animate attributeName="opacity" values="1;.5;1" dur="1.5s" repeatCount="indefinite"/></polygon>
+    <polygon points="170,110 175,100 180,110 175,120" fill="#c9a961">
+      <animate attributeName="opacity" values="1;.5;1" dur="1.5s" repeatCount="indefinite"/>
+    </polygon>
   </svg>
-  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنّيتك الصغيرة 🧚‍♀️ جاهزة لمساعدتك! ✨</div>
+  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنية الرياضيات! 🧚‍♀️<br><small style="color:var(--text-tertiary);font-size:0.8rem">(اسحبيني لتغيير مكاني!)</small></div>
 </div>
 
+<!-- Feedback Overlay -->
 <div class="feedback-overlay" id="feedbackOverlay">
   <div class="feedback-box">
     <div id="feedbackText"></div>
-    <div class="gem-reward" id="gemReward" style="display:none"></div>
-    <button class="cta-btn" onclick="closeFeedback()" style="margin-top:var(--sp-3)">متابعة </button>
+    <div class="gem" id="gemReward" style="display:none"></div>
+    <button class="btn btn-new" onclick="closeFeedback()">متابعة ✨</button>
   </div>
 </div>
 
+<!-- Stats Modal -->
 <div class="modal" id="statsModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal('statsModal')">✕</button>
@@ -677,42 +888,101 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
       <div class="stat-card"><div class="num" id="statPoints">0</div><div class="label">🌟 النقاط</div></div>
       <div class="stat-card"><div class="num" id="statCorrect">0</div><div class="label">✅ صحيحة</div></div>
       <div class="stat-card"><div class="num" id="statWrong">0</div><div class="label">❌ خاطئة</div></div>
-      <div class="stat-card"><div class="num" id="statGems">0</div><div class="label">💎 الجواهر</div></div>
-      <div class="stat-card"><div class="num" id="statAccuracy">0%</div><div class="label">🎯 الدقة</div></div>
+      <div class="stat-card"><div class="num" id="statGems">0</div><div class="label">🌸 الجواهر</div></div>
+      <div class="stat-card"><div class="num" id="statAccuracy">0%</div><div class="label"> الدقة</div></div>
     </div>
   </div>
 </div>
 
+<!-- Garden Modal -->
+<div class="modal" id="gardenModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal('gardenModal')">✕</button>
+    <h2 class="modal-title"> حديقة إنجازاتي 🌺</h2>
+    <p style="text-align:center;margin-bottom:var(--sp-4)">كل جوهرة تمثل إنجازاً! 📐</p>
+    <div class="garden-grid" id="gardenGrid"></div>
+  </div>
+</div>
+
+<!-- Settings Modal -->
 <div class="modal" id="settingsModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
     <h2 class="modal-title">⚙️ الإعدادات</h2>
-    <div style="margin-bottom:var(--sp-5);padding-bottom:var(--sp-5);border-bottom:2px dashed var(--border-subtle)">
-      <h4 style="font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;margin-bottom:var(--sp-3)">🧚 حجم الجنية</h4>
-      <div style="display:flex;align-items:center;gap:var(--sp-2)"><span style="font-size:var(--fs-sm)">صغيرة</span><input type="range" id="fairySizeSlider" min="60" max="200" value="100" oninput="updateFairySize(this.value)" style="flex:1"><span style="font-size:var(--fs-sm)">كبيرة</span></div>
+    
+    <div class="settings-section">
+      <h4>🧚 حجم الجنية</h4>
+      <div style="display:flex;align-items:center;gap:var(--sp-3)">
+        <span style="font-size:var(--fs-sm)">صغيرة</span>
+        <input type="range" id="fairySizeSlider" min="70" max="180" value="110" oninput="updateFairySize(this.value)" style="flex:1">
+        <span style="font-size:var(--fs-sm)">كبيرة</span>
+      </div>
+      <p style="font-size:var(--fs-xs);color:var(--text-tertiary);margin-top:var(--sp-2);text-align:center">
+        💡 اسحبي الجنية مباشرة على الشاشة لتغيير مكانها
+      </p>
     </div>
+
+    <div class="settings-section">
+      <h4>📍 إعادة ضبط موضع الجنية</h4>
+      <button class="btn btn-new" onclick="resetFairyPosition()" style="width:100%;padding:var(--sp-3)">🔄 إعادة للموضع الافتراضي</button>
+    </div>
+
+    <div class="settings-section">
+      <h4> تصفير الشجرة (الجواهر)</h4>
+      <button class="btn btn-new" onclick="resetGarden()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">🗑️ تصفير جميع الجواهر</button>
+    </div>
+    
+    <div class="settings-section">
+      <h4>🔄 تصفير النقاط</h4>
+      <button class="btn btn-new" onclick="resetPoints()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">🔄 تصفير جميع النقاط</button>
+    </div>
+    
     <div>
-      <h4 style="font-family:var(--font-heading);font-size:var(--fs-lg);font-weight:700;margin-bottom:var(--sp-3)">🔊 الأصوات</h4>
-      <label style="display:flex;align-items:center;gap:var(--sp-2);cursor:pointer"><input type="checkbox" id="soundToggle" checked onchange="toggleSound()" style="width:18px;height:18px"><span>تفعيل الأصوات</span></label>
+      <h4>🔊 الأصوات</h4>
+      <label style="display:flex;align-items:center;gap:var(--sp-3);cursor:pointer;font-weight:600">
+        <input type="checkbox" id="soundToggle" checked onchange="toggleSound()" style="width:20px;height:20px">
+        <span>تفعيل الأصوات</span>
+      </label>
     </div>
   </div>
 </div>
 
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-item"><div class="label">👩🎓 عمل الطالبة</div><div class="value">تقى يونسو</div></div>
+    <div class="footer-item"><div class="label">👩‍ عمل الطالبة</div><div class="value">تقى يونسو</div></div>
     <div class="footer-item"><div class="label">👩‍🏫 المدرّسة</div><div class="value">فلك عاصي</div></div>
     <div class="footer-item"><div class="label">🎓 الصف</div><div class="value">السابع - الشعبة الأولى</div></div>
     <div class="footer-item"><div class="label">🏫 المدرسة</div><div class="value">المدرسة النموذجية للمتفوقين إناث</div></div>
   </div>
-  <div class="footer-credit">✨ مشروع رياضيات تفاعلي - المعادلات والعبارات الجبرية ✨</div>
 </footer>
 
 <script>
-let state = {points:0,correct:0,wrong:0,gems:[],fairySize:100,soundOn:true,currentExpr:null,currentEq:null};
-try { const saved = localStorage.getItem('algebraProHD'); if (saved) state = {...state, ...JSON.parse(saved)}; } catch(e) {}
-function saveState() { try { localStorage.setItem('algebraProHD', JSON.stringify(state)); } catch(e) {} }
+// ══════════════════════════════════════════════════════════════
+// STATE MANAGEMENT
+// ══════════════════════════════════════════════════════════════
+let state = {
+  points: 0, correct: 0, wrong: 0, gems: [],
+  fairySize: 110, fairyX: null, fairyY: null, soundOn: true,
+  currentChallenge: null, challengeTimer: null, challengeTime: 30,
+  // Single equation state
+  singleEq: { m: 1, b: 0 },
+  // Dual equation state
+  eq1: { m: 2, b: 1 },
+  eq2: { m: -1, b: 4 }
+};
 
+try {
+  const saved = localStorage.getItem('algebraAdventureUnified');
+  if (saved) state = {...state, ...JSON.parse(saved)};
+} catch(e) {}
+
+function saveState() {
+  try { localStorage.setItem('algebraAdventureUnified', JSON.stringify(state)); } catch(e) {}
+}
+
+// ══════════════════════════════════════════════════════════════
+// AUDIO SYSTEM
+// ══════════════════════════════════════════════════════════════
 let audioCtx = null;
 function playSound(type) {
   if (!state.soundOn) return;
@@ -721,479 +991,189 @@ function playSound(type) {
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
     osc.connect(gain); gain.connect(audioCtx.destination);
+    
     if (type === 'correct') {
       osc.frequency.setValueAtTime(523, audioCtx.currentTime);
       osc.frequency.setValueAtTime(659, audioCtx.currentTime + 0.1);
       osc.frequency.setValueAtTime(784, audioCtx.currentTime + 0.2);
-      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
       osc.start(); osc.stop(audioCtx.currentTime + 0.5);
     } else if (type === 'wrong') {
-      osc.frequency.setValueAtTime(220, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(110, audioCtx.currentTime + 0.3);
-      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(100, audioCtx.currentTime + 0.3);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
       osc.start(); osc.stop(audioCtx.currentTime + 0.3);
     } else if (type === 'gem') {
       osc.frequency.setValueAtTime(1047, audioCtx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(2093, audioCtx.currentTime + 0.3);
-      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
       osc.start(); osc.stop(audioCtx.currentTime + 0.4);
     }
   } catch(e) {}
 }
 
+// ══════════════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════════════
 function showPage(id, btn) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   if (btn) btn.classList.add('active');
-  window.scrollTo({top:0, behavior:'smooth'});
-  if (id === 'graphs') { setTimeout(() => { initGraphs(); }, 100); }
-}
-function openModal(id) { document.getElementById(id).classList.add('show'); if (id === 'statsModal') renderStats(); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-
-// ═══════════════════════════════════════════════════════════════
-// HIGH-PRECISION MATHEMATICAL ZOOM SYSTEM
-// الزوم يحدث رياضياً داخل Canvas (تغيير RANGE)
-// بدون CSS transform = بدون تشويش (Blur)
-// ═══════════════════════════════════════════════════════════════
-const ZOOM_MIN = 0.5;
-const ZOOM_MAX = 5.0;
-const ZOOM_STEP = 0.2;
-let zoomLevel = 1.0;
-
-function zoomGraph(delta) {
-  zoomLevel = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoomLevel + delta));
-  
-  const badge = document.getElementById('zoomBadge');
-  if (badge) {
-    badge.classList.add('zooming');
-    setTimeout(() => badge.classList.remove('zooming'), 300);
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  if (id === 'graph') {
+    setTimeout(() => {
+      initSingleGraph();
+      initDualGraph();
+    }, 100);
   }
-  updateZoomDisplay();
-  
-  // 🔑 إعادة رسم Canvas بدقة عالية (Mathematical Zoom)
-  drawGraph1();
 }
 
-function resetZoom() {
-  zoomLevel = 1.0;
-  updateZoomDisplay();
-  drawGraph1();
+function openModal(id) {
+  document.getElementById(id).classList.add('show');
+  if (id === 'statsModal') renderStats();
+  if (id === 'gardenModal') renderGarden();
 }
 
-function updateZoomDisplay() {
-  const percent = Math.round(zoomLevel * 100);
-  const display = document.getElementById('zoomDisplay');
-  const text = document.getElementById('zoomLevelText');
-  if (display) display.textContent = percent + '%';
-  if (text) text.textContent = percent + '%';
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
 }
 
-const graphCanvasWrap1 = document.getElementById('graphCanvasWrap');
-if (graphCanvasWrap1) {
-  graphCanvasWrap1.addEventListener('wheel', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    e.stopImmediatePropagation();
-    const delta = e.deltaY > 0 ? -ZOOM_STEP : ZOOM_STEP;
-    zoomGraph(delta);
-    return false;
-  }, { passive: false, capture: true });
-}
-
-// ═══════════════════════════════════════════════════════════════
-// GRAPH 1 - HIGH PRECISION RENDERING
 // ══════════════════════════════════════════════════════════════
-let currentM = 2, currentB = 1;
-let animationId = null;
-let animatedT = 0;
-
-function parseEquation() {
-  const input = document.getElementById('eqTextInput').value.trim().toLowerCase();
-  const match = input.match(/([+-]?\d*\.?\d*)\s*x\s*([+-]\s*\d+\.?\d*)?/);
-  if (match) {
-    let m = match[1];
-    if (m === '' || m === '+') m = 1;
-    else if (m === '-') m = -1;
-    else m = parseFloat(m);
-    
-    let b = 0;
-    if (match[2]) b = parseFloat(match[2].replace(/\s/g, ''));
-    
-    currentM = m;
-    currentB = b;
-    document.getElementById('mSlider').value = m;
-    document.getElementById('bSlider').value = b;
-    document.getElementById('mVal').textContent = m;
-    document.getElementById('bVal').textContent = b;
-    drawGraph1();
-    updateExplanation();
-    updateValuesTable();
-  }
-}
-
-function formatEq(m, b) {
+// FORMAT EQUATION (Latin numerals only)
+// ══════════════════════════════════════════════════════════════
+function formatEquation(m, b) {
   if (m === 0) return `y = ${b}`;
   let mStr = m === 1 ? '' : (m === -1 ? '-' : m);
-  let bStr = b > 0 ? ` + ${b}` : (b < 0 ? ` - ${Math.abs(b)}` : '');
-  return `y = ${mStr}x${bStr}`;
+  let bStr = b > 0 ? `+ ${b}` : (b < 0 ? `- ${Math.abs(b)}` : '');
+  return `y = ${mStr}x ${bStr}`.trim();
 }
 
-function syncGraph(type, val) {
-  val = parseFloat(val) || 0;
-  if (type === 'm') { currentM = val; document.getElementById('mSlider').value = val; document.getElementById('mVal').textContent = val; }
-  else { currentB = val; document.getElementById('bSlider').value = val; document.getElementById('bVal').textContent = val; }
-  document.getElementById('graphEqDisplay').textContent = formatEq(currentM, currentB);
-  document.getElementById('eqTextInput').value = (currentM === 1 ? '' : currentM === -1 ? '-' : currentM) + 'x' + (currentB > 0 ? ' + ' + currentB : currentB < 0 ? ' - ' + Math.abs(currentB) : '');
-  drawGraph1();
-  updateExplanation();
-  updateValuesTable();
+// ══════════════════════════════════════════════════════════════
+// SINGLE EQUATION GRAPH - BIDIRECTIONAL SYNC
+// ══════════════════════════════════════════════════════════════
+let singlePoint1 = { x: 0, y: 0 };
+let singlePoint2 = { x: 2, y: 2 };
+let isDraggingSingle = null;
+
+function initSingleGraph() {
+  const canvas = document.getElementById('singleGraph');
+  const wrap = document.getElementById('singleGraphWrap');
+  const rect = wrap.getBoundingClientRect();
+  
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  
+  syncSinglePointsFromEquation();
+  drawSingleGraph();
+  updateSingleDisplays();
+  updateSingleValuesTable();
+  setupSingleGraphEvents();
+  setupSingleEquationControls();
 }
 
-function updateExplanation() {
-  const m = currentM, b = currentB;
-  let explanation = '<strong>📘 الشرح:</strong> ';
-  if (m > 0) {
-    explanation += `الميل = ${m} (موجب) يعني أن الخط <strong>يصعد</strong> من اليسار إلى اليمين. `;
-    explanation += m === 1 ? 'يصعد وحدة واحدة رأسياً لكل وحدة أفقية. ' : `يصعد ${Math.abs(m)} وحدة رأسياً لكل وحدة أفقية. `;
-  } else if (m < 0) {
-    explanation += `الميل = ${m} (سالب) يعني أن الخط <strong>ينزل</strong> من اليسار إلى اليمين. `;
-    explanation += m === -1 ? 'ينزل وحدة واحدة رأسياً لكل وحدة أفقية. ' : `ينزل ${Math.abs(m)} وحدة رأسياً لكل وحدة أفقية. `;
-  } else {
-    explanation += 'الميل = 0 يعني أن الخط <strong>أفقي</strong> تماماً. ';
+function syncSinglePointsFromEquation() {
+  singlePoint1 = { x: 0, y: state.singleEq.b };
+  singlePoint2 = { x: 2, y: state.singleEq.m * 2 + state.singleEq.b };
+}
+
+function updateSingleEquationFromPoints() {
+  state.singleEq.b = singlePoint1.y;
+  if (Math.abs(singlePoint2.x - singlePoint1.x) > 0.1) {
+    state.singleEq.m = (singlePoint2.y - singlePoint1.y) / (singlePoint2.x - singlePoint1.x);
   }
-  if (b > 0) explanation += `الجزء المقطوع = ${b} يعني أن الخط يقطع محور y عند النقطة (0, ${b}) <strong>فوق</strong> الأصل.`;
-  else if (b < 0) explanation += `الجزء المقطوع = ${b} يعني أن الخط يقطع محور y عند النقطة (0, ${b}) <strong>تحت</strong> الأصل.`;
-  else explanation += 'الجزء المقطوع = 0 يعني أن الخط يمر بنقطة الأصل (0, 0).';
-  document.getElementById('eqExplanation').innerHTML = explanation;
+  state.singleEq.m = Math.round(state.singleEq.m * 2) / 2;
+  state.singleEq.b = Math.round(state.singleEq.b * 2) / 2;
+  
+  updateSingleDisplays();
+  updateSingleValuesTable();
+  saveState();
 }
 
-function updateValuesTable() {
-  const tbody = document.getElementById('valuesBody');
+function updateSingleDisplays() {
+  const m = state.singleEq.m;
+  const b = state.singleEq.b;
+  const eqText = formatEquation(m, b);
+  
+  document.getElementById('singleEqDisplay').textContent = eqText;
+  document.getElementById('singleMInput').value = m;
+  document.getElementById('singleBInput').value = b;
+  document.getElementById('singleMSlider').value = m;
+  document.getElementById('singleBSlider').value = b;
+  document.getElementById('singleYHeader').textContent = `y = ${eqText.replace('y = ', '')}`;
+  
+  // Update explanation
+  let explanation = '<strong>📘 التفسير الحالي:</strong><br>';
+  if (m > 0) {
+    explanation += `الميل = ${m} (موجب) → الخط يصعد بمقدار ${Math.abs(m)} وحدة رأسياً لكل وحدة أفقية. `;
+  } else if (m < 0) {
+    explanation += `الميل = ${m} (سالب) → الخط ينزل بمقدار ${Math.abs(m)} وحدة رأسياً لكل وحدة أفقية. `;
+  } else {
+    explanation += 'الميل = 0 → الخط أفقي تماماً. ';
+  }
+  if (b > 0) explanation += `<br>الجزء المقطوع = ${b} → الخط يقطع محور y عند (0, ${b}) فوق الأصل.`;
+  else if (b < 0) explanation += `<br>الجزء المقطوع = ${b} → الخط يقطع محور y عند (0, ${b}) تحت الأصل.`;
+  else explanation += '<br>الجزء المقطوع = 0 → الخط يمر بنقطة الأصل (0, 0).';
+  
+  document.getElementById('singleEqExplanation').innerHTML = explanation;
+}
+
+function updateSingleValuesTable() {
+  const tbody = document.getElementById('singleValuesTableBody');
+  if (!tbody) return;
+  
   tbody.innerHTML = '';
-  [-3, -2, -1, 0, 1, 2, 3].forEach(x => {
-    const y = currentM * x + currentB;
+  const m = state.singleEq.m;
+  const b = state.singleEq.b;
+  const xValues = [-3, -2, -1, 0, 1, 2, 3];
+  
+  xValues.forEach(x => {
+    const y = m * x + b;
     const row = document.createElement('tr');
-    if (x === 0) row.style.background = 'var(--c-primary-50)';
-    row.innerHTML = `<td>${x}</td><td>${y}</td>`;
+    if (x === 0) row.className = 'highlight';
+    row.innerHTML = `<td>${x}</td><td>${y.toFixed(1)}</td>`;
     tbody.appendChild(row);
   });
 }
 
-function drawGraph1() {
-  const canvas = document.getElementById('graphCanvas');
+function drawSingleGraph() {
+  const canvas = document.getElementById('singleGraph');
   if (!canvas) return;
-  const wrap = document.getElementById('graphCanvasWrap');
-  const rect = wrap.getBoundingClientRect();
-  
-  // 🔑 High-DPI Rendering: مضاعفة الدقة حسب الزوم
-  const dpr = window.devicePixelRatio || 1;
-  const zoomDpr = dpr * Math.max(1, zoomLevel); // زيادة الدقة عند التكبير
-  
-  // تثبيت أبعاد CSS
-  canvas.style.width = rect.width + 'px';
-  canvas.style.height = rect.height + 'px';
-  
-  // أبعاد Canvas الداخلية مضاعفة للدقة العالية
-  canvas.width = Math.floor(rect.width * zoomDpr);
-  canvas.height = Math.floor(rect.height * zoomDpr);
-  
   const ctx = canvas.getContext('2d');
-  ctx.scale(zoomDpr, zoomDpr);
+  const W = canvas.width;
+  const H = canvas.height;
   
-  const W = rect.width, H = rect.height;
-  
-  // 🔑 Mathematical Zoom: تغيير النطاق المعروض
-  const BASE_RANGE = 8;
-  const RANGE = BASE_RANGE / zoomLevel;
+  const RANGE = 8;
   const PADDING = 40;
-  const drawW = W - PADDING * 2;
-  const drawH = H - PADDING * 2;
   const originX = W / 2;
   const originY = H / 2;
-  const scale = Math.min(drawW, drawH) / (RANGE * 2);
+  const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
   
   function toScreenX(x) { return originX + x * scale; }
   function toScreenY(y) { return originY - y * scale; }
   function toMathX(px) { return (px - originX) / scale; }
   
-  // خلفية
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, W, H);
   
-  // شبكة متكيفة
-  if (document.getElementById('showGrid').checked) {
-    ctx.strokeStyle = '#e2e8f0';
-    ctx.lineWidth = 1 / zoomDpr; // خط رفيع ثابت بصرياً
-    let gridStep = 1;
-    if (RANGE > 20) gridStep = 5;
-    else if (RANGE > 10) gridStep = 2;
-    else if (RANGE < 2) gridStep = 0.5;
-    else if (RANGE < 1) gridStep = 0.25;
-    
-    const gridMin = -Math.ceil(RANGE / gridStep) * gridStep;
-    const gridMax = Math.ceil(RANGE / gridStep) * gridStep;
-    
-    for (let i = gridMin; i <= gridMax; i += gridStep) {
-      const x = toScreenX(i);
-      const y = toScreenY(i);
-      if (x >= PADDING && x <= W - PADDING) { ctx.beginPath(); ctx.moveTo(x, PADDING); ctx.lineTo(x, H - PADDING); ctx.stroke(); }
-      if (y >= PADDING && y <= H - PADDING) { ctx.beginPath(); ctx.moveTo(PADDING, y); ctx.lineTo(W - PADDING, y); ctx.stroke(); }
-    }
-  }
-  
-  // محاور
-  ctx.strokeStyle = '#334155';
-  ctx.lineWidth = 2 / zoomDpr;
-  ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
-  
-  // أسهم
-  ctx.fillStyle = '#334155';
-  ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
-  ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
-  
-  // أرقام المحاور - حجم خط يتكيف مع الزوم
-  let labelStep = 1;
-  if (RANGE > 20) labelStep = 5;
-  else if (RANGE > 10) labelStep = 2;
-  else if (RANGE < 2) labelStep = 0.5;
-  else if (RANGE < 1) labelStep = 0.25;
-  
-  const fontSize = Math.max(10, 11 / Math.sqrt(zoomLevel));
-  ctx.fillStyle = '#64748b';
-  ctx.font = `bold ${fontSize}px IBM Plex Mono, monospace`;
-  ctx.textAlign = 'center';
-  
-  const labelMin = -Math.ceil(RANGE / labelStep) * labelStep;
-  const labelMax = Math.ceil(RANGE / labelStep) * labelStep;
-  
-  for (let i = labelMin; i <= labelMax; i += labelStep) {
-    if (Math.abs(i) < 0.001) continue;
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 1;
+  for (let i = -RANGE; i <= RANGE; i++) {
     const x = toScreenX(i);
     const y = toScreenY(i);
     if (x >= PADDING && x <= W - PADDING) {
-      const label = Number.isInteger(i) ? i.toString() : i.toFixed(1);
-      ctx.fillText(label, x, originY + 18);
-      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1 / zoomDpr;
-      ctx.beginPath(); ctx.moveTo(x, originY - 3); ctx.lineTo(x, originY + 3); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(x, PADDING); ctx.lineTo(x, H - PADDING); ctx.stroke();
     }
     if (y >= PADDING && y <= H - PADDING) {
-      const label = Number.isInteger(i) ? i.toString() : i.toFixed(1);
-      ctx.textAlign = 'right'; ctx.fillText(label, originX - 8, y + 4); ctx.textAlign = 'center';
-      ctx.beginPath(); ctx.moveTo(originX - 3, y); ctx.lineTo(originX + 3, y); ctx.stroke();
-    }
-  }
-  ctx.textAlign = 'right'; ctx.fillText('0', originX - 8, originY + 18);
-  ctx.fillStyle = '#0f172a'; 
-  ctx.font = `bold ${Math.max(12, 14 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
-  ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
-  ctx.fillText('y', originX + 8, PADDING - 5);
-  
-  // Clip للرسم الداخلي
-  ctx.save();
-  ctx.beginPath();
-  ctx.rect(PADDING, PADDING, drawW, drawH);
-  ctx.clip();
-  
-  // رسم الخط بدقة عالية
-  ctx.strokeStyle = '#4f46e5';
-  ctx.lineWidth = 3 / zoomDpr;
-  ctx.lineCap = 'round';
-  ctx.lineJoin = 'round';
-  ctx.beginPath();
-  let first = true;
-  for (let px = PADDING - 50; px <= W - PADDING + 50; px += 1) { // خطوة أصغر لدقة أعلى
-    const x = toMathX(px);
-    const y = currentM * x + currentB;
-    const py = toScreenY(y);
-    if (first) { ctx.moveTo(px, py); first = false; }
-    else ctx.lineTo(px, py);
-  }
-  ctx.stroke();
-  
-  // مثلث الميل
-  if (document.getElementById('showTriangle').checked && currentM !== 0) {
-    const startX = 0, startY = currentB, run = 1, rise = currentM;
-    const p1x = toScreenX(startX), p1y = toScreenY(startY);
-    const p2x = toScreenX(startX + run), p2y = toScreenY(startY);
-    const p3x = toScreenX(startX + run), p3y = toScreenY(startY + rise);
-    
-    if (p1x > PADDING + 20 && p3x < W - PADDING - 20 && p1y > PADDING + 20 && p3y < H - PADDING - 20) {
-      ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
-      ctx.beginPath(); ctx.moveTo(p1x, p1y); ctx.lineTo(p2x, p2y); ctx.lineTo(p3x, p3y); ctx.closePath(); ctx.fill();
-      
-      ctx.strokeStyle = '#059669'; ctx.lineWidth = 2 / zoomDpr; ctx.setLineDash([5, 3]);
-      ctx.beginPath(); ctx.moveTo(p1x, p1y); ctx.lineTo(p2x, p2y); ctx.stroke();
-      ctx.setLineDash([]);
-      
-      ctx.strokeStyle = '#dc2626';
-      ctx.beginPath(); ctx.moveTo(p2x, p2y); ctx.lineTo(p3x, p3y); ctx.stroke();
-      
-      const triFontSize = Math.max(11, 13 / Math.sqrt(zoomLevel));
-      ctx.font = `bold ${triFontSize}px IBM Plex Mono, monospace`;
-      ctx.fillStyle = '#059669'; ctx.textAlign = 'center';
-      ctx.fillText(`run = 1`, (p1x + p2x) / 2, p1y + 18);
-      
-      ctx.fillStyle = '#dc2626'; ctx.textAlign = 'left';
-      ctx.fillText(`rise = ${currentM}`, p3x + 5, (p2y + p3y) / 2);
-      
-      ctx.fillStyle = '#047857'; 
-      ctx.font = `bold ${Math.max(12, 14 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
-      ctx.textAlign = 'center';
-      ctx.fillText(`m = ${currentM}`, (p1x + p3x) / 2, (p1y + p3y) / 2 - 10);
+      ctx.beginPath(); ctx.moveTo(PADDING, y); ctx.lineTo(W - PADDING, y); ctx.stroke();
     }
   }
   
-  // نقاط مميزة
-  if (document.getElementById('showPoints').checked) {
-    const yIntX = toScreenX(0), yIntY = toScreenY(currentB);
-    ctx.fillStyle = '#f43f5e';
-    ctx.beginPath(); ctx.arc(yIntX, yIntY, 8 / zoomDpr, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 / zoomDpr; ctx.stroke();
-    
-    if (yIntX + 80 < W - PADDING && yIntY - 20 > PADDING) {
-      ctx.fillStyle = '#0f172a'; 
-      ctx.font = `bold ${Math.max(10, 12 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
-      ctx.textAlign = 'left';
-      ctx.fillText(`(0, ${currentB})`, yIntX + 12, yIntY - 10);
-    }
-    
-    if (currentM !== 0) {
-      const xInt = -currentB / currentM;
-      if (Math.abs(xInt) <= RANGE) {
-        const xIntX = toScreenX(xInt), xIntY = toScreenY(0);
-        ctx.fillStyle = '#8b5cf6';
-        ctx.beginPath(); ctx.arc(xIntX, xIntY, 7 / zoomDpr, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 / zoomDpr; ctx.stroke();
-        
-        if (xIntX + 60 < W - PADDING && xIntY + 30 < H - PADDING) {
-          ctx.fillStyle = '#0f172a'; 
-          ctx.font = `bold ${Math.max(9, 11 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
-          ctx.textAlign = 'center';
-          ctx.fillText(`(${xInt.toFixed(1)}, 0)`, xIntX, xIntY + 20);
-        }
-      }
-    }
-  }
-  
-  // نقطة متحركة
-  if (document.getElementById('animatePoint').checked) {
-    const animX = Math.sin(animatedT) * (RANGE * 0.5);
-    const animY = currentM * animX + currentB;
-    const ax = toScreenX(animX), ay = toScreenY(animY);
-    
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)'; ctx.lineWidth = 1.5 / zoomDpr; ctx.setLineDash([4, 4]);
-    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax, originY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(originX, ay); ctx.stroke();
-    ctx.setLineDash([]);
-    
-    ctx.fillStyle = '#f59e0b';
-    ctx.beginPath(); ctx.arc(ax, ay, 7 / zoomDpr, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 / zoomDpr; ctx.stroke();
-    
-    ctx.fillStyle = '#0f172a'; 
-    ctx.font = `bold ${Math.max(9, 11 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
-    ctx.textAlign = 'left';
-    ctx.fillText(`(${animX.toFixed(1)}, ${animY.toFixed(1)})`, ax + 10, ay - 10);
-    animatedT += 0.02;
-  }
-  
-  ctx.restore();
-  ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1 / zoomDpr;
-  ctx.strokeRect(PADDING, PADDING, drawW, drawH);
-}
-
-function animateGraph() {
-  if (document.getElementById('animatePoint').checked) {
-    drawGraph1();
-    animationId = requestAnimationFrame(animateGraph);
-  }
-}
-
-function toggleAnimation() {
-  if (document.getElementById('animatePoint').checked) animateGraph();
-  else { if (animationId) cancelAnimationFrame(animationId); drawGraph1(); }
-}
-
-const graphTooltip1 = document.getElementById('graphTooltip');
-if (graphCanvasWrap1) {
-  graphCanvasWrap1.addEventListener('mousemove', function(e) {
-    const rect = graphCanvasWrap1.getBoundingClientRect();
-    const px = e.clientX - rect.left, py = e.clientY - rect.top;
-    const W = rect.width, H = rect.height;
-    const RANGE = 8 / zoomLevel, PADDING = 40;
-    const originX = W / 2, originY = H / 2;
-    const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
-    
-    const mathX = (px - originX) / scale;
-    const mathY = (originY - py) / scale;
-    const lineY = currentM * mathX + currentB;
-    
-    graphTooltip1.style.display = 'block';
-    graphTooltip1.style.left = (px + 15) + 'px';
-    graphTooltip1.style.top = (py - 30) + 'px';
-    graphTooltip1.innerHTML = ` الماوس: (${mathX.toFixed(2)}, ${mathY.toFixed(2)})<br> على الخط: y = ${lineY.toFixed(2)}`;
-  });
-  graphCanvasWrap1.addEventListener('mouseleave', function() { graphTooltip1.style.display = 'none'; });
-}
-
-// ═══════════════════════════════════════════════════════════════
-// GRAPH 2 - COMPARISON
-// ═══════════════════════════════════════════════════════════════
-let m1=1, b1=0, m2=-1, b2=3;
-
-function syncGraph2(eqNum, type, val) {
-  val = parseFloat(val) || 0;
-  if (eqNum === 1) {
-    if (type === 'm') { m1 = val; document.getElementById('m1Input').value = val; }
-    else { b1 = val; document.getElementById('b1Input').value = val; }
-    document.getElementById('eq1Formula').textContent = formatEq(m1, b1);
-  } else {
-    if (type === 'm') { m2 = val; document.getElementById('m2Input').value = val; }
-    else { b2 = val; document.getElementById('b2Input').value = val; }
-    document.getElementById('eq2Formula').textContent = formatEq(m2, b2);
-  }
-  drawGraph2();
-}
-
-function drawGraph2() {
-  const canvas = document.getElementById('graphCanvas2');
-  if (!canvas) return;
-  const wrap = document.getElementById('graphCanvasWrap2');
-  const rect = wrap.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
-  canvas.style.width = rect.width + 'px';
-  canvas.style.height = rect.height + 'px';
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
-  const W = rect.width, H = rect.height;
-  const RANGE = 8, PADDING = 40;
-  const drawW = W - PADDING * 2, drawH = H - PADDING * 2;
-  const originX = W / 2, originY = H / 2;
-  const scale = Math.min(drawW, drawH) / (RANGE * 2);
-  
-  function toScreenX(x) { return originX + x * scale; }
-  function toScreenY(y) { return originY - y * scale; }
-  function toMathX(px) { return (px - originX) / scale; }
-  
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0, 0, W, H);
-  
-  ctx.strokeStyle = '#e2e8f0'; ctx.lineWidth = 1;
-  for (let i = -RANGE; i <= RANGE; i++) {
-    const x = toScreenX(i), y = toScreenY(i);
-    ctx.beginPath(); ctx.moveTo(x, PADDING); ctx.lineTo(x, H - PADDING); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(PADDING, y); ctx.lineTo(W - PADDING, y); ctx.stroke();
-  }
-  
-  ctx.strokeStyle = '#334155'; ctx.lineWidth = 2;
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 2;
   ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
   
@@ -1201,10 +1181,13 @@ function drawGraph2() {
   ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
   ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
   
-  ctx.fillStyle = '#64748b'; ctx.font = 'bold 11px IBM Plex Mono, monospace'; ctx.textAlign = 'center';
+  ctx.fillStyle = '#64748b';
+  ctx.font = 'bold 11px IBM Plex Mono, monospace';
+  ctx.textAlign = 'center';
   for (let i = -RANGE; i <= RANGE; i++) {
     if (i === 0) continue;
-    const x = toScreenX(i), y = toScreenY(i);
+    const x = toScreenX(i);
+    const y = toScreenY(i);
     if (x >= PADDING && x <= W - PADDING) {
       ctx.fillText(i, x, originY + 18);
       ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
@@ -1216,205 +1199,1027 @@ function drawGraph2() {
     }
   }
   ctx.textAlign = 'right'; ctx.fillText('0', originX - 8, originY + 18);
-  ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px IBM Plex Mono, monospace'; ctx.textAlign = 'left';
-  ctx.fillText('x', W - PADDING + 8, originY + 5);
-  ctx.fillText('y', originX + 8, PADDING - 5);
+  ctx.fillStyle = '#0f1419'; ctx.font = 'bold 13px IBM Plex Mono, monospace';
+  ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
+  ctx.fillText('y', originX + 8, PADDING - 8);
   
-  ctx.save();
-  ctx.beginPath(); ctx.rect(PADDING, PADDING, drawW, drawH); ctx.clip();
+  // Draw line
+  ctx.strokeStyle = '#6366f1';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  let first = true;
+  for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
+    const x = toMathX(px);
+    const y = state.singleEq.m * x + state.singleEq.b;
+    const py = toScreenY(y);
+    if (first) { ctx.moveTo(px, py); first = false; }
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
   
-  function drawLine(m, b, color) {
-    ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineCap = 'round';
-    ctx.beginPath();
-    let first = true;
-    for (let px = PADDING - 50; px <= W - PADDING + 50; px += 1) {
-      const x = toMathX(px), y = m * x + b, py = toScreenY(y);
-      if (first) { ctx.moveTo(px, py); first = false; }
-      else ctx.lineTo(px, py);
+  // Draw points
+  const p1x = toScreenX(singlePoint1.x);
+  const p1y = toScreenY(singlePoint1.y);
+  const p2x = toScreenX(singlePoint2.x);
+  const p2y = toScreenY(singlePoint2.y);
+  
+  ctx.fillStyle = '#3b82f6';
+  ctx.beginPath(); ctx.arc(p1x, p1y, 10, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+  
+  ctx.fillStyle = '#ef4444';
+  ctx.beginPath(); ctx.arc(p2x, p2y, 10, 0, Math.PI * 2); ctx.fill();
+  ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+}
+
+function setupSingleGraphEvents() {
+  const canvas = document.getElementById('singleGraph');
+  if (!canvas) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const W = rect.width;
+  const H = rect.height;
+  const RANGE = 8;
+  const PADDING = 40;
+  const originX = W / 2;
+  const originY = H / 2;
+  const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
+  
+  function toScreenX(x) { return originX + x * scale; }
+  function toScreenY(y) { return originY - y * scale; }
+  function toMathX(px) { return (px - originX) / scale; }
+  function toMathY(py) { return (originY - py) / scale; }
+  
+  function getDistance(clientX, clientY, point) {
+    const rect = canvas.getBoundingClientRect();
+    const px = clientX - rect.left;
+    const py = clientY - rect.top;
+    const sx = toScreenX(point.x);
+    const sy = toScreenY(point.y);
+    return Math.sqrt(Math.pow(px - sx, 2) + Math.pow(py - sy, 2));
+  }
+  
+  function handleStart(clientX, clientY) {
+    const d1 = getDistance(clientX, clientY, singlePoint1);
+    const d2 = getDistance(clientX, clientY, singlePoint2);
+    
+    if (d1 < 20) {
+      isDraggingSingle = 'p1';
+      canvas.style.cursor = 'grabbing';
+    } else if (d2 < 20) {
+      isDraggingSingle = 'p2';
+      canvas.style.cursor = 'grabbing';
     }
-    ctx.stroke();
   }
   
-  drawLine(m1, b1, '#4f46e5');
-  drawLine(m2, b2, '#f59e0b');
-  
-  if (Math.abs(m1 - m2) > 0.001) {
-    const x = (b2 - b1) / (m1 - m2);
-    const y = m1 * x + b1;
-    const ix = toScreenX(x), iy = toScreenY(y);
+  function handleMove(clientX, clientY) {
+    if (!isDraggingSingle) {
+      const d1 = getDistance(clientX, clientY, singlePoint1);
+      const d2 = getDistance(clientX, clientY, singlePoint2);
+      canvas.style.cursor = (d1 < 20 || d2 < 20) ? 'grab' : 'crosshair';
+      return;
+    }
     
-    ctx.strokeStyle = 'rgba(244, 63, 94, 0.5)'; ctx.lineWidth = 1.5; ctx.setLineDash([5, 4]);
-    ctx.beginPath(); ctx.moveTo(ix, iy); ctx.lineTo(ix, originY); ctx.stroke();
-    ctx.beginPath(); ctx.moveTo(ix, iy); ctx.lineTo(originX, iy); ctx.stroke();
-    ctx.setLineDash([]);
+    const rect = canvas.getBoundingClientRect();
+    const px = clientX - rect.left;
+    const py = clientY - rect.top;
     
-    ctx.fillStyle = 'rgba(244, 63, 94, 0.3)';
-    ctx.beginPath(); ctx.arc(ix, iy, 15, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = '#f43f5e';
-    ctx.beginPath(); ctx.arc(ix, iy, 8, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    let mathX = toMathX(px);
+    let mathY = toMathY(py);
     
-    ctx.fillStyle = '#0f172a'; ctx.font = 'bold 13px IBM Plex Mono, monospace'; ctx.textAlign = 'left';
-    ctx.fillText(`(${x.toFixed(2)}, ${y.toFixed(2)})`, ix + 15, iy - 15);
+    mathX = Math.max(-RANGE, Math.min(RANGE, mathX));
+    mathY = Math.max(-RANGE, Math.min(RANGE, mathY));
     
-    document.getElementById('intersectionPoint').innerHTML = `<strong>(${x.toFixed(2)}, ${y.toFixed(2)})</strong>`;
-    document.getElementById('intersectionExplanation').innerHTML = `<strong>💡 الشرح:</strong> عند x = ${x.toFixed(2)}، تكون y في المعادلتين متساوية = ${y.toFixed(2)}. هذه هي النقطة الوحيدة التي تحقق كلا المعادلتين معاً.`;
-  } else {
-    document.getElementById('intersectionPoint').innerHTML = '<span>️ لا يوجد تقاطع (متوازيان)</span>';
-    document.getElementById('intersectionExplanation').innerHTML = '<strong>⚠️ ملاحظة:</strong> الخطان متوازيان (نفس الميل) ولن يتقاطعا أبداً.';
+    mathX = Math.round(mathX * 2) / 2;
+    mathY = Math.round(mathY * 2) / 2;
+    
+    if (isDraggingSingle === 'p1') {
+      singlePoint1.x = 0;
+      singlePoint1.y = mathY;
+    } else if (isDraggingSingle === 'p2') {
+      singlePoint2.x = mathX;
+      singlePoint2.y = mathY;
+    }
+    
+    updateSingleEquationFromPoints();
+    drawSingleGraph();
   }
   
-  ctx.restore();
-  ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1;
-  ctx.strokeRect(PADDING, PADDING, drawW, drawH);
+  function handleEnd() {
+    isDraggingSingle = null;
+    canvas.style.cursor = 'crosshair';
+  }
+  
+  canvas.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
+  canvas.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
+  canvas.addEventListener('mouseup', handleEnd);
+  canvas.addEventListener('mouseleave', handleEnd);
+  
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    if (e.touches.length === 1) handleStart(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDraggingSingle) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  
+  canvas.addEventListener('touchend', handleEnd);
 }
 
-const graphCanvas2 = document.getElementById('graphCanvas2');
-const graphTooltip2 = document.getElementById('graphTooltip2');
-const graphWrap2 = document.getElementById('graphCanvasWrap2');
-if (graphCanvas2 && graphWrap2) {
-  graphCanvas2.addEventListener('mousemove', function(e) {
-    const rect = graphWrap2.getBoundingClientRect();
-    const px = e.clientX - rect.left, py = e.clientY - rect.top;
-    const W = rect.width, H = rect.height, RANGE = 8, PADDING = 40;
-    const originX = W / 2, originY = H / 2;
-    const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
+function setupSingleEquationControls() {
+  ['m', 'b'].forEach(key => {
+    const input = document.getElementById(`single${key.toUpperCase()}Input`);
+    const slider = document.getElementById(`single${key.toUpperCase()}Slider`);
     
-    const mathX = (px - originX) / scale;
-    const mathY = (originY - py) / scale;
+    input.addEventListener('input', function() {
+      const val = parseFloat(this.value) || 0;
+      state.singleEq[key] = val;
+      slider.value = val;
+      syncSinglePointsFromEquation();
+      updateSingleDisplays();
+      drawSingleGraph();
+      updateSingleValuesTable();
+      saveState();
+    });
     
-    graphTooltip2.style.display = 'block';
-    graphTooltip2.style.left = (px + 15) + 'px';
-    graphTooltip2.style.top = (py - 30) + 'px';
-    graphTooltip2.innerHTML = `📍 (${mathX.toFixed(2)}, ${mathY.toFixed(2)})<br>🔵 y₁ = ${(m1 * mathX + b1).toFixed(2)}<br>🟠 y₂ = ${(m2 * mathX + b2).toFixed(2)}`;
+    slider.addEventListener('input', function() {
+      const val = parseFloat(this.value);
+      state.singleEq[key] = val;
+      input.value = val;
+      syncSinglePointsFromEquation();
+      updateSingleDisplays();
+      drawSingleGraph();
+      updateSingleValuesTable();
+      saveState();
+    });
   });
-  graphCanvas2.addEventListener('mouseleave', function() { graphTooltip2.style.display = 'none'; });
 }
 
-function initGraphs() {
-  drawGraph1();
-  drawGraph2();
+// ══════════════════════════════════════════════════════════════
+// DUAL GRAPH - BIDIRECTIONAL SYNC
+// ══════════════════════════════════════════════════════════════
+let eq1Points = [{x: 0, y: 1}, {x: 2, y: 5}];
+let eq2Points = [{x: 0, y: 4}, {x: 2, y: 2}];
+let isDraggingDual = null;
+
+function initDualGraph() {
+  const canvas = document.getElementById('dualGraph');
+  const wrap = document.getElementById('dualGraphWrap');
+  const rect = wrap.getBoundingClientRect();
+  
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+  
+  syncPointsFromEquations();
+  drawDualGraph();
   updateValuesTable();
-  updateExplanation();
-  updateZoomDisplay();
+  updateAlgebraicSolution();
+  setupDualGraphEvents();
+  setupEquationControls();
 }
 
-// ═══════════════════════════════════════════════════════════════
-// CONCEPTS & EXERCISES
-// ═══════════════════════════════════════════════════════════════
-const conceptsData = [
-  {icon:'🔤', title:'المتغير (Variable)', desc:'حرف يمثل عدداً مجهولاً', explanation:'المتغير هو <strong>حرف</strong> (مثل x, y) نستخدمه لتمثيل عدد مجهول.', examples:['في <span class="math-expr">3x + 5</span>، المتغير هو x'], generateExercise:() => { const x = Math.floor(Math.random()*8)+2; const a = Math.floor(Math.random()*5)+2; const b = Math.floor(Math.random()*10)+1; return {q:`إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a:a*x+b}; }},
-  {icon:'🔢', title:'الثابت (Constant)', desc:'عدد ثابت لا يتغير', explanation:'الثابت هو <strong>عدد</strong> لا يحتوي على متغير.', examples:['في <span class="math-expr">3x + 5</span>، الثابت هو 5'], generateExercise:() => { const b = Math.floor(Math.random()*15)+1; const a = Math.floor(Math.random()*5)+2; return {q:`ما هو الثابت في <span class="math-expr">${a}x + ${b}</span>؟`, a:b}; }},
-  {icon:'✖️', title:'المعامل (Coefficient)', desc:'العدد المضروب في المتغير', explanation:'المعامل هو <strong>العدد</strong> الذي يُضرب في المتغير.', examples:['في <span class="math-expr">3x</span>، المعامل هو 3'], generateExercise:() => { const a = Math.floor(Math.random()*9)+2; return {q:`معامل x في <span class="math-expr">${a}x + 7</span>؟`, a:a}; }},
-  {icon:'➕', title:'الحد (Term)', desc:'كل جزء في العبارة', explanation:'الحد هو <strong>كل جزء</strong> من العبارة الجبرية.', examples:['في <span class="math-expr">3x + 5 - 2y</span>، الحدود: 3x, 5, -2y'], generateExercise:() => { const a = Math.floor(Math.random()*5)+2; const b = Math.floor(Math.random()*5)+1; return {q:`عدد الحدود في <span class="math-expr">${a}x + ${b}y - 3</span>؟`, a:3}; }},
-  {icon:'📝', title:'العبارة الجبرية', desc:'مجموعة أعداد ومتغيرات بدون =', explanation:'العبارة الجبرية هي مجموعة من <strong>الأعداد والمتغيرات</strong> بدون علامة =.', examples:['<span class="math-expr">3x + 5</span> هي عبارة جبرية'], generateExercise:() => { const x = Math.floor(Math.random()*6)+2; const a = Math.floor(Math.random()*4)+2; const b = Math.floor(Math.random()*8)+1; return {q:`قيّمي <span class="math-expr">${a}x + ${b}</span> عندما <span class="math-expr">x = ${x}</span>`, a:a*x+b}; }},
-  {icon:'⚖️', title:'المعادلة (Equation)', desc:'عبارة تحتوي على =', explanation:'المعادلة تحتوي على علامة <strong>=</strong> وتوضح تساوي طرفين.', examples:['<span class="math-expr">3x + 5 = 20</span> هي معادلة'], generateExercise:() => { const x = Math.floor(Math.random()*8)+2; const b = Math.floor(Math.random()*8)+1; return {q:`حلّي: <span class="math-expr">x + ${b} = ${x+b}</span>`, a:x}; }}
-];
+function syncPointsFromEquations() {
+  eq1Points = [
+    {x: 0, y: state.eq1.b},
+    {x: 2, y: state.eq1.m * 2 + state.eq1.b}
+  ];
+  eq2Points = [
+    {x: 0, y: state.eq2.b},
+    {x: 2, y: state.eq2.m * 2 + state.eq2.b}
+  ];
+}
 
-function renderConcepts() {
-  const grid = document.getElementById('conceptsGrid');
-  grid.innerHTML = '';
-  conceptsData.forEach((c, i) => {
-    const card = document.createElement('div');
-    card.className = 'concept-card';
-    card.onclick = () => { alert(c.title + '\n\n' + c.explanation + '\n\nأمثلة:\n' + c.examples.join('\n')); };
-    card.innerHTML = `<div class="concept-icon">${c.icon}</div><h3>${c.title}</h3><p>${c.desc}</p>`;
-    grid.appendChild(card);
+function updateEquationsFromPoints() {
+  if (Math.abs(eq1Points[1].x - eq1Points[0].x) > 0.1) {
+    state.eq1.m = (eq1Points[1].y - eq1Points[0].y) / (eq1Points[1].x - eq1Points[0].x);
+    state.eq1.b = eq1Points[0].y - state.eq1.m * eq1Points[0].x;
+  }
+  if (Math.abs(eq2Points[1].x - eq2Points[0].x) > 0.1) {
+    state.eq2.m = (eq2Points[1].y - eq2Points[0].y) / (eq2Points[1].x - eq2Points[0].x);
+    state.eq2.b = eq2Points[0].y - state.eq2.m * eq2Points[0].x;
+  }
+  state.eq1.m = Math.round(state.eq1.m * 2) / 2;
+  state.eq1.b = Math.round(state.eq1.b * 2) / 2;
+  state.eq2.m = Math.round(state.eq2.m * 2) / 2;
+  state.eq2.b = Math.round(state.eq2.b * 2) / 2;
+  
+  updateDisplaysFromState();
+  updateValuesTable();
+  updateAlgebraicSolution();
+  saveState();
+}
+
+function updateDisplaysFromState() {
+  document.getElementById('eq1Display').textContent = formatEquation(state.eq1.m, state.eq1.b);
+  document.getElementById('eq2Display').textContent = formatEquation(state.eq2.m, state.eq2.b);
+  document.getElementById('m1Input').value = state.eq1.m;
+  document.getElementById('b1Input').value = state.eq1.b;
+  document.getElementById('m2Input').value = state.eq2.m;
+  document.getElementById('b2Input').value = state.eq2.b;
+  document.getElementById('m1Slider').value = state.eq1.m;
+  document.getElementById('b1Slider').value = state.eq1.b;
+  document.getElementById('m2Slider').value = state.eq2.m;
+  document.getElementById('b2Slider').value = state.eq2.b;
+  document.getElementById('y1Header').textContent = `y₁ = ${formatEquation(state.eq1.m, state.eq1.b).replace('y = ', '')}`;
+  document.getElementById('y2Header').textContent = `y₂ = ${formatEquation(state.eq2.m, state.eq2.b).replace('y = ', '')}`;
+}
+
+function drawDualGraph() {
+  const canvas = document.getElementById('dualGraph');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  
+  const RANGE = 8;
+  const PADDING = 40;
+  const originX = W / 2;
+  const originY = H / 2;
+  const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
+  
+  function toScreenX(x) { return originX + x * scale; }
+  function toScreenY(y) { return originY - y * scale; }
+  function toMathX(px) { return (px - originX) / scale; }
+  
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, W, H);
+  
+  ctx.strokeStyle = '#e2e8f0';
+  ctx.lineWidth = 1;
+  for (let i = -RANGE; i <= RANGE; i++) {
+    const x = toScreenX(i);
+    const y = toScreenY(i);
+    if (x >= PADDING && x <= W - PADDING) {
+      ctx.beginPath(); ctx.moveTo(x, PADDING); ctx.lineTo(x, H - PADDING); ctx.stroke();
+    }
+    if (y >= PADDING && y <= H - PADDING) {
+      ctx.beginPath(); ctx.moveTo(PADDING, y); ctx.lineTo(W - PADDING, y); ctx.stroke();
+    }
+  }
+  
+  ctx.strokeStyle = '#334155';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
+  
+  ctx.fillStyle = '#334155';
+  ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
+  
+  ctx.fillStyle = '#64748b';
+  ctx.font = 'bold 11px IBM Plex Mono, monospace';
+  ctx.textAlign = 'center';
+  for (let i = -RANGE; i <= RANGE; i++) {
+    if (i === 0) continue;
+    const x = toScreenX(i);
+    const y = toScreenY(i);
+    if (x >= PADDING && x <= W - PADDING) {
+      ctx.fillText(i, x, originY + 18);
+      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(x, originY - 3); ctx.lineTo(x, originY + 3); ctx.stroke();
+    }
+    if (y >= PADDING && y <= H - PADDING) {
+      ctx.textAlign = 'right'; ctx.fillText(i, originX - 8, y + 4); ctx.textAlign = 'center';
+      ctx.beginPath(); ctx.moveTo(originX - 3, y); ctx.lineTo(originX + 3, y); ctx.stroke();
+    }
+  }
+  ctx.textAlign = 'right'; ctx.fillText('0', originX - 8, originY + 18);
+  ctx.fillStyle = '#0f1419'; ctx.font = 'bold 13px IBM Plex Mono, monospace';
+  ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
+  ctx.fillText('y', originX + 8, PADDING - 8);
+  
+  // Equation 1 Line
+  ctx.strokeStyle = '#3b82f6';
+  ctx.lineWidth = 3;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  let first = true;
+  for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
+    const x = toMathX(px);
+    const y = state.eq1.m * x + state.eq1.b;
+    const py = toScreenY(y);
+    if (first) { ctx.moveTo(px, py); first = false; }
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  
+  // Equation 2 Line
+  ctx.strokeStyle = '#ef4444';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  first = true;
+  for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
+    const x = toMathX(px);
+    const y = state.eq2.m * x + state.eq2.b;
+    const py = toScreenY(y);
+    if (first) { ctx.moveTo(px, py); first = false; }
+    else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+  
+  // Intersection
+  if (Math.abs(state.eq1.m - state.eq2.m) > 0.001) {
+    const ix = (state.eq2.b - state.eq1.b) / (state.eq1.m - state.eq2.m);
+    const iy = state.eq1.m * ix + state.eq1.b;
+    const isx = toScreenX(ix);
+    const isy = toScreenY(iy);
+    
+    if (isx >= PADDING && isx <= W - PADDING && isy >= PADDING && isy <= H - PADDING) {
+      ctx.fillStyle = 'rgba(245, 158, 11, 0.3)';
+      ctx.beginPath(); ctx.arc(isx, isy, 18, 0, Math.PI * 2); ctx.fill();
+      
+      ctx.fillStyle = '#f59e0b';
+      ctx.beginPath(); ctx.arc(isx, isy, 9, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+      
+      ctx.fillStyle = '#0f1419';
+      ctx.font = 'bold 12px IBM Plex Mono, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(`(${ix.toFixed(1)}, ${iy.toFixed(1)})`, isx + 12, isy - 12);
+    }
+  }
+  
+  // Points for Eq1
+  eq1Points.forEach(p => {
+    const sx = toScreenX(p.x);
+    const sy = toScreenY(p.y);
+    ctx.fillStyle = '#3b82f6';
+    ctx.beginPath(); ctx.arc(sx, sy, 10, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
+  });
+  
+  // Points for Eq2
+  eq2Points.forEach(p => {
+    const sx = toScreenX(p.x);
+    const sy = toScreenY(p.y);
+    ctx.fillStyle = '#ef4444';
+    ctx.beginPath(); ctx.arc(sx, sy, 10, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
   });
 }
 
-function generateExprQuestion() {
-  const x = Math.floor(Math.random() * 8) + 2;
-  const a = Math.floor(Math.random() * 5) + 2;
-  const b = Math.floor(Math.random() * 10) + 1;
-  return { q: `إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a: a * x + b };
-}
-function newExprQuestion() { state.currentExpr = generateExprQuestion(); document.getElementById('exprQ').innerHTML = state.currentExpr.q; document.getElementById('exprA').value = ''; }
-function checkExprAnswer() {
-  const input = document.getElementById('exprA');
-  const userAns = parseInt(input.value);
-  if (isNaN(userAns)) { alert('اكتبي رقم الإجابة!'); return; }
-  if (userAns === state.currentExpr.a) { showCorrectFeedback(); state.points += 10; state.correct++; playSound('correct'); setTimeout(() => playSound('gem'), 400); }
-  else { showWrongFeedback(); state.wrong++; playSound('wrong'); }
-  input.value = ''; saveState(); updateHomeStats();
+function setupDualGraphEvents() {
+  const canvas = document.getElementById('dualGraph');
+  if (!canvas) return;
+  
+  const rect = canvas.getBoundingClientRect();
+  const W = rect.width;
+  const H = rect.height;
+  const RANGE = 8;
+  const PADDING = 40;
+  const originX = W / 2;
+  const originY = H / 2;
+  const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
+  
+  function toScreenX(x) { return originX + x * scale; }
+  function toScreenY(y) { return originY - y * scale; }
+  function toMathX(px) { return (px - originX) / scale; }
+  function toMathY(py) { return (originY - py) / scale; }
+  
+  function getDistance(clientX, clientY, point) {
+    const rect = canvas.getBoundingClientRect();
+    const px = clientX - rect.left;
+    const py = clientY - rect.top;
+    const sx = toScreenX(point.x);
+    const sy = toScreenY(point.y);
+    return Math.sqrt(Math.pow(px - sx, 2) + Math.pow(py - sy, 2));
+  }
+  
+  function handleStart(clientX, clientY) {
+    const allPoints = [
+      {point: eq1Points[0], id: 'eq1p0'},
+      {point: eq1Points[1], id: 'eq1p1'},
+      {point: eq2Points[0], id: 'eq2p0'},
+      {point: eq2Points[1], id: 'eq2p1'}
+    ];
+    
+    let minDist = Infinity;
+    let closest = null;
+    
+    allPoints.forEach(({point, id}) => {
+      const d = getDistance(clientX, clientY, point);
+      if (d < minDist) {
+        minDist = d;
+        closest = id;
+      }
+    });
+    
+    if (minDist < 22) {
+      isDraggingDual = closest;
+      canvas.style.cursor = 'grabbing';
+    }
+  }
+  
+  function handleMove(clientX, clientY) {
+    if (!isDraggingDual) {
+      const allPoints = [...eq1Points, ...eq2Points];
+      let minDist = Infinity;
+      allPoints.forEach(point => {
+        const d = getDistance(clientX, clientY, point);
+        if (d < minDist) minDist = d;
+      });
+      canvas.style.cursor = minDist < 22 ? 'grab' : 'crosshair';
+      return;
+    }
+    
+    const rect = canvas.getBoundingClientRect();
+    const px = clientX - rect.left;
+    const py = clientY - rect.top;
+    
+    let mathX = toMathX(px);
+    let mathY = toMathY(py);
+    
+    mathX = Math.max(-RANGE, Math.min(RANGE, mathX));
+    mathY = Math.max(-RANGE, Math.min(RANGE, mathY));
+    
+    mathX = Math.round(mathX * 2) / 2;
+    mathY = Math.round(mathY * 2) / 2;
+    
+    if (isDraggingDual === 'eq1p0') {
+      eq1Points[0].x = 0;
+      eq1Points[0].y = mathY;
+    } else if (isDraggingDual === 'eq1p1') {
+      eq1Points[1].x = mathX;
+      eq1Points[1].y = mathY;
+    } else if (isDraggingDual === 'eq2p0') {
+      eq2Points[0].x = 0;
+      eq2Points[0].y = mathY;
+    } else if (isDraggingDual === 'eq2p1') {
+      eq2Points[1].x = mathX;
+      eq2Points[1].y = mathY;
+    }
+    
+    updateEquationsFromPoints();
+    drawDualGraph();
+  }
+  
+  function handleEnd() {
+    isDraggingDual = null;
+    canvas.style.cursor = 'crosshair';
+  }
+  
+  canvas.addEventListener('mousedown', e => handleStart(e.clientX, e.clientY));
+  canvas.addEventListener('mousemove', e => handleMove(e.clientX, e.clientY));
+  canvas.addEventListener('mouseup', handleEnd);
+  canvas.addEventListener('mouseleave', handleEnd);
+  
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    if (e.touches.length === 1) handleStart(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  
+  canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (e.touches.length === 1 && isDraggingDual) handleMove(e.touches[0].clientX, e.touches[0].clientY);
+  }, { passive: false });
+  
+  canvas.addEventListener('touchend', handleEnd);
 }
 
-function generateEqQuestion() {
-  const types = ['add','sub','mul'];
-  const type = types[Math.floor(Math.random() * types.length)];
-  let q, a;
-  if (type === 'add') { const x = Math.floor(Math.random()*10)+1; const b = Math.floor(Math.random()*10)+1; q = `<span class="math-expr">x + ${b} = ${x+b}</span>`; a = x; }
-  else if (type === 'sub') { const x = Math.floor(Math.random()*10)+5; const b = Math.floor(Math.random()*5)+1; q = `<span class="math-expr">x - ${b} = ${x-b}</span>`; a = x; }
-  else { const x = Math.floor(Math.random()*10)+1; const b = Math.floor(Math.random()*5)+2; q = `<span class="math-expr">${b}x = ${x*b}</span>`; a = x; }
-  return {q, a, type};
-}
-function newEqQuestion() { state.currentEq = generateEqQuestion(); document.getElementById('eqQ').innerHTML = state.currentEq.q; document.getElementById('eqA').value = ''; }
-function checkEqAnswer() {
-  const input = document.getElementById('eqA');
-  const userAns = parseInt(input.value);
-  if (isNaN(userAns)) { alert('اكتبي قيمة x!'); return; }
-  if (userAns === state.currentEq.a) { showCorrectFeedback(); state.points += 15; state.correct++; playSound('correct'); setTimeout(() => playSound('gem'), 400); }
-  else { showWrongFeedback(); state.wrong++; playSound('wrong'); }
-  input.value = ''; saveState(); updateHomeStats();
-}
-function showEqHint() {
-  const type = state.currentEq.type;
-  let hint = type === 'add' ? '💡 اطرحي العدد من الطرفين!' : type === 'sub' ? '💡 أضيفي العدد للطرفين!' : '💡 اقسمي الطرفين على المعامل!';
-  alert(hint);
+function setupEquationControls() {
+  ['m1', 'b1'].forEach(id => {
+    const input = document.getElementById(id + 'Input');
+    const slider = document.getElementById(id + 'Slider');
+    const key = id === 'm1' ? 'm' : 'b';
+    
+    input.addEventListener('input', function() {
+      const val = parseFloat(this.value) || 0;
+      state.eq1[key] = val;
+      slider.value = val;
+      syncPointsFromEquations();
+      updateDisplaysFromState();
+      drawDualGraph();
+      updateValuesTable();
+      updateAlgebraicSolution();
+      saveState();
+    });
+    
+    slider.addEventListener('input', function() {
+      const val = parseFloat(this.value);
+      state.eq1[key] = val;
+      input.value = val;
+      syncPointsFromEquations();
+      updateDisplaysFromState();
+      drawDualGraph();
+      updateValuesTable();
+      updateAlgebraicSolution();
+      saveState();
+    });
+  });
+  
+  ['m2', 'b2'].forEach(id => {
+    const input = document.getElementById(id + 'Input');
+    const slider = document.getElementById(id + 'Slider');
+    const key = id === 'm2' ? 'm' : 'b';
+    
+    input.addEventListener('input', function() {
+      const val = parseFloat(this.value) || 0;
+      state.eq2[key] = val;
+      slider.value = val;
+      syncPointsFromEquations();
+      updateDisplaysFromState();
+      drawDualGraph();
+      updateValuesTable();
+      updateAlgebraicSolution();
+      saveState();
+    });
+    
+    slider.addEventListener('input', function() {
+      const val = parseFloat(this.value);
+      state.eq2[key] = val;
+      input.value = val;
+      syncPointsFromEquations();
+      updateDisplaysFromState();
+      drawDualGraph();
+      updateValuesTable();
+      updateAlgebraicSolution();
+      saveState();
+    });
+  });
 }
 
-function updateScale() {
-  const left = parseInt(document.getElementById('scaleLeft').value) || 0;
-  const right = parseInt(document.getElementById('scaleRight').value) || 0;
-  document.getElementById('leftWeight').textContent = left;
-  document.getElementById('rightWeight').textContent = right;
-  const beam = document.getElementById('scaleBeam');
-  const status = document.getElementById('scaleStatus');
-  const maxDiff = 20, maxAngle = 25;
-  const diff = left - right;
-  const clampedAngle = Math.max(-maxAngle, Math.min(maxAngle, (diff / maxDiff) * maxAngle));
-  if (left === right) { beam.style.transform = 'rotate(0deg)'; status.textContent = '⚖️ متوازن!'; status.className = 'scale-status balanced'; }
-  else if (left > right) { beam.style.transform = `rotate(${Math.abs(clampedAngle)}deg)`; status.textContent = `⬅️ الأيسر أثقل بفارق ${Math.abs(diff)}`; status.className = 'scale-status unbalanced'; }
-  else { beam.style.transform = `rotate(${-Math.abs(clampedAngle)}deg)`; status.textContent = `➡️ الأيمن أثقل بفارق ${Math.abs(diff)}`; status.className = 'scale-status unbalanced'; }
-}
-function balanceScale() {
-  const left = parseInt(document.getElementById('scaleLeft').value) || 0;
-  document.getElementById('scaleRight').value = left;
-  updateScale();
-  state.points += 5; saveState(); updateHomeStats(); playSound('gem');
+function updateValuesTable() {
+  const tbody = document.getElementById('valuesTableBody');
+  if (!tbody) return;
+  
+  tbody.innerHTML = '';
+  
+  const xValues = [-3, -2, -1, 0, 1, 2, 3, 4];
+  
+  let ix = null, iy = null;
+  if (Math.abs(state.eq1.m - state.eq2.m) > 0.001) {
+    ix = (state.eq2.b - state.eq1.b) / (state.eq1.m - state.eq2.m);
+    iy = state.eq1.m * ix + state.eq1.b;
+  }
+  
+  xValues.forEach(x => {
+    const y1 = state.eq1.m * x + state.eq1.b;
+    const y2 = state.eq2.m * x + state.eq2.b;
+    
+    const row = document.createElement('tr');
+    
+    if (ix !== null && Math.abs(x - ix) < 0.01) {
+      row.className = 'intersection';
+    } else if (x === 0) {
+      row.className = 'highlight';
+    }
+    
+    let note = '';
+    if (ix !== null && Math.abs(x - ix) < 0.01) {
+      note = '⭐ نقطة التقاطع!';
+    } else if (x === 0) {
+      note = 'تقاطع مع محور y';
+    } else if (Math.abs(y2) < 0.01) {
+      note = 'تقاطع y₂ مع محور x';
+    }
+    
+    row.innerHTML = `
+      <td>${x}</td>
+      <td>${y1.toFixed(1)}</td>
+      <td>${y2.toFixed(1)}</td>
+      <td>${note}</td>
+    `;
+    tbody.appendChild(row);
+  });
 }
 
-const eduCardsData = [
-  {icon:'📐', title:'المعادلة الخطية', desc:'y = mx + b', formula:'y = mx + b', examples:['<span class="math-expr">y = 2x + 3</span>','<span class="math-expr">y = -x + 5</span>']},
-  {icon:'📈', title:'الميل (Slope)', desc:'يحدد اتجاه الخط', formula:'m = rise/run', examples:['<span class="math-expr">m = 2</span>: صاعد','<span class="math-expr">m = -1</span>: نازل']},
-  {icon:'📊', title:'الجزء المقطوع', desc:'تقاطع مع محور y', formula:'b في y = mx + b', examples:['<span class="math-expr">b = 3</span>: (0, 3)','<span class="math-expr">b = -2</span>: (0, -2)']},
-  {icon:'⚖️', title:'حل المعادلة', desc:'إيجاد قيمة x', formula:'x + 3 = 7 → x = 4', examples:['<span class="math-expr">2x = 10 → x = 5</span>','<span class="math-expr">x - 4 = 3 → x = 7</span>']},
-  {icon:'🔄', title:'العمليات العكسية', desc:'الجمع ↔ الطرح', formula:'+a ↔ -a', examples:['<span class="math-expr">x + 5 = 12</span> → نطرح 5','<span class="math-expr">3x = 15</span> → نقسم على 3']},
-  {icon:'', title:'نقطة التقاطع', desc:'حل جملة معادلتين', formula:'m₁x+b₁ = m₂x+b₂', examples:['<span class="math-expr">y=x</span> و <span class="math-expr">y=-x+4</span> → (2,2)']},
-  {icon:'', title:'الخط التنازلي', desc:'الميل سالب', formula:'m < 0', examples:['<span class="math-expr">y = -x + 5</span>','<span class="math-expr">y = -2x + 3</span>']},
-  {icon:'📈', title:'الخط التصاعدي', desc:'الميل موجب', formula:'m > 0', examples:['<span class="math-expr">y = x + 2</span>','<span class="math-expr">y = 3x - 1</span>']}
+function updateAlgebraicSolution() {
+  const stepsDiv = document.getElementById('algebraicSteps');
+  const resultDiv = document.getElementById('intersectionResult');
+  
+  if (!stepsDiv || !resultDiv) return;
+  
+  const m1 = state.eq1.m;
+  const b1 = state.eq1.b;
+  const m2 = state.eq2.m;
+  const b2 = state.eq2.b;
+  
+  if (Math.abs(m1 - m2) < 0.001) {
+    stepsDiv.innerHTML = `
+      <p style="color:var(--c-danger-500);font-weight:700;text-align:center;padding:var(--sp-3);font-size:var(--fs-sm)">
+        ⚠️ الخطان متوازيان (نفس الميل = ${m1}) ولا يتقاطعان!
+      </p>
+    `;
+    resultDiv.innerHTML = '⚠️ لا يوجد تقاطع';
+    return;
+  }
+  
+  const ix = (b2 - b1) / (m1 - m2);
+  const iy = m1 * ix + b1;
+  
+  const m1Str = m1 === 1 ? '' : (m1 === -1 ? '-' : m1);
+  const b1Str = b1 > 0 ? `+ ${b1}` : (b1 < 0 ? `- ${Math.abs(b1)}` : '');
+  const m2Str = m2 === 1 ? '' : (m2 === -1 ? '-' : m2);
+  const b2Str = b2 > 0 ? `+ ${b2}` : (b2 < 0 ? `- ${Math.abs(b2)}` : '');
+  
+  stepsDiv.innerHTML = `
+    <div class="eq-line eq1" style="text-align:center;font-size:var(--fs-base);margin:var(--sp-2) 0">
+      ${m1Str}x ${b1Str} = ${m2Str}x ${b2Str}
+    </div>
+    <ul class="steps">
+      <li><strong>الخطوة 1:</strong> ننقل الحدود: <span class="math-expr">${m1}x - ${m2}x = ${b2} - ${b1}</span></li>
+      <li><strong>الخطوة 2:</strong> نبسّط: <span class="math-expr">${(m1-m2).toFixed(1)}x = ${(b2-b1).toFixed(1)}</span></li>
+      <li><strong>الخطوة 3:</strong> نقسم: <span class="math-expr">x = ${ix.toFixed(2)}</span></li>
+      <li><strong>الخطوة 4:</strong> نعوض: <span class="math-expr">y = ${m1}(${ix.toFixed(2)}) + ${b1} = ${iy.toFixed(2)}</span></li>
+    </ul>
+  `;
+  
+  resultDiv.innerHTML = `✨ نقطة التقاطع: <span class="math-expr" style="font-size:var(--fs-base)">(${ix.toFixed(2)}, ${iy.toFixed(2)})</span> ✨`;
+}
+
+// ═════════════════════════════════════════════════════════════
+// FAIRY DRAG & DROP
+// ═════════════════════════════════════════════════════════════
+const fairyWrap = document.getElementById('fairyWrap');
+let fairyDragging = false;
+let fairyStartX, fairyStartY, fairyInitialLeft, fairyInitialTop;
+let fairyDragMoved = false;
+
+function setupFairyDrag() {
+  fairyWrap.addEventListener('mousedown', fairyDragStart);
+  document.addEventListener('mousemove', fairyDragMove);
+  document.addEventListener('mouseup', fairyDragEnd);
+  
+  fairyWrap.addEventListener('touchstart', fairyDragStart, {passive: false});
+  document.addEventListener('touchmove', fairyDragMove, {passive: false});
+  document.addEventListener('touchend', fairyDragEnd);
+}
+
+function fairyDragStart(e) {
+  if (e.target.closest('.fairy-bubble')) return;
+  
+  fairyDragging = true;
+  fairyDragMoved = false;
+  fairyWrap.classList.add('dragging');
+  
+  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+  
+  fairyStartX = clientX;
+  fairyStartY = clientY;
+  
+  const rect = fairyWrap.getBoundingClientRect();
+  fairyInitialLeft = rect.left;
+  fairyInitialTop = rect.top;
+  
+  fairyWrap.style.position = 'fixed';
+  fairyWrap.style.left = fairyInitialLeft + 'px';
+  fairyWrap.style.top = fairyInitialTop + 'px';
+  fairyWrap.style.bottom = 'auto';
+  fairyWrap.style.right = 'auto';
+  
+  if (e.type.includes('touch')) e.preventDefault();
+}
+
+function fairyDragMove(e) {
+  if (!fairyDragging) return;
+  
+  const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+  const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+  
+  const dx = clientX - fairyStartX;
+  const dy = clientY - fairyStartY;
+  
+  if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+    fairyDragMoved = true;
+  }
+  
+  let newLeft = fairyInitialLeft + dx;
+  let newTop = fairyInitialTop + dy;
+  
+  const maxX = window.innerWidth - fairyWrap.offsetWidth;
+  const maxY = window.innerHeight - fairyWrap.offsetHeight;
+  newLeft = Math.max(0, Math.min(newLeft, maxX));
+  newTop = Math.max(0, Math.min(newTop, maxY));
+  
+  fairyWrap.style.left = newLeft + 'px';
+  fairyWrap.style.top = newTop + 'px';
+  
+  if (e.type.includes('touch')) e.preventDefault();
+}
+
+function fairyDragEnd() {
+  if (!fairyDragging) return;
+  fairyDragging = false;
+  fairyWrap.classList.remove('dragging');
+  
+  if (fairyDragMoved) {
+    const rect = fairyWrap.getBoundingClientRect();
+    state.fairyX = rect.left;
+    state.fairyY = rect.top;
+    saveState();
+  }
+}
+
+function resetFairyPosition() {
+  state.fairyX = null;
+  state.fairyY = null;
+  fairyWrap.style.position = 'fixed';
+  fairyWrap.style.left = 'var(--sp-5)';
+  fairyWrap.style.top = 'auto';
+  fairyWrap.style.bottom = 'var(--sp-5)';
+  fairyWrap.style.right = 'auto';
+  saveState();
+  closeModal('settingsModal');
+}
+
+function applyFairyPosition() {
+  if (state.fairyX !== null && state.fairyY !== null) {
+    fairyWrap.style.position = 'fixed';
+    fairyWrap.style.left = state.fairyX + 'px';
+    fairyWrap.style.top = state.fairyY + 'px';
+    fairyWrap.style.bottom = 'auto';
+    fairyWrap.style.right = 'auto';
+  }
+}
+
+function updateFairySize(val) {
+  state.fairySize = parseInt(val);
+  document.documentElement.style.setProperty('--fairy-size', val + 'px');
+  saveState();
+}
+
+// ══════════════════════════════════════════════════════════════
+// LESSONS
+// ══════════════════════════════════════════════════════════════
+const lessons = [
+  {
+    icon: '📝',
+    title: 'العبارة الجبرية',
+    content: 'العبارة الجبرية هي عبارة رياضية تتكون من <strong>أعداد ومتغيرات وعلامات عمليات</strong>، وتكون على الصورة <span class="math-expr">ax + b</span>.',
+    examples: ['<span class="math-expr">3x + 5</span> هي عبارة جبرية', '<span class="math-expr">2y - 7</span> هي عبارة جبرية', '<span class="math-expr">4(x + 2)</span> هي عبارة جبرية'],
+    generate: () => {
+      const x = Math.floor(Math.random() * 8) + 2;
+      const a = Math.floor(Math.random() * 5) + 2;
+      const b = Math.floor(Math.random() * 10) + 1;
+      return { q: `إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a: a * x + b };
+    }
+  },
+  {
+    icon: '🔤',
+    title: 'مكونات العبارة الجبرية',
+    content: 'تتكون من:<br><strong>المتغير:</strong> حرف يمثل عدداً مجهولاً (مثل <span class="math-expr">x, y, z</span>).<br><strong>الثابت:</strong> عدد لا يتغير.<br><strong>المعامل:</strong> العدد المضروب في المتغير.',
+    examples: ['في <span class="math-expr">3x + 5</span>: المتغير <span class="math-expr">x</span>، الثابت <span class="math-expr">5</span>، المعامل <span class="math-expr">3</span>', 'في <span class="math-expr">2y - 7</span>: المتغير <span class="math-expr">y</span>، الثابت <span class="math-expr">-7</span>، المعامل <span class="math-expr">2</span>'],
+    generate: () => {
+      const b = Math.floor(Math.random() * 15) + 1;
+      const a = Math.floor(Math.random() * 5) + 2;
+      return { q: `ما هو الثابت في العبارة <span class="math-expr">${a}x + ${b}</span>؟`, a: b };
+    }
+  },
+  {
+    icon: '➕',
+    title: 'الحدود المتشابهة',
+    content: '<strong>الحدود المتشابهة:</strong> حدود تحتوي على نفس المتغير ونفس الأس.<br><strong>الحدود غير المتشابهة:</strong> حدود مختلفة في المتغير أو الأس.',
+    examples: ['<span class="math-expr">3x</span> و <span class="math-expr">5x</span> حدود متشابهة', '<span class="math-expr">3x</span> و <span class="math-expr">3y</span> حدود غير متشابهة', '<span class="math-expr">2x²</span> و <span class="math-expr">5x</span> حدود غير متشابهة'],
+    generate: () => {
+      const terms = ['3x + 5x', '2y + 7y', '4a + 6a', '5m + 3m'];
+      const answers = [8, 9, 10, 8];
+      const idx = Math.floor(Math.random() * terms.length);
+      return { q: `بسّطي: <span class="math-expr">${terms[idx]}</span> = ?`, a: answers[idx] };
+    }
+  },
+  {
+    icon: '⚖️',
+    title: 'ما هي المعادلة؟',
+    content: 'المعادلة هي عبارة رياضية تحتوي على علامة <span class="math-expr">=</span> وتوضح أن <strong>الطرف الأيمن يساوي الطرف الأيسر</strong>.<br>هدفنا: إيجاد قيمة المتغير (<span class="math-expr">x</span>) التي تجعل المعادلة صحيحة.',
+    examples: ['<span class="math-expr">2x + 3 = 11</span> هي معادلة', '<span class="math-expr">y - 4 = 10</span> هي معادلة', '<span class="math-expr">3x + 5 = 20</span> هي معادلة'],
+    generate: () => {
+      const x = Math.floor(Math.random() * 8) + 2;
+      const b = Math.floor(Math.random() * 8) + 1;
+      return { q: `حلّي المعادلة: <span class="math-expr">x + ${b} = ${x + b}</span>. ما قيمة <span class="math-expr">x</span>؟`, a: x };
+    }
+  },
+  {
+    icon: '🔑',
+    title: 'حل المعادلات البسيطة',
+    content: '<strong>القاعدة الذهبية:</strong> ما نفعله في طرف، يجب أن نفعله في الطرف الآخر للحفاظ على التوازن.<br>🔹 الجمع ↔ الطرح (عمليات عكسية)<br> الضرب ↔ القسمة (عمليات عكسية)<br>🔹 نعزل المتغير وحده في طرف واحد',
+    examples: ['<span class="math-expr">x + 8 = 15</span> → نطرح 8 → <span class="math-expr">x = 7</span>', '<span class="math-expr">3x = 15</span> → نقسم على 3 → <span class="math-expr">x = 5</span>', '<span class="math-expr">x - 4 = 6</span> → نضيف 4 → <span class="math-expr">x = 10</span>'],
+    generate: () => {
+      const type = Math.floor(Math.random() * 3);
+      if (type === 0) {
+        const x = Math.floor(Math.random() * 10) + 1;
+        const b = Math.floor(Math.random() * 10) + 1;
+        return { q: `<span class="math-expr">x + ${b} = ${x + b}</span>، ما قيمة <span class="math-expr">x</span>؟`, a: x };
+      } else if (type === 1) {
+        const x = Math.floor(Math.random() * 10) + 5;
+        const b = Math.floor(Math.random() * 5) + 1;
+        return { q: `<span class="math-expr">x - ${b} = ${x - b}</span>، ما قيمة <span class="math-expr">x</span>؟`, a: x };
+      } else {
+        const x = Math.floor(Math.random() * 10) + 1;
+        const b = Math.floor(Math.random() * 5) + 2;
+        return { q: `<span class="math-expr">${b}x = ${x * b}</span>، ما قيمة <span class="math-expr">x</span>؟`, a: x };
+      }
+    }
+  },
+  {
+    icon: '🔍',
+    title: 'التحقق من حل المعادلة',
+    content: 'للتحقق من صحة الحل، نعوض بقيمة المجهول التي وجدناها في المعادلة الأصلية. إذا كان الطرفان متساويين، فالحل صحيح.',
+    examples: ['المعادلة: <span class="math-expr">2x + 1 = 9</span>، الحل: <span class="math-expr">x = 4</span>. التحقق: <span class="math-expr">2(4) + 1 = 9</span> ✓'],
+    generate: () => {
+      const x = Math.floor(Math.random() * 8) + 2;
+      const a = Math.floor(Math.random() * 4) + 2;
+      const c = Math.floor(Math.random() * 10) + 1;
+      const res = a * x + c;
+      return { q: `تحققي: إذا كانت <span class="math-expr">${a}x + ${c} = ${res}</span>، فما قيمة <span class="math-expr">x</span>؟`, a: x };
+    }
+  }
 ];
 
-function renderEduCards() {
-  const grid = document.getElementById('eduCardsGrid');
+function renderLessons() {
+  const grid = document.getElementById('lessonsGrid');
   grid.innerHTML = '';
-  eduCardsData.forEach((c, i) => {
-    const card = document.createElement('div');
-    card.className = 'edu-card';
-    card.onclick = () => card.classList.toggle('flipped');
-    card.innerHTML = `
-      <div class="edu-card-inner">
-        <div class="edu-card-face edu-card-front">
-          <div style="font-size:2.5rem;margin-bottom:var(--sp-2)">${c.icon}</div>
-          <h4>${c.title}</h4>
-          <p>${c.desc}</p>
-          <div style="position:absolute;bottom:10px;font-size:var(--fs-xs);opacity:0.8">اضغطي للقلب 🔄</div>
+  lessons.forEach((lesson, i) => {
+    const q = lesson.generate();
+    const div = document.createElement('div');
+    div.className = 'lesson-card';
+    div.innerHTML = `
+      <div class="lesson-header">
+        <div class="lesson-icon">${lesson.icon}</div>
+        <h3>${lesson.title}</h3>
+      </div>
+      <div class="lesson-content">${lesson.content}</div>
+      ${lesson.examples.map(e => `<div class="example-box">📌 ${e}</div>`).join('')}
+      <div class="question-box">
+        <div class="question-text" id="q${i}">${q.q}</div>
+        <input type="text" class="answer-input" id="a${i}" placeholder="؟">
+        <div class="btn-row">
+          <button class="btn btn-check" onclick="checkAnswer(${i})">🌤️ تحقق فوري</button>
+          <button class="btn btn-hint" onclick="showHint(${i})">💡 تلميح</button>
+          <button class="btn btn-new" onclick="newQuestion(${i})">🔄 مسألة جديدة</button>
         </div>
-        <div class="edu-card-face edu-card-back">
-          <h4>${c.title}</h4>
-          <div style="font-size:var(--fs-xs);color:var(--text-tertiary);margin-bottom:var(--sp-2)"> أمثلة:</div>
-          ${c.examples.map(e => `<div style="font-family:var(--font-math);font-size:var(--fs-sm);font-weight:600;color:var(--c-accent-700);background:var(--c-accent-50);padding:var(--sp-1) var(--sp-2);border-radius:var(--r-md);margin:var(--sp-1) 0;width:100%;direction:ltr;text-align:right">${e}</div>`).join('')}
-          <div style="margin-top:auto;font-family:var(--font-math);font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:var(--sp-1) var(--sp-3);border-radius:var(--r-md);width:100%;direction:ltr;text-align:right">${c.formula}</div>
+      </div>
+    `;
+    grid.appendChild(div);
+    div.dataset.answer = q.a;
+  });
+}
+
+function checkAnswer(i) {
+  const card = document.querySelectorAll('.lesson-card')[i];
+  const input = document.getElementById('a' + i);
+  const userAns = parseInt(input.value);
+  const correctAns = parseInt(card.dataset.answer);
+  
+  if (isNaN(userAns)) {
+    showFairyMessage('اكتبي رقم الإجابة أولاً! 🌟');
+    return;
+  }
+  
+  if (userAns === correctAns) {
+    showCorrectFeedback();
+    state.points += 10;
+    state.correct++;
+    playSound('correct');
+    setTimeout(() => playSound('gem'), 500);
+  } else {
+    showWrongFeedback();
+    state.wrong++;
+    playSound('wrong');
+  }
+  input.value = '';
+  saveState();
+  updateHomeStats();
+}
+
+function showHint(i) {
+  const hints = [
+    'عوّضي قيمة x في العبارة واحسبي الناتج 🌟',
+    'الثابت هو العدد الذي لا يحتوي على متغير 🔮',
+    'الحدود المتشابهة لها نفس المتغير ونفس الأس 💫',
+    'استخدمي العملية العكسية لعزل x ',
+    'ما تفعلينه في طرف، افعليه في الآخر! ⚖️',
+    'عوّضي بقيمة x في المعادلة الأصلية للتحقق 🎯'
+  ];
+  showFairyMessage(hints[i]);
+}
+
+function newQuestion(i) {
+  const lesson = lessons[i];
+  const q = lesson.generate();
+  const card = document.querySelectorAll('.lesson-card')[i];
+  document.getElementById('q' + i).innerHTML = q.q;
+  card.dataset.answer = q.a;
+  document.getElementById('a' + i).value = '';
+}
+
+// ══════════════════════════════════════════════════════════════
+// CHALLENGE
+// ══════════════════════════════════════════════════════════════
+function startChallenge() {
+  state.challengeTime = 30;
+  document.getElementById('startChallengeBtn').style.display = 'none';
+  document.getElementById('challengeAnswer').style.display = 'inline-block';
+  document.getElementById('checkChallengeBtn').style.display = 'inline-flex';
+  document.getElementById('newChallengeBtn').style.display = 'inline-flex';
+  document.getElementById('challengeResult').textContent = '';
+  newChallenge();
+  
+  state.challengeTimer = setInterval(() => {
+    state.challengeTime--;
+    const timerEl = document.getElementById('timer');
+    timerEl.textContent = state.challengeTime;
+    if (state.challengeTime <= 10) timerEl.style.color = 'var(--c-danger-500)';
+    if (state.challengeTime <= 0) {
+      clearInterval(state.challengeTimer);
+      document.getElementById('challengeResult').innerHTML = '⏰ انتهى الوقت!';
+      endChallenge();
+    }
+  }, 1000);
+}
+
+function newChallenge() {
+  const type = Math.floor(Math.random() * 3);
+  let q, a;
+  if (type === 0) {
+    const x = Math.floor(Math.random() * 10) + 1;
+    const b = Math.floor(Math.random() * 10) + 1;
+    q = `x + ${b} = ${x + b}`;
+    a = x;
+  } else if (type === 1) {
+    const x = Math.floor(Math.random() * 10) + 5;
+    const b = Math.floor(Math.random() * 5) + 1;
+    q = `x - ${b} = ${x - b}`;
+    a = x;
+  } else {
+    const x = Math.floor(Math.random() * 10) + 1;
+    const b = Math.floor(Math.random() * 5) + 2;
+    q = `${b}x = ${x * b}`;
+    a = x;
+  }
+  state.currentChallenge = { q, a };
+  document.getElementById('challengeQuestion').innerHTML = `<span class="math-expr">${q}</span>`;
+  document.getElementById('challengeAnswer').value = '';
+}
+
+function checkChallengeAnswer() {
+  const input = document.getElementById('challengeAnswer');
+  const userAns = parseInt(input.value);
+  if (isNaN(userAns)) return;
+  
+  if (userAns === state.currentChallenge.a) {
+    document.getElementById('challengeResult').innerHTML = '✅ <span style="color: var(--c-success-500); font-size: 1.4rem;">صحيح! </span>';
+    state.points += 5;
+    state.correct++;
+    playSound('correct');
+    launchConfetti();
+    saveState();
+    updateHomeStats();
+    setTimeout(newChallenge, 1500);
+  } else {
+    document.getElementById('challengeResult').innerHTML = '❌ <span style="color: var(--c-danger-500); font-size: 1.4rem;">حاولي مرة أخرى</span>';
+    state.wrong++;
+    playSound('wrong');
+    saveState();
+  }
+  input.value = '';
+}
+
+function endChallenge() {
+  document.getElementById('startChallengeBtn').style.display = 'inline-flex';
+  document.getElementById('challengeAnswer').style.display = 'none';
+  document.getElementById('checkChallengeBtn').style.display = 'none';
+  document.getElementById('newChallengeBtn').style.display = 'none';
+  document.getElementById('timer').style.color = 'var(--c-accent-400)';
+  document.getElementById('timer').textContent = '30';
+  document.getElementById('challengeQuestion').textContent = 'اضغط ابدأ للتحدي!';
+}
+
+// ══════════════════════════════════════════════════════════════
+// CARDS
+// ══════════════════════════════════════════════════════════════
+const potions = [
+  { q: '2x + 3 = 11', a: 'x = 4', sol: '2x = 8 → x = 4', c1: '#486581', c2: '#102a43' },
+  { q: '3x - 5 = 10', a: 'x = 5', sol: '3x = 15 → x = 5', c1: '#334e68', c2: '#243b53' },
+  { q: '4x = 20', a: 'x = 5', sol: 'x = 20 ÷ 4 = 5', c1: '#2d5a87', c2: '#1e3a5f' },
+  { q: 'x + 7 = 15', a: 'x = 8', sol: 'x = 15 - 7 = 8', c1: '#c9a961', c2: '#9a7b3f' },
+  { q: '5x - 2 = 13', a: 'x = 3', sol: '5x = 15 → x = 3', c1: '#b8944f', c2: '#7c6230' },
+  { q: '2(x + 3) = 14', a: 'x = 4', sol: 'x + 3 = 7 → x = 4', c1: '#486581', c2: '#334e68' },
+  { q: '3x + 2 = 2x + 7', a: 'x = 5', sol: 'x = 5', c1: '#2d5a87', c2: '#1e3a5f' },
+  { q: '4x - 3 = 2x + 5', a: 'x = 4', sol: '2x = 8 → x = 4', c1: '#334e68', c2: '#243b53' }
+];
+
+function renderCards() {
+  const grid = document.getElementById('cardsGrid');
+  grid.innerHTML = '';
+  potions.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'flip-card';
+    card.onclick = () => { card.classList.toggle('flipped'); };
+    card.innerHTML = `
+      <div class="flip-inner">
+        <div class="flip-front" style="background: linear-gradient(135deg, ${p.c1}, ${p.c2});">
+          <h4>🧪 بطاقة ${i + 1}</h4>
+          <div class="q">${p.q}</div>
+          <div style="margin-top: 10px; font-size: 0.85rem; opacity: 0.9;">اضغطي للقلب 🔄</div>
+        </div>
+        <div class="flip-back">
+          <div style="font-size: 1.8rem; margin-bottom: 8px;">🧪</div>
+          <div class="answer">${p.a}</div>
+          <div class="solution">${p.sol}</div>
         </div>
       </div>
     `;
@@ -1422,32 +2227,54 @@ function renderEduCards() {
   });
 }
 
+function shuffleCards() {
+  potions.sort(() => Math.random() - 0.5);
+  renderCards();
+}
+
+function resetCards() {
+  document.querySelectorAll('.flip-card').forEach(c => c.classList.remove('flipped'));
+}
+
+// ══════════════════════════════════════════════════════════════
+// FEEDBACK & FAIRY
+// ═════════════════════════════════════════════════════════════
+const fairyMessages = {
+  correct: ['أحسنتِ! أنتِ عبقرية! 🌟', 'رائع! استمري على هذا التألق! ✨', 'ممتاز! الجنية فخورة بكِ! 🧚♀️', 'بطلة! أنتِ سحر الرياضيات! 🔮', 'واو! إجابة رائعة! 💫'],
+  wrong: ['حظاً أوفر في المرة القادمة! 🌱', 'لا تستسلمي! أنتِ قريبة من الإجابة ', 'المحاولة طريق النجاح! 🌸', 'فكّري بهدوء، أنتِ تستطيعين! 🌟', 'كل خطأ خطوة نحو التعلم! 🔮']
+};
+
 function showCorrectFeedback() {
-  const overlay = document.getElementById('feedbackOverlay');
-  const text = document.getElementById('feedbackText');
-  const gem = document.getElementById('gemReward');
-  text.innerHTML = '<div class="feedback-correct">🎊 أحسنتِ!</div>';
-  const gemColors = ['💎','💠','🔷','','💜','💚','💙','❤️','🧡','💛'];
+  document.getElementById('feedbackText').innerHTML = '<div class="feedback-correct"> أحسنتِ! 🎊</div>';
+  const gemColors = ['💎', '💠', '🔷', '', '💜', '💚', '', '❤️', '🧡', '💛'];
   const gemColor = gemColors[Math.floor(Math.random() * gemColors.length)];
-  gem.textContent = gemColor; gem.style.display = 'block';
-  state.gems.push({color: gemColor, time: Date.now()}); saveState();
-  overlay.classList.add('show'); launchConfetti();
+  document.getElementById('gemReward').textContent = gemColor;
+  document.getElementById('gemReward').style.display = 'block';
+  state.gems.push({ color: gemColor, time: Date.now() });
+  saveState();
+  document.getElementById('feedbackOverlay').classList.add('show');
+  launchConfetti();
+  setTimeout(() => {
+    showFairyMessage(fairyMessages.correct[Math.floor(Math.random() * fairyMessages.correct.length)]);
+  }, 500);
 }
 
 function showWrongFeedback() {
-  const overlay = document.getElementById('feedbackOverlay');
-  const text = document.getElementById('feedbackText');
-  const gem = document.getElementById('gemReward');
-  text.innerHTML = '<div class="feedback-wrong">🌱 حظاً أوفر</div>';
-  gem.style.display = 'none';
-  overlay.classList.add('show');
+  document.getElementById('feedbackText').innerHTML = '<div class="feedback-wrong"> حظاً أوفر 🌱</div>';
+  document.getElementById('gemReward').style.display = 'none';
+  document.getElementById('feedbackOverlay').classList.add('show');
+  setTimeout(() => {
+    showFairyMessage(fairyMessages.wrong[Math.floor(Math.random() * fairyMessages.wrong.length)]);
+  }, 500);
 }
 
-function closeFeedback() { document.getElementById('feedbackOverlay').classList.remove('show'); }
+function closeFeedback() {
+  document.getElementById('feedbackOverlay').classList.remove('show');
+}
 
 function launchConfetti() {
-  const colors = ['#6366f1','#f59e0b','#10b981','#f43f5e','#8b5cf6','#ec4899','#06b6d4'];
-  for (let i = 0; i < 70; i++) {
+  const colors = ['#486581', '#c9a961', '#2d5a87', '#334e68', '#b8944f', '#102a43', '#7c6230'];
+  for (let i = 0; i < 80; i++) {
     const c = document.createElement('div');
     c.className = 'confetti';
     c.style.left = Math.random() * 100 + '%';
@@ -1460,17 +2287,33 @@ function launchConfetti() {
   }
 }
 
-function toggleFairySpeech(e) {
+function showFairyMessage(msg) {
   const speech = document.getElementById('fairySpeech');
-  if (speech.classList.contains('show')) { speech.classList.remove('show'); }
-  else { const msgs = ['أحتاج مساعدة؟ 🌟','أنتِ بطلة! ✨','استمري! 📚','أحبك! 💖','فرصة جديدة! 🌸']; speech.textContent = msgs[Math.floor(Math.random() * msgs.length)]; speech.classList.add('show'); setTimeout(() => speech.classList.remove('show'), 3000); }
+  speech.innerHTML = msg;
+  speech.classList.add('show');
+  clearTimeout(speech._timer);
+  speech._timer = setTimeout(() => speech.classList.remove('show'), 4000);
 }
 
-function updateFairySize(val) { state.fairySize = parseInt(val); document.querySelector('.fairy-svg').style.setProperty('--fairy-size', val + 'px'); saveState(); }
-function toggleSound() { state.soundOn = document.getElementById('soundToggle').checked; saveState(); }
+function toggleFairySpeech(e) {
+  if (fairyDragMoved) {
+    fairyDragMoved = false;
+    return;
+  }
+  const speech = document.getElementById('fairySpeech');
+  if (speech.classList.contains('show')) {
+    speech.classList.remove('show');
+  } else {
+    const msgs = ['أحتاج مساعدة؟ أنا هنا! 🌟', 'أنتِ بطلة حقيقية! ✨', 'استمري في التعلم! 📚', 'الجنية تحبك! 💖', 'كل سؤال فرصة جديدة! 🌸'];
+    showFairyMessage(msgs[Math.floor(Math.random() * msgs.length)]);
+  }
+}
 
+// ═════════════════════════════════════════════════════════════
+// STATS & GARDEN
+// ══════════════════════════════════════════════════════════════
 function renderStats() {
-  document.getElementById('statPoints').textContent = state.points;
+  document.getElementById('statPoints').textContent1 = state.points;
   document.getElementById('statCorrect').textContent = state.correct;
   document.getElementById('statWrong').textContent = state.wrong;
   document.getElementById('statGems').textContent = state.gems.length;
@@ -1485,33 +2328,71 @@ function updateHomeStats() {
   document.getElementById('homeCorrect').textContent = state.correct;
 }
 
+function renderGarden() {
+  const grid = document.getElementById('gardenGrid');
+  grid.innerHTML = '';
+  const total = Math.max(20, state.gems.length + 5);
+  for (let i = 0; i < total; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'gem-slot' + (state.gems[i] ? ' filled' : '');
+    slot.textContent = state.gems[i] ? state.gems[i].color : '';
+    grid.appendChild(slot);
+  }
+}
+
+function resetGarden() {
+  if (confirm('هل أنتِ متأكدة من تصفير جميع الجواهر؟')) {
+    state.gems = [];
+    saveState();
+    updateHomeStats();
+    alert('تم تصفير الجواهر بنجاح! 🌳');
+  }
+}
+
+function resetPoints() {
+  if (confirm('هل أنتِ متأكدة من تصفير جميع النقاط؟')) {
+    state.points = 0;
+    saveState();
+    updateHomeStats();
+    alert('تم تصفير النقاط بنجاح! 🌟');
+  }
+}
+
+function toggleSound() {
+  state.soundOn = document.getElementById('soundToggle').checked;
+  saveState();
+}
+
+// ═════════════════════════════════════════════════════════════
+// INITIALIZATION
+// ═════════════════════════════════════════════════════════════
 function init() {
-  renderConcepts();
-  renderEduCards();
-  newExprQuestion();
-  newEqQuestion();
-  updateScale();
+  renderLessons();
+  renderCards();
   updateHomeStats();
-  document.querySelector('.fairy-svg').style.setProperty('--fairy-size', state.fairySize + 'px');
+  
+  document.documentElement.style.setProperty('--fairy-size', state.fairySize + 'px');
   document.getElementById('fairySizeSlider').value = state.fairySize;
   document.getElementById('soundToggle').checked = state.soundOn;
-  document.querySelectorAll('.modal').forEach(m => { m.addEventListener('click', e => { if (e.target === m) m.classList.remove('show'); }); });
-  window.addEventListener('resize', () => { if (document.getElementById('graphs').classList.contains('active')) { initGraphs(); } });
+  
+  applyFairyPosition();
+  setupFairyDrag();
+  
+  document.querySelectorAll('.modal').forEach(m => {
+    m.addEventListener('click', e => {
+      if (e.target === m) m.classList.remove('show');
+    });
+  });
+  
+  window.addEventListener('resize', () => {
+    if (document.getElementById('graph').classList.contains('active')) {
+      initSingleGraph();
+      initDualGraph();
+    }
+  });
 }
+
 init();
 </script>
 </body>
-</html>'''
-
-with open(file_path, "w", encoding="utf-8") as f:
-    f.write(content)
-
-print("✅ تم الحقن الجراحي بنجاح - تحسين دقة الزوم بشكل جذري!")
-print("\n🎯 التحسينات في دقة الزوم:")
-print("  1️⃣  إزالة CSS transform: scale() (السبب الرئيسي للتشويش)")
-print("  2️⃣  Mathematical Zoom: تغيير RANGE بدلاً من تكبير البكسلات")
-print("  3️⃣  High-DPI Rendering: canvas.width = rect.width * dpr * zoomLevel")
-print("  4️⃣  Adaptive Font Sizes: خطوط تتكيف مع مستوى الزوم")
-print("  5️⃣  Adaptive Line Widths: خطوط ثابتة بصرياً عند كل مستويات الزوم")
-print("  6️⃣  Finer Step (px += 1): رسم الخط بدقة أعلى")
-print("  7️⃣  عمود الشرح ثابت تماماً ولا يتأثر بالزوم")
+</html>
