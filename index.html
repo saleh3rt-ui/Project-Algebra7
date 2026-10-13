@@ -96,7 +96,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .section-subtitle{font-size:var(--fs-base);color:var(--text-secondary);line-height:1.55}
 
 /* ══════════════════════════════════════════════════════════════
-   GRAPH SECTION - FINAL ZOOM ISOLATION FIX
+   GRAPH SECTION - HIGH-PRECISION MATHEMATICAL ZOOM
    ══════════════════════════════════════════════════════════════ */
 .graph-section{background:var(--bg-primary);border:1px solid var(--border-subtle);border-radius:var(--r-3xl);padding:var(--sp-6);box-shadow:var(--shadow-lg);margin:var(--sp-4) 0;position:relative;overflow:visible}
 .graph-section::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--c-accent-500),var(--c-primary-500));border-radius:var(--r-3xl) var(--r-3xl) 0 0}
@@ -104,7 +104,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 .graph-header h3{font-family:var(--font-display);font-size:var(--fs-2xl);font-weight:900;color:var(--text-primary);margin-bottom:var(--sp-2);letter-spacing:-0.02em}
 .graph-header p{font-size:var(--fs-sm);color:var(--text-secondary);max-width:560px;margin:0 auto}
 
-/* Grid Layout مع عزل تام للعمودين */
 .graph-layout{
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -112,7 +111,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   align-items: start;
 }
 
-/* حاوية الرسم: ثابتة الأبعاد، overflow:hidden لمنع تجاوز الزوم */
+/* حاوية الرسم: ثابتة الأبعاد، الزوم يحدث داخلياً رياضياً */
 .graph-canvas-wrap{
   background: var(--bg-primary);
   border: 2px solid var(--border-subtle);
@@ -121,19 +120,18 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   position: relative;
   width: 100%;
   aspect-ratio: 4/3;
-  overflow: hidden; /* 🔑 المفتاح: يمنع خروج الرسم المكبر */
+  overflow: hidden;
   box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
   cursor: crosshair;
   touch-action: none;
 }
 
-/* Canvas مع transform-origin في المركز للزوم المتماثل */
+/* Canvas بدون أي CSS transform - الزوم رياضي بحت */
 .graph-canvas{
   width: 100%;
   height: 100%;
   display: block;
-  transform-origin: center center;
-  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* 🔑 لا transform هنا - يمنع التشويش */
 }
 
 .zoom-badge{
@@ -176,7 +174,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   line-height:1.4;
 }
 
-/* عمود الشرح: ثابت تماماً، معزول عن الزوم */
+/* عمود الشرح: ثابت تماماً */
 .graph-controls{
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
@@ -191,10 +189,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   top: 100px;
   width: 100%;
   box-sizing: border-box;
-  /* 🔑 منع أي تأثير للزوم على هذا العمود */
-  transform: none !important;
-  transform-origin: initial !important;
-  z-index: 10;
   scrollbar-width: thin;
   scrollbar-color: var(--c-slate-300) var(--bg-secondary);
 }
@@ -387,20 +381,20 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
     <div class="nav-actions">
       <button class="nav-btn active" onclick="showPage('home',this)">🏠 الرئيسية</button>
       <button class="nav-btn" onclick="showPage('concepts',this)">📖 المفاهيم</button>
-      <button class="nav-btn" onclick="showPage('expressions',this)"> العبارات</button>
-      <button class="nav-btn" onclick="showPage('equations',this)">⚖️ المعادلات</button>
+      <button class="nav-btn" onclick="showPage('expressions',this)">🔢 العبارات</button>
+      <button class="nav-btn" onclick="showPage('equations',this)">️ المعادلات</button>
       <button class="nav-btn" onclick="showPage('scale',this)">⚖️ الميزان</button>
-      <button class="nav-btn graph-nav" onclick="showPage('graphs',this)"> التمثيل البياني<br>للمعادلات</button>
-      <button class="nav-btn" onclick="showPage('cards',this)"> البطاقات</button>
-      <button class="nav-btn" onclick="openModal('statsModal')"></button>
-      <button class="nav-btn" onclick="openModal('settingsModal')">️</button>
+      <button class="nav-btn graph-nav" onclick="showPage('graphs',this)">📈 التمثيل البياني<br>للمعادلات</button>
+      <button class="nav-btn" onclick="showPage('cards',this)">🎴 البطاقات</button>
+      <button class="nav-btn" onclick="openModal('statsModal')">📊</button>
+      <button class="nav-btn" onclick="openModal('settingsModal')">⚙️</button>
     </div>
   </div>
 </header>
 
 <div class="student-bar">
   <div class="student-info"><span class="label">👩‍🎓 إعداد الطالبة</span><span class="value">تقى يونسو</span></div>
-  <div class="student-info"><span class="label">‍🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
+  <div class="student-info"><span class="label">👩‍🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
   <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الشعبة الأولى</span></div>
   <div class="student-info"><span class="label">🏫 المدرسة</span><span class="value">المدرسة النموذجية للمتفوقين إناث</span></div>
 </div>
@@ -409,10 +403,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   <div class="hero">
     <span class="hero-badge">✨ مشروع رياضيات تفاعلي للصف السابع ✨</span>
     <h1 class="hero-title">🌷 المعادلات و<span class="accent">العبارات الجبرية</span> 🌷</h1>
-    <p class="hero-description">اكتشفي عالم الجبر بطريقة تفاعلية ممتعة! تعلمي كيف تبنين العبارات الجبرية وتحلين المعادلات باستخدام الميزان السحري والرسوم البيانية المتزامنة</p>
+    <p class="hero-description">اكتشفي عالم الجبر بطريقة تفاعلية ممتعة!</p>
     <div class="hero-visual">y = 2x + 3 ⟹ x = 4 → y = 11</div>
     <br>
-    <button class="cta-btn" onclick="showPage('concepts',document.querySelectorAll('.nav-btn')[1])">📖 ابدئي التعلم</button>
+    <button class="cta-btn" onclick="showPage('concepts',document.querySelectorAll('.nav-btn')[1])"> ابدئي التعلم</button>
     <div class="stats-row">
       <div class="stat-pill">🌟 <span class="num" id="homePoints">0</span> نقطة</div>
       <div class="stat-pill">💎 <span class="num" id="homeGems">0</span> جوهرة</div>
@@ -424,7 +418,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 <div id="concepts" class="page">
   <div class="section-header">
     <span class="section-eyebrow">الأساسيات</span>
-    <h2 class="section-title">📖 المفاهيم الأساسية</h2>
+    <h2 class="section-title"> المفاهيم الأساسية</h2>
     <p class="section-subtitle">اضغطي على أي بطاقة لفتح الشرح والتمرين التفاعلي</p>
   </div>
   <div class="concepts-grid" id="conceptsGrid"></div>
@@ -443,14 +437,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
     <div class="example-box"><span class="label">مثال:</span> "ثلاثة أمثال عدد" ← <span class="math-expr">3x</span></div>
   </div>
   <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon"></div><h3>تقييم العبارات الجبرية</h3></div>
+    <div class="lesson-header"><div class="lesson-icon">🔍</div><h3>تقييم العبارات الجبرية</h3></div>
     <div class="lesson-content"><p>لتقييم عبارة جبرية، نعوض بقيمة المتغير ثم نحسب الناتج:</p><ul><li>نعوض قيمة المتغير في كل مكان يظهر فيه</li><li>نطبق أولوية العمليات</li><li>نحسب الناتج النهائي</li></ul></div>
     <div class="example-box"><span class="label">مثال:</span> إذا x = 4، فإن <span class="math-expr">3x + 2 = 14</span></div>
     <div class="question-panel">
       <div class="question-text" id="exprQ"></div>
       <input type="number" class="answer-input" id="exprA" placeholder="؟">
       <div class="btn-row">
-        <button class="action-btn btn-check" onclick="checkExprAnswer()">🌤️ تحقق فوري</button>
+        <button class="action-btn btn-check" onclick="checkExprAnswer()">️ تحقق فوري</button>
         <button class="action-btn btn-new" onclick="newExprQuestion()">🔄 مسألة جديدة</button>
       </div>
     </div>
@@ -464,7 +458,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
     <p class="section-subtitle">تعلمي كيف تحلين المعادلات البسيطة</p>
   </div>
   <div class="lesson-card">
-    <div class="lesson-header"><div class="lesson-icon"></div><h3>ما هي المعادلة؟</h3></div>
+    <div class="lesson-header"><div class="lesson-icon">🎯</div><h3>ما هي المعادلة؟</h3></div>
     <div class="lesson-content"><p>المعادلة هي عبارة رياضية تحتوي على علامة <strong>=</strong> تخبرنا أن الطرفين متساويان.</p><ul><li>الطرف الأيمن = الطرف الأيسر</li><li>هدفنا: إيجاد قيمة المتغير</li><li>نستخدم العمليات العكسية</li></ul></div>
     <div class="example-box"><span class="label">مثال:</span> <span class="math-expr">x + 5 = 12 → x = 7</span></div>
   </div>
@@ -519,7 +513,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
       </svg>
     </div>
     <div id="scaleStatus" class="scale-status balanced">⚖️ متوازن! الطرفان متساويان</div>
-    <div style="text-align:center;margin-top:var(--sp-3)"><button class="cta-btn" onclick="balanceScale()">️ وازني الميزان</button></div>
+    <div style="text-align:center;margin-top:var(--sp-3)"><button class="cta-btn" onclick="balanceScale()">⚖️ وازني الميزان</button></div>
   </div>
 </div>
 
@@ -527,13 +521,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
   <div class="section-header">
     <span class="section-eyebrow">محاكاة بصرية تفاعلية</span>
     <h2 class="section-title">📈 التمثيل البياني للمعادلات الجبرية</h2>
-    <p class="section-subtitle">استكشفي العلاقة بين المعادلة وشكلها البياني مع إمكانية التكبير والتصغير المعزول</p>
+    <p class="section-subtitle">استكشفي العلاقة بين المعادلة وشكلها البياني مع تكبير عالي الدقة</p>
   </div>
   
   <div class="graph-section">
     <div class="graph-header">
-      <h3>🔬 استكشاف المعادلة الخطية: y = mx + b</h3>
-      <p>حرّكي المعاملات وشاهدي التأثير الفوري - استخدمي عجلة الماوس للتكبير على الرسم فقط</p>
+      <h3> استكشاف المعادلة الخطية: y = mx + b</h3>
+      <p>حرّكي المعاملات وشاهدي التأثير الفوري - تكبير رياضي عالي الدقة بدون تشويش</p>
     </div>
     <div class="graph-layout">
       <div>
@@ -567,7 +561,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
         <div class="eq-display" id="graphEqDisplay">y = 2x + 1</div>
         
         <div class="slider-group">
-          <div class="slider-label"><span>📈 الميل (m):</span><span class="val" id="mVal">2</span></div>
+          <div class="slider-label"><span> الميل (m):</span><span class="val" id="mVal">2</span></div>
           <input type="range" id="mSlider" min="-5" max="5" step="0.5" value="2" oninput="syncGraph('m', this.value)">
         </div>
         <div class="slider-group">
@@ -576,18 +570,18 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
         </div>
         
         <div class="eq-explanation" id="eqExplanation">
-          <strong>📘 الشرح:</strong> الميل = 2 يعني أن الخط يصعد وحدتين رأسياً لكل وحدة أفقية. الجزء المقطوع = 1 يعني أن الخط يقطع محور y عند النقطة (0, 1).
+          <strong> الشرح:</strong> الميل = 2 يعني أن الخط يصعد وحدتين رأسياً لكل وحدة أفقية. الجزء المقطوع = 1 يعني أن الخط يقطع محور y عند النقطة (0, 1).
         </div>
         
         <div style="font-size:var(--fs-xs);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-1)">⚙️ خيارات العرض:</div>
         <div class="display-options">
-          <label class="display-option checked"><input type="checkbox" id="showTriangle" checked onchange="drawGraph1()"> <span>📐 مثلث الميل</span></label>
-          <label class="display-option checked"><input type="checkbox" id="showPoints" checked onchange="drawGraph1()"> <span> نقاط مميزة</span></label>
+          <label class="display-option checked"><input type="checkbox" id="showTriangle" checked onchange="drawGraph1()"> <span> مثلث الميل</span></label>
+          <label class="display-option checked"><input type="checkbox" id="showPoints" checked onchange="drawGraph1()"> <span>📍 نقاط مميزة</span></label>
           <label class="display-option"><input type="checkbox" id="showGrid" checked onchange="drawGraph1()"> <span>📏 الشبكة</span></label>
           <label class="display-option"><input type="checkbox" id="animatePoint" onchange="toggleAnimation()"> <span>✨ تحريك نقطة</span></label>
         </div>
         
-        <div style="font-size:var(--fs-xs);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-1)">📊 جدول القيم:</div>
+        <div style="font-size:var(--fs-xs);font-weight:700;color:var(--text-primary);margin-bottom:var(--sp-1)"> جدول القيم:</div>
         <table class="values-table" id="valuesTable">
           <thead><tr><th>x</th><th>y</th></tr></thead>
           <tbody id="valuesBody"></tbody>
@@ -664,21 +658,21 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
     <line x1="140" y1="140" x2="170" y2="110" stroke="#78350f" stroke-width="3"/>
     <polygon points="170,110 175,100 180,110 175,120" fill="#fbbf24"><animate attributeName="opacity" values="1;.5;1" dur="1.5s" repeatCount="indefinite"/></polygon>
   </svg>
-  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنّيتك الصغيرة ‍♀️ جاهزة لمساعدتك! </div>
+  <div class="fairy-bubble" id="fairySpeech">مرحباً! أنا جنّيتك الصغيرة 🧚‍♀️ جاهزة لمساعدتك! ✨</div>
 </div>
 
 <div class="feedback-overlay" id="feedbackOverlay">
   <div class="feedback-box">
     <div id="feedbackText"></div>
     <div class="gem-reward" id="gemReward" style="display:none"></div>
-    <button class="cta-btn" onclick="closeFeedback()" style="margin-top:var(--sp-3)">متابعة ✨</button>
+    <button class="cta-btn" onclick="closeFeedback()" style="margin-top:var(--sp-3)">متابعة </button>
   </div>
 </div>
 
 <div class="modal" id="statsModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal('statsModal')">✕</button>
-    <h2 class="modal-title"> إحصائيات التقدم</h2>
+    <h2 class="modal-title">📊 إحصائيات التقدم</h2>
     <div class="stats-grid">
       <div class="stat-card"><div class="num" id="statPoints">0</div><div class="label">🌟 النقاط</div></div>
       <div class="stat-card"><div class="num" id="statCorrect">0</div><div class="label">✅ صحيحة</div></div>
@@ -706,7 +700,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-item"><div class="label">👩‍🎓 عمل الطالبة</div><div class="value">تقى يونسو</div></div>
+    <div class="footer-item"><div class="label">👩🎓 عمل الطالبة</div><div class="value">تقى يونسو</div></div>
     <div class="footer-item"><div class="label">👩‍🏫 المدرّسة</div><div class="value">فلك عاصي</div></div>
     <div class="footer-item"><div class="label">🎓 الصف</div><div class="value">السابع - الشعبة الأولى</div></div>
     <div class="footer-item"><div class="label">🏫 المدرسة</div><div class="value">المدرسة النموذجية للمتفوقين إناث</div></div>
@@ -716,8 +710,8 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle
 
 <script>
 let state = {points:0,correct:0,wrong:0,gems:[],fairySize:100,soundOn:true,currentExpr:null,currentEq:null};
-try { const saved = localStorage.getItem('algebraProFinal'); if (saved) state = {...state, ...JSON.parse(saved)}; } catch(e) {}
-function saveState() { try { localStorage.setItem('algebraProFinal', JSON.stringify(state)); } catch(e) {} }
+try { const saved = localStorage.getItem('algebraProHD'); if (saved) state = {...state, ...JSON.parse(saved)}; } catch(e) {}
+function saveState() { try { localStorage.setItem('algebraProHD', JSON.stringify(state)); } catch(e) {} }
 
 let audioCtx = null;
 function playSound(type) {
@@ -762,40 +756,33 @@ function openModal(id) { document.getElementById(id).classList.add('show'); if (
 function closeModal(id) { document.getElementById(id).classList.remove('show'); }
 
 // ═══════════════════════════════════════════════════════════════
-// ZOOM SYSTEM - FINAL ISOLATED FIX
-// الزوم يطبق فقط على Canvas عبر CSS transform
-// عمود الشرح ثابت تماماً ولا يتأثر
+// HIGH-PRECISION MATHEMATICAL ZOOM SYSTEM
+// الزوم يحدث رياضياً داخل Canvas (تغيير RANGE)
+// بدون CSS transform = بدون تشويش (Blur)
 // ═══════════════════════════════════════════════════════════════
 const ZOOM_MIN = 0.5;
-const ZOOM_MAX = 4.0;
+const ZOOM_MAX = 5.0;
 const ZOOM_STEP = 0.2;
 let zoomLevel = 1.0;
 
 function zoomGraph(delta) {
   zoomLevel = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, zoomLevel + delta));
   
-  //  تطبيق الزوم على Canvas فقط عبر CSS transform
-  const canvas = document.getElementById('graphCanvas');
-  if (canvas) {
-    canvas.style.transform = `scale(${zoomLevel})`;
-  }
-  
-  // تحديث الواجهة
   const badge = document.getElementById('zoomBadge');
   if (badge) {
     badge.classList.add('zooming');
     setTimeout(() => badge.classList.remove('zooming'), 300);
   }
   updateZoomDisplay();
+  
+  // 🔑 إعادة رسم Canvas بدقة عالية (Mathematical Zoom)
+  drawGraph1();
 }
 
 function resetZoom() {
   zoomLevel = 1.0;
-  const canvas = document.getElementById('graphCanvas');
-  if (canvas) {
-    canvas.style.transform = 'scale(1)';
-  }
   updateZoomDisplay();
+  drawGraph1();
 }
 
 function updateZoomDisplay() {
@@ -806,7 +793,6 @@ function updateZoomDisplay() {
   if (text) text.textContent = percent + '%';
 }
 
-//  عزل حدث العجلة على حاوية الرسم فقط مع منع كامل للانتشار
 const graphCanvasWrap1 = document.getElementById('graphCanvasWrap');
 if (graphCanvasWrap1) {
   graphCanvasWrap1.addEventListener('wheel', function(e) {
@@ -820,9 +806,8 @@ if (graphCanvasWrap1) {
 }
 
 // ═══════════════════════════════════════════════════════════════
-// GRAPH 1 - رسم بياني ثابت (بدون زوم رياضي)
-// الزوم يحدث عبر CSS transform فقط
-// ═══════════════════════════════════════════════════════════════
+// GRAPH 1 - HIGH PRECISION RENDERING
+// ══════════════════════════════════════════════════════════════
 let currentM = 2, currentB = 1;
 let animationId = null;
 let animatedT = 0;
@@ -904,18 +889,27 @@ function drawGraph1() {
   if (!canvas) return;
   const wrap = document.getElementById('graphCanvasWrap');
   const rect = wrap.getBoundingClientRect();
-  const dpr = window.devicePixelRatio || 1;
   
+  // 🔑 High-DPI Rendering: مضاعفة الدقة حسب الزوم
+  const dpr = window.devicePixelRatio || 1;
+  const zoomDpr = dpr * Math.max(1, zoomLevel); // زيادة الدقة عند التكبير
+  
+  // تثبيت أبعاد CSS
   canvas.style.width = rect.width + 'px';
   canvas.style.height = rect.height + 'px';
-  canvas.width = rect.width * dpr;
-  canvas.height = rect.height * dpr;
+  
+  // أبعاد Canvas الداخلية مضاعفة للدقة العالية
+  canvas.width = Math.floor(rect.width * zoomDpr);
+  canvas.height = Math.floor(rect.height * zoomDpr);
   
   const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
+  ctx.scale(zoomDpr, zoomDpr);
+  
   const W = rect.width, H = rect.height;
   
-  const RANGE = 8;
+  // 🔑 Mathematical Zoom: تغيير النطاق المعروض
+  const BASE_RANGE = 8;
+  const RANGE = BASE_RANGE / zoomLevel;
   const PADDING = 40;
   const drawW = W - PADDING * 2;
   const drawH = H - PADDING * 2;
@@ -927,13 +921,24 @@ function drawGraph1() {
   function toScreenY(y) { return originY - y * scale; }
   function toMathX(px) { return (px - originX) / scale; }
   
+  // خلفية
   ctx.fillStyle = '#ffffff';
   ctx.fillRect(0, 0, W, H);
   
+  // شبكة متكيفة
   if (document.getElementById('showGrid').checked) {
     ctx.strokeStyle = '#e2e8f0';
-    ctx.lineWidth = 1;
-    for (let i = -RANGE; i <= RANGE; i++) {
+    ctx.lineWidth = 1 / zoomDpr; // خط رفيع ثابت بصرياً
+    let gridStep = 1;
+    if (RANGE > 20) gridStep = 5;
+    else if (RANGE > 10) gridStep = 2;
+    else if (RANGE < 2) gridStep = 0.5;
+    else if (RANGE < 1) gridStep = 0.25;
+    
+    const gridMin = -Math.ceil(RANGE / gridStep) * gridStep;
+    const gridMax = Math.ceil(RANGE / gridStep) * gridStep;
+    
+    for (let i = gridMin; i <= gridMax; i += gridStep) {
       const x = toScreenX(i);
       const y = toScreenY(i);
       if (x >= PADDING && x <= W - PADDING) { ctx.beginPath(); ctx.moveTo(x, PADDING); ctx.lineTo(x, H - PADDING); ctx.stroke(); }
@@ -941,48 +946,68 @@ function drawGraph1() {
     }
   }
   
+  // محاور
   ctx.strokeStyle = '#334155';
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 2 / zoomDpr;
   ctx.beginPath(); ctx.moveTo(PADDING, originY); ctx.lineTo(W - PADDING, originY); ctx.stroke();
   ctx.beginPath(); ctx.moveTo(originX, PADDING); ctx.lineTo(originX, H - PADDING); ctx.stroke();
   
+  // أسهم
   ctx.fillStyle = '#334155';
   ctx.beginPath(); ctx.moveTo(W - PADDING + 2, originY); ctx.lineTo(W - PADDING - 8, originY - 5); ctx.lineTo(W - PADDING - 8, originY + 5); ctx.fill();
   ctx.beginPath(); ctx.moveTo(originX, PADDING - 2); ctx.lineTo(originX - 5, PADDING + 8); ctx.lineTo(originX + 5, PADDING + 8); ctx.fill();
   
+  // أرقام المحاور - حجم خط يتكيف مع الزوم
+  let labelStep = 1;
+  if (RANGE > 20) labelStep = 5;
+  else if (RANGE > 10) labelStep = 2;
+  else if (RANGE < 2) labelStep = 0.5;
+  else if (RANGE < 1) labelStep = 0.25;
+  
+  const fontSize = Math.max(10, 11 / Math.sqrt(zoomLevel));
   ctx.fillStyle = '#64748b';
-  ctx.font = 'bold 11px IBM Plex Mono, monospace';
+  ctx.font = `bold ${fontSize}px IBM Plex Mono, monospace`;
   ctx.textAlign = 'center';
-  for (let i = -RANGE; i <= RANGE; i++) {
-    if (i === 0) continue;
+  
+  const labelMin = -Math.ceil(RANGE / labelStep) * labelStep;
+  const labelMax = Math.ceil(RANGE / labelStep) * labelStep;
+  
+  for (let i = labelMin; i <= labelMax; i += labelStep) {
+    if (Math.abs(i) < 0.001) continue;
     const x = toScreenX(i);
     const y = toScreenY(i);
     if (x >= PADDING && x <= W - PADDING) {
-      ctx.fillText(i, x, originY + 18);
-      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1;
+      const label = Number.isInteger(i) ? i.toString() : i.toFixed(1);
+      ctx.fillText(label, x, originY + 18);
+      ctx.strokeStyle = '#334155'; ctx.lineWidth = 1 / zoomDpr;
       ctx.beginPath(); ctx.moveTo(x, originY - 3); ctx.lineTo(x, originY + 3); ctx.stroke();
     }
     if (y >= PADDING && y <= H - PADDING) {
-      ctx.textAlign = 'right'; ctx.fillText(i, originX - 8, y + 4); ctx.textAlign = 'center';
+      const label = Number.isInteger(i) ? i.toString() : i.toFixed(1);
+      ctx.textAlign = 'right'; ctx.fillText(label, originX - 8, y + 4); ctx.textAlign = 'center';
       ctx.beginPath(); ctx.moveTo(originX - 3, y); ctx.lineTo(originX + 3, y); ctx.stroke();
     }
   }
   ctx.textAlign = 'right'; ctx.fillText('0', originX - 8, originY + 18);
-  ctx.fillStyle = '#0f172a'; ctx.font = 'bold 14px IBM Plex Mono, monospace';
+  ctx.fillStyle = '#0f172a'; 
+  ctx.font = `bold ${Math.max(12, 14 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
   ctx.textAlign = 'left'; ctx.fillText('x', W - PADDING + 8, originY + 5);
   ctx.fillText('y', originX + 8, PADDING - 5);
   
+  // Clip للرسم الداخلي
   ctx.save();
   ctx.beginPath();
   ctx.rect(PADDING, PADDING, drawW, drawH);
   ctx.clip();
   
+  // رسم الخط بدقة عالية
   ctx.strokeStyle = '#4f46e5';
-  ctx.lineWidth = 3;
+  ctx.lineWidth = 3 / zoomDpr;
   ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
   ctx.beginPath();
   let first = true;
-  for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
+  for (let px = PADDING - 50; px <= W - PADDING + 50; px += 1) { // خطوة أصغر لدقة أعلى
     const x = toMathX(px);
     const y = currentM * x + currentB;
     const py = toScreenY(y);
@@ -991,6 +1016,7 @@ function drawGraph1() {
   }
   ctx.stroke();
   
+  // مثلث الميل
   if (document.getElementById('showTriangle').checked && currentM !== 0) {
     const startX = 0, startY = currentB, run = 1, rise = currentM;
     const p1x = toScreenX(startX), p1y = toScreenY(startY);
@@ -1001,33 +1027,39 @@ function drawGraph1() {
       ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
       ctx.beginPath(); ctx.moveTo(p1x, p1y); ctx.lineTo(p2x, p2y); ctx.lineTo(p3x, p3y); ctx.closePath(); ctx.fill();
       
-      ctx.strokeStyle = '#059669'; ctx.lineWidth = 2; ctx.setLineDash([5, 3]);
+      ctx.strokeStyle = '#059669'; ctx.lineWidth = 2 / zoomDpr; ctx.setLineDash([5, 3]);
       ctx.beginPath(); ctx.moveTo(p1x, p1y); ctx.lineTo(p2x, p2y); ctx.stroke();
       ctx.setLineDash([]);
       
       ctx.strokeStyle = '#dc2626';
       ctx.beginPath(); ctx.moveTo(p2x, p2y); ctx.lineTo(p3x, p3y); ctx.stroke();
       
-      ctx.font = 'bold 13px IBM Plex Mono, monospace';
+      const triFontSize = Math.max(11, 13 / Math.sqrt(zoomLevel));
+      ctx.font = `bold ${triFontSize}px IBM Plex Mono, monospace`;
       ctx.fillStyle = '#059669'; ctx.textAlign = 'center';
       ctx.fillText(`run = 1`, (p1x + p2x) / 2, p1y + 18);
       
       ctx.fillStyle = '#dc2626'; ctx.textAlign = 'left';
       ctx.fillText(`rise = ${currentM}`, p3x + 5, (p2y + p3y) / 2);
       
-      ctx.fillStyle = '#047857'; ctx.font = 'bold 14px IBM Plex Mono, monospace'; ctx.textAlign = 'center';
+      ctx.fillStyle = '#047857'; 
+      ctx.font = `bold ${Math.max(12, 14 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
+      ctx.textAlign = 'center';
       ctx.fillText(`m = ${currentM}`, (p1x + p3x) / 2, (p1y + p3y) / 2 - 10);
     }
   }
   
+  // نقاط مميزة
   if (document.getElementById('showPoints').checked) {
     const yIntX = toScreenX(0), yIntY = toScreenY(currentB);
     ctx.fillStyle = '#f43f5e';
-    ctx.beginPath(); ctx.arc(yIntX, yIntY, 8, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(yIntX, yIntY, 8 / zoomDpr, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 / zoomDpr; ctx.stroke();
     
     if (yIntX + 80 < W - PADDING && yIntY - 20 > PADDING) {
-      ctx.fillStyle = '#0f172a'; ctx.font = 'bold 12px IBM Plex Mono, monospace'; ctx.textAlign = 'left';
+      ctx.fillStyle = '#0f172a'; 
+      ctx.font = `bold ${Math.max(10, 12 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
+      ctx.textAlign = 'left';
       ctx.fillText(`(0, ${currentB})`, yIntX + 12, yIntY - 10);
     }
     
@@ -1036,38 +1068,43 @@ function drawGraph1() {
       if (Math.abs(xInt) <= RANGE) {
         const xIntX = toScreenX(xInt), xIntY = toScreenY(0);
         ctx.fillStyle = '#8b5cf6';
-        ctx.beginPath(); ctx.arc(xIntX, xIntY, 7, 0, Math.PI * 2); ctx.fill();
-        ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+        ctx.beginPath(); ctx.arc(xIntX, xIntY, 7 / zoomDpr, 0, Math.PI * 2); ctx.fill();
+        ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 / zoomDpr; ctx.stroke();
         
         if (xIntX + 60 < W - PADDING && xIntY + 30 < H - PADDING) {
-          ctx.fillStyle = '#0f172a'; ctx.font = 'bold 11px IBM Plex Mono, monospace'; ctx.textAlign = 'center';
+          ctx.fillStyle = '#0f172a'; 
+          ctx.font = `bold ${Math.max(9, 11 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
+          ctx.textAlign = 'center';
           ctx.fillText(`(${xInt.toFixed(1)}, 0)`, xIntX, xIntY + 20);
         }
       }
     }
   }
   
+  // نقطة متحركة
   if (document.getElementById('animatePoint').checked) {
     const animX = Math.sin(animatedT) * (RANGE * 0.5);
     const animY = currentM * animX + currentB;
     const ax = toScreenX(animX), ay = toScreenY(animY);
     
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)'; ctx.lineWidth = 1.5; ctx.setLineDash([4, 4]);
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)'; ctx.lineWidth = 1.5 / zoomDpr; ctx.setLineDash([4, 4]);
     ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax, originY); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(originX, ay); ctx.stroke();
     ctx.setLineDash([]);
     
     ctx.fillStyle = '#f59e0b';
-    ctx.beginPath(); ctx.arc(ax, ay, 7, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.beginPath(); ctx.arc(ax, ay, 7 / zoomDpr, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 2 / zoomDpr; ctx.stroke();
     
-    ctx.fillStyle = '#0f172a'; ctx.font = 'bold 11px IBM Plex Mono, monospace'; ctx.textAlign = 'left';
+    ctx.fillStyle = '#0f172a'; 
+    ctx.font = `bold ${Math.max(9, 11 / Math.sqrt(zoomLevel))}px IBM Plex Mono, monospace`;
+    ctx.textAlign = 'left';
     ctx.fillText(`(${animX.toFixed(1)}, ${animY.toFixed(1)})`, ax + 10, ay - 10);
     animatedT += 0.02;
   }
   
   ctx.restore();
-  ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#cbd5e1'; ctx.lineWidth = 1 / zoomDpr;
   ctx.strokeRect(PADDING, PADDING, drawW, drawH);
 }
 
@@ -1089,7 +1126,7 @@ if (graphCanvasWrap1) {
     const rect = graphCanvasWrap1.getBoundingClientRect();
     const px = e.clientX - rect.left, py = e.clientY - rect.top;
     const W = rect.width, H = rect.height;
-    const RANGE = 8, PADDING = 40;
+    const RANGE = 8 / zoomLevel, PADDING = 40;
     const originX = W / 2, originY = H / 2;
     const scale = Math.min(W - PADDING * 2, H - PADDING * 2) / (RANGE * 2);
     
@@ -1100,13 +1137,13 @@ if (graphCanvasWrap1) {
     graphTooltip1.style.display = 'block';
     graphTooltip1.style.left = (px + 15) + 'px';
     graphTooltip1.style.top = (py - 30) + 'px';
-    graphTooltip1.innerHTML = `📍 الماوس: (${mathX.toFixed(2)}, ${mathY.toFixed(2)})<br>📈 على الخط: y = ${lineY.toFixed(2)}`;
+    graphTooltip1.innerHTML = ` الماوس: (${mathX.toFixed(2)}, ${mathY.toFixed(2)})<br> على الخط: y = ${lineY.toFixed(2)}`;
   });
   graphCanvasWrap1.addEventListener('mouseleave', function() { graphTooltip1.style.display = 'none'; });
 }
 
 // ═══════════════════════════════════════════════════════════════
-// GRAPH 2 - COMPARISON (Static, No Zoom)
+// GRAPH 2 - COMPARISON
 // ═══════════════════════════════════════════════════════════════
 let m1=1, b1=0, m2=-1, b2=3;
 
@@ -1190,7 +1227,7 @@ function drawGraph2() {
     ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineCap = 'round';
     ctx.beginPath();
     let first = true;
-    for (let px = PADDING - 50; px <= W - PADDING + 50; px += 2) {
+    for (let px = PADDING - 50; px <= W - PADDING + 50; px += 1) {
       const x = toMathX(px), y = m * x + b, py = toScreenY(y);
       if (first) { ctx.moveTo(px, py); first = false; }
       else ctx.lineTo(px, py);
@@ -1270,7 +1307,7 @@ const conceptsData = [
   {icon:'🔢', title:'الثابت (Constant)', desc:'عدد ثابت لا يتغير', explanation:'الثابت هو <strong>عدد</strong> لا يحتوي على متغير.', examples:['في <span class="math-expr">3x + 5</span>، الثابت هو 5'], generateExercise:() => { const b = Math.floor(Math.random()*15)+1; const a = Math.floor(Math.random()*5)+2; return {q:`ما هو الثابت في <span class="math-expr">${a}x + ${b}</span>؟`, a:b}; }},
   {icon:'✖️', title:'المعامل (Coefficient)', desc:'العدد المضروب في المتغير', explanation:'المعامل هو <strong>العدد</strong> الذي يُضرب في المتغير.', examples:['في <span class="math-expr">3x</span>، المعامل هو 3'], generateExercise:() => { const a = Math.floor(Math.random()*9)+2; return {q:`معامل x في <span class="math-expr">${a}x + 7</span>؟`, a:a}; }},
   {icon:'➕', title:'الحد (Term)', desc:'كل جزء في العبارة', explanation:'الحد هو <strong>كل جزء</strong> من العبارة الجبرية.', examples:['في <span class="math-expr">3x + 5 - 2y</span>، الحدود: 3x, 5, -2y'], generateExercise:() => { const a = Math.floor(Math.random()*5)+2; const b = Math.floor(Math.random()*5)+1; return {q:`عدد الحدود في <span class="math-expr">${a}x + ${b}y - 3</span>؟`, a:3}; }},
-  {icon:'', title:'العبارة الجبرية', desc:'مجموعة أعداد ومتغيرات بدون =', explanation:'العبارة الجبرية هي مجموعة من <strong>الأعداد والمتغيرات</strong> بدون علامة =.', examples:['<span class="math-expr">3x + 5</span> هي عبارة جبرية'], generateExercise:() => { const x = Math.floor(Math.random()*6)+2; const a = Math.floor(Math.random()*4)+2; const b = Math.floor(Math.random()*8)+1; return {q:`قيّمي <span class="math-expr">${a}x + ${b}</span> عندما <span class="math-expr">x = ${x}</span>`, a:a*x+b}; }},
+  {icon:'📝', title:'العبارة الجبرية', desc:'مجموعة أعداد ومتغيرات بدون =', explanation:'العبارة الجبرية هي مجموعة من <strong>الأعداد والمتغيرات</strong> بدون علامة =.', examples:['<span class="math-expr">3x + 5</span> هي عبارة جبرية'], generateExercise:() => { const x = Math.floor(Math.random()*6)+2; const a = Math.floor(Math.random()*4)+2; const b = Math.floor(Math.random()*8)+1; return {q:`قيّمي <span class="math-expr">${a}x + ${b}</span> عندما <span class="math-expr">x = ${x}</span>`, a:a*x+b}; }},
   {icon:'⚖️', title:'المعادلة (Equation)', desc:'عبارة تحتوي على =', explanation:'المعادلة تحتوي على علامة <strong>=</strong> وتوضح تساوي طرفين.', examples:['<span class="math-expr">3x + 5 = 20</span> هي معادلة'], generateExercise:() => { const x = Math.floor(Math.random()*8)+2; const b = Math.floor(Math.random()*8)+1; return {q:`حلّي: <span class="math-expr">x + ${b} = ${x+b}</span>`, a:x}; }}
 ];
 
@@ -1322,7 +1359,7 @@ function checkEqAnswer() {
 }
 function showEqHint() {
   const type = state.currentEq.type;
-  let hint = type === 'add' ? ' اطرحي العدد من الطرفين!' : type === 'sub' ? '💡 أضيفي العدد للطرفين!' : '💡 اقسمي الطرفين على المعامل!';
+  let hint = type === 'add' ? '💡 اطرحي العدد من الطرفين!' : type === 'sub' ? '💡 أضيفي العدد للطرفين!' : '💡 اقسمي الطرفين على المعامل!';
   alert(hint);
 }
 
@@ -1353,8 +1390,8 @@ const eduCardsData = [
   {icon:'📊', title:'الجزء المقطوع', desc:'تقاطع مع محور y', formula:'b في y = mx + b', examples:['<span class="math-expr">b = 3</span>: (0, 3)','<span class="math-expr">b = -2</span>: (0, -2)']},
   {icon:'⚖️', title:'حل المعادلة', desc:'إيجاد قيمة x', formula:'x + 3 = 7 → x = 4', examples:['<span class="math-expr">2x = 10 → x = 5</span>','<span class="math-expr">x - 4 = 3 → x = 7</span>']},
   {icon:'🔄', title:'العمليات العكسية', desc:'الجمع ↔ الطرح', formula:'+a ↔ -a', examples:['<span class="math-expr">x + 5 = 12</span> → نطرح 5','<span class="math-expr">3x = 15</span> → نقسم على 3']},
-  {icon:'🎯', title:'نقطة التقاطع', desc:'حل جملة معادلتين', formula:'m₁x+b₁ = m₂x+b₂', examples:['<span class="math-expr">y=x</span> و <span class="math-expr">y=-x+4</span> → (2,2)']},
-  {icon:'📉', title:'الخط التنازلي', desc:'الميل سالب', formula:'m < 0', examples:['<span class="math-expr">y = -x + 5</span>','<span class="math-expr">y = -2x + 3</span>']},
+  {icon:'', title:'نقطة التقاطع', desc:'حل جملة معادلتين', formula:'m₁x+b₁ = m₂x+b₂', examples:['<span class="math-expr">y=x</span> و <span class="math-expr">y=-x+4</span> → (2,2)']},
+  {icon:'', title:'الخط التنازلي', desc:'الميل سالب', formula:'m < 0', examples:['<span class="math-expr">y = -x + 5</span>','<span class="math-expr">y = -2x + 3</span>']},
   {icon:'📈', title:'الخط التصاعدي', desc:'الميل موجب', formula:'m > 0', examples:['<span class="math-expr">y = x + 2</span>','<span class="math-expr">y = 3x - 1</span>']}
 ];
 
@@ -1375,7 +1412,7 @@ function renderEduCards() {
         </div>
         <div class="edu-card-face edu-card-back">
           <h4>${c.title}</h4>
-          <div style="font-size:var(--fs-xs);color:var(--text-tertiary);margin-bottom:var(--sp-2)">📚 أمثلة:</div>
+          <div style="font-size:var(--fs-xs);color:var(--text-tertiary);margin-bottom:var(--sp-2)"> أمثلة:</div>
           ${c.examples.map(e => `<div style="font-family:var(--font-math);font-size:var(--fs-sm);font-weight:600;color:var(--c-accent-700);background:var(--c-accent-50);padding:var(--sp-1) var(--sp-2);border-radius:var(--r-md);margin:var(--sp-1) 0;width:100%;direction:ltr;text-align:right">${e}</div>`).join('')}
           <div style="margin-top:auto;font-family:var(--font-math);font-size:var(--fs-sm);font-weight:700;color:var(--c-primary-700);background:var(--c-primary-50);padding:var(--sp-1) var(--sp-3);border-radius:var(--r-md);width:100%;direction:ltr;text-align:right">${c.formula}</div>
         </div>
@@ -1390,7 +1427,7 @@ function showCorrectFeedback() {
   const text = document.getElementById('feedbackText');
   const gem = document.getElementById('gemReward');
   text.innerHTML = '<div class="feedback-correct">🎊 أحسنتِ!</div>';
-  const gemColors = ['💎','💠','🔷','🔶','','💚','💙','❤️','🧡','💛'];
+  const gemColors = ['💎','💠','🔷','','💜','💚','💙','❤️','🧡','💛'];
   const gemColor = gemColors[Math.floor(Math.random() * gemColors.length)];
   gem.textContent = gemColor; gem.style.display = 'block';
   state.gems.push({color: gemColor, time: Date.now()}); saveState();
@@ -1469,10 +1506,12 @@ init();
 with open(file_path, "w", encoding="utf-8") as f:
     f.write(content)
 
-print("✅ تم الحقن الجراحي بنجاح - الكود الكامل المصحح!")
-print("\n🎯 الحل النهائي لمشكلة الزوم:")
-print("  1️⃣  الزوم يطبق فقط على Canvas عبر CSS transform: scale()")
-print("  2️⃣  overflow:hidden على الحاوية يمنع خروج الرسم المكبر")
-print("  3️  transform:none !important على عمود الشرح يثبته تماماً")
-print("  4️⃣  capture:true + stopImmediatePropagation يعزلان حدث العجلة")
-print("  5️⃣  عمود الشرح يبقى ثابتاً ومرئياً بالكامل أثناء الزوم")
+print("✅ تم الحقن الجراحي بنجاح - تحسين دقة الزوم بشكل جذري!")
+print("\n🎯 التحسينات في دقة الزوم:")
+print("  1️⃣  إزالة CSS transform: scale() (السبب الرئيسي للتشويش)")
+print("  2️⃣  Mathematical Zoom: تغيير RANGE بدلاً من تكبير البكسلات")
+print("  3️⃣  High-DPI Rendering: canvas.width = rect.width * dpr * zoomLevel")
+print("  4️⃣  Adaptive Font Sizes: خطوط تتكيف مع مستوى الزوم")
+print("  5️⃣  Adaptive Line Widths: خطوط ثابتة بصرياً عند كل مستويات الزوم")
+print("  6️⃣  Finer Step (px += 1): رسم الخط بدقة أعلى")
+print("  7️⃣  عمود الشرح ثابت تماماً ولا يتأثر بالزوم")
