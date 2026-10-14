@@ -101,9 +101,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 .stat-badge { background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50)); padding:var(--sp-2) var(--sp-4); border-radius:var(--r-full); font-weight:700; display:flex; align-items:center; gap:var(--sp-2); border:2px solid var(--c-primary-200); box-shadow:var(--shadow-sm); color:var(--c-primary-800); font-size:var(--fs-sm); }
 .stat-badge .num { color:var(--c-accent-600); font-size:var(--fs-xl); font-weight:900; font-family:var(--font-heading); }
 
-/* ══════════════════════════════════════════════════════════════
-   ENRICHMENT SECTION (المادة الإثرائية)
-   ══════════════════════════════════════════════════════════════ */
 .enrichment-section {
   background:var(--bg-primary); border-radius:var(--r-3xl); padding:var(--sp-6);
   box-shadow:var(--shadow-lg); margin-bottom:var(--sp-5); border:2px solid var(--border-subtle);
@@ -247,7 +244,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   text-align:center; box-shadow:var(--shadow-md); direction:ltr;
 }
 
-/* Lessons */
 .lessons-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:var(--sp-4); margin-bottom:var(--sp-5); }
 .lesson-card {
   background:var(--bg-primary); border-radius:var(--r-2xl); padding:var(--sp-4);
@@ -307,7 +303,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
   color:white; padding:var(--sp-8); border-radius:var(--r-3xl); text-align:center;
   box-shadow:var(--shadow-lg); position:relative; overflow:hidden; border:3px solid var(--c-accent-400);
-  max-width: 600px; margin: 0 auto;
+  max-width: 800px; margin: 0 auto;
 }
 .timer-container { margin: var(--sp-4) 0; }
 .timer-text {
@@ -319,7 +315,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 @keyframes pulseRed { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 .timer-bar-bg {
   width: 100%; height: 12px; background: rgba(255,255,255,0.2);
-  border-radius: var(--r-full); overflow: hidden; margin: 0 auto; max-width: 300px;
+  border-radius: var(--r-full); overflow: hidden; margin: 0 auto; max-width: 400px;
 }
 .timer-bar-fill {
   height: 100%; background: var(--c-accent-400); border-radius: var(--r-full);
@@ -327,7 +323,15 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 }
 .timer-bar-fill.urgent { background: var(--c-danger-500) !important; }
 
-.challenge-q { font-size:var(--fs-2xl); font-weight:900; margin:var(--sp-4) 0; min-height:60px; direction:ltr; font-family:var(--font-math); }
+/* ✅ تم تعديل المحاذاة لليمين لدعم النص العربي مع الحفاظ على عزل المعادلات */
+.challenge-q { 
+  font-size:var(--fs-2xl); 
+  font-weight:900; 
+  margin:var(--sp-4) 0; 
+  min-height:60px; 
+  direction: rtl; 
+  text-align: right; 
+}
 
 .challenge-summary {
   background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);
@@ -340,7 +344,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 .summary-stat .val { font-size: var(--fs-3xl); font-weight: 900; display: block; }
 .summary-stat .lbl { font-size: var(--fs-sm); opacity: 0.9; }
 
-/* Competition */
 .competition-container { background:var(--bg-primary); border-radius:var(--r-3xl); padding:var(--sp-6); box-shadow:var(--shadow-lg); margin-bottom:var(--sp-5); border:2px solid var(--border-subtle); }
 .competition-header { text-align:center; margin-bottom:var(--sp-5); padding-bottom:var(--sp-4); border-bottom:3px solid var(--c-accent-400); }
 .competition-header h2 { font-family:var(--font-display); font-size:var(--fs-2xl); font-weight:900; color:var(--c-primary-800); margin-bottom:var(--sp-2); }
@@ -411,7 +414,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 
 .tie-card { grid-column:1/-1; background:linear-gradient(135deg,var(--c-accent-50),var(--c-primary-50)); border:3px solid var(--c-accent-400); border-radius:var(--r-2xl); padding:30px; text-align:center; animation:shieldPop 0.8s var(--ease-out); }
 
-/* Cards */
 .cards-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:var(--sp-3); }
 .flip-card { perspective:1000px; height:200px; cursor:pointer; }
 .flip-inner { position:relative; width:100%; height:100%; transition:transform 0.7s var(--ease-out); transform-style:preserve-3d; }
@@ -424,7 +426,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 .flip-back .answer { font-size:var(--fs-lg); font-weight:900; color:var(--c-primary-700); margin:var(--sp-2) 0; text-align:center; }
 .flip-back .solution { font-size:var(--fs-sm); line-height:1.5; text-align:center; color:var(--text-secondary); font-weight:600; }
 
-/* Fairy */
 .fairy-wrap { position:fixed; bottom:var(--sp-5); left:var(--sp-5); z-index:50; cursor:grab; touch-action:none; user-select:none; }
 .fairy-wrap:active { cursor:grabbing; }
 .fairy-wrap.dragging { transform:scale(1.15); z-index:60; }
@@ -437,7 +438,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 .fairy-bubble.show { display:block; animation:popIn 0.4s var(--ease-out); }
 @keyframes popIn { from{transform:translateX(-50%) scale(0);opacity:0} to{transform:translateX(-50%) scale(1);opacity:1} }
 
-/* Feedback */
 .feedback-overlay { position:fixed; inset:0; background:rgba(16,42,67,0.75); backdrop-filter:blur(8px); display:none; justify-content:center; align-items:center; z-index:1000; padding:var(--sp-4); }
 .feedback-overlay.show { display:flex; }
 .feedback-box { background:var(--bg-primary); padding:var(--sp-8); border-radius:var(--r-3xl); text-align:center; box-shadow:var(--shadow-xl); animation:popIn 0.6s var(--ease-out); max-width:450px; width:100%; border:4px solid var(--c-accent-400); }
@@ -448,7 +448,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 .confetti { position:fixed; width:10px; height:10px; top:-10px; z-index:999; pointer-events:none; animation:fall 5s linear forwards; }
 @keyframes fall { to{transform:translateY(110vh) rotate(720deg);opacity:0} }
 
-/* Modal */
 .modal { position:fixed; inset:0; background:rgba(16,42,67,0.75); backdrop-filter:blur(10px); display:none; justify-content:center; align-items:center; z-index:2000; padding:var(--sp-4); }
 .modal.show { display:flex; }
 .modal-content { background:var(--bg-primary); padding:var(--sp-6); border-radius:var(--r-3xl); max-width:650px; width:100%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-xl); animation:popIn 0.5s var(--ease-out); border:3px solid var(--c-primary-500); }
@@ -467,12 +466,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 
 .settings-section { margin-bottom:var(--sp-5); padding-bottom:var(--sp-5); border-bottom:2px dashed var(--border-subtle); }
 .settings-section h4 { font-family:var(--font-heading); font-size:var(--fs-lg); font-weight:700; color:var(--c-primary-800); margin-bottom:var(--sp-3); display:flex; align-items:center; gap:var(--sp-2); }
-
-.footer { background:var(--bg-primary); padding:var(--sp-5); margin-top:var(--sp-8); text-align:center; box-shadow:var(--shadow-md); border-top:3px solid var(--c-primary-700); border:1px solid var(--border-subtle); }
-.footer-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:var(--sp-3); max-width:1200px; margin:0 auto; }
-.footer-item { background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50)); padding:var(--sp-3); border-radius:var(--r-md); border:1px solid var(--border-subtle); }
-.footer-item .label { font-size:var(--fs-xs); color:var(--text-tertiary); margin-bottom:var(--sp-1); font-weight:600; }
-.footer-item .value { font-size:var(--fs-sm); font-weight:700; color:var(--c-primary-800); font-family:var(--font-heading); }
 
 @media (max-width:768px){
   .top-header { flex-direction:column; align-items:flex-start; }
@@ -512,10 +505,10 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 </header>
 
 <div class="student-bar">
-  <div class="student-info"><span class="label">👩‍🎓 إعداد الطالبة</span><span class="value">تقى يونسو</span></div>
-  <div class="student-info"><span class="label">‍🏫 إشراف المعلمة</span><span class="value">فلك عاصي</span></div>
-  <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الشعبة الأولى</span></div>
-  <div class="student-info"><span class="label"> المدرسة</span><span class="value">المدرسة النموذجية للمتفوقين إناث</span></div>
+  <div class="student-info"><span class="label">👩‍🎓 الطالبة</span><span class="value">تقى يونسو</span></div>
+  <div class="student-info"><span class="label">👩‍🏫 المعلمة</span><span class="value">فلك عاصي</span></div>
+  <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الأولى</span></div>
+  <div class="student-info"><span class="label">🏫 المدرسة</span><span class="value">النموذجية للمتفوقين</span></div>
 </div>
 
 <div class="container">
@@ -523,12 +516,16 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 <div id="home" class="page active">
   <div class="hero">
     <h2>📐 مغامرة العبارات الجبرية والمعادلات 📐</h2>
-    <p>تعلمي الرياضيات بأسلوب أكاديمي تفاعلي مع الجنية الصغيرة!</p>
+    <p style="font-size:1.1rem; color:var(--text-secondary); margin-bottom:20px;">تعلمي الرياضيات بأسلوب أكاديمي تفاعلي مع الجنية الصغيرة!</p>
     <div class="hero-stats">
-      <div class="stat-badge"> <span class="num" id="homePoints">0</span> نقطة</div>
+      <div class="stat-badge">🌟 <span class="num" id="homePoints">0</span> نقطة</div>
       <div class="stat-badge">🌸 <span class="num" id="homeGems">0</span> جوهرة</div>
       <div class="stat-badge">✅ <span class="num" id="homeCorrect">0</span> صحيحة</div>
       <div class="stat-badge">🔥 <span class="num" id="homeStreak">0</span> تتابع</div>
+    </div>
+    <div class="btn-row" style="margin-top:25px;">
+      <button class="btn btn-new" onclick="showPage('lessons',document.querySelectorAll('.nav-btn')[1])">🚀 ابدأي التعلم</button>
+      <button class="btn btn-check" onclick="showPage('dual-compete',document.querySelectorAll('.nav-btn')[4])">⚔️ المنافسة الثنائية</button>
     </div>
   </div>
 </div>
@@ -537,20 +534,13 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   <div class="lessons-grid" id="lessonsGrid"></div>
 </div>
 
-<!-- ═════════════════════════════════════════════════════════════
-     ENRICHMENT PAGE - المادة الإثرائية
-     ══════════════════════════════════════════════════════════════ -->
 <div id="enrichment" class="page">
-  
-  <!-- القسم الأول: المعادلة الخطية البسيطة -->
   <div class="enrichment-section">
     <div class="enrichment-header">
-      <h3> المعادلة الخطية: y = mx + b</h3>
+      <h3>📘 المعادلة الخطية: y = mx + b</h3>
       <p>تفاعلي ثنائي الاتجاه - اسحبي النقاط أو غيّري القيم وشاهدي التأثير الفوري!</p>
     </div>
-
     <div class="enrichment-split">
-      <!-- الرسم البياني -->
       <div class="enrichment-graph-panel">
         <h4>📊 الرسم البياني التفاعلي</h4>
         <div class="graph-wrap" id="singleGraphWrap">
@@ -564,8 +554,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           <div class="legend-item"><div class="legend-color dot" style="background:#ef4444"></div><span>نقطة الميل</span></div>
           <div class="legend-item"><div class="legend-color" style="background:#6366f1"></div><span>الخط البياني</span></div>
         </div>
-
-        <!-- جدول القيم -->
         <div class="values-table-container">
           <h4>📋 جدول القيم الديناميكي</h4>
           <table class="values-table">
@@ -574,8 +562,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           </table>
         </div>
       </div>
-
-      <!-- التحكم والشرح -->
       <div class="enrichment-equations-panel">
         <div class="eq-control-card single-card">
           <h4>🎛️ التحكم بالمعادلة: y = mx + b</h4>
@@ -591,13 +577,9 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           </div>
           <div class="eq-display-live" id="singleEqDisplay">y = 1x + 0</div>
         </div>
-
         <div class="concept-explanation">
-          <h5> فهم المعادلة y = mx + b</h5>
-          <p>
-            المعادلة الخطية تصف علاقة مباشرة بين متغيرين <span class="math-expr">x</span> و <span class="math-expr">y</span>.
-            كل نقطة على الخط تحقق هذه المعادلة.
-          </p>
+          <h5>📘 فهم المعادلة y = mx + b</h5>
+          <p>المعادلة الخطية تصف علاقة مباشرة بين متغيرين <span class="math-expr">x</span> و <span class="math-expr">y</span>. كل نقطة على الخط تحقق هذه المعادلة.</p>
           <ul>
             <li><strong>m (الميل):</strong> يحدد انحدار الخط. إذا كان <span class="math-expr">m > 0</span> يصعد الخط، وإذا كان <span class="math-expr">m < 0</span> ينزل، وإذا كان <span class="math-expr">m = 0</span> يكون أفقياً.</li>
             <li><strong>b (الجزء المقطوع):</strong> هو قيمة <span class="math-expr">y</span> عندما <span class="math-expr">x = 0</span>، أي نقطة تقاطع الخط مع محور y.</li>
@@ -608,15 +590,12 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
     </div>
   </div>
 
-  <!-- القسم الثاني: جملة معادلتين -->
   <div class="enrichment-section">
     <div class="enrichment-header">
       <h3>🔬 الفقرة الإثرائية: حل جملة معادلتين بيانياً</h3>
       <p>شاهدي المعادلتين والرسم البياني جنباً إلى جنب - أي تغيير ينعكس فوراً!</p>
     </div>
-
     <div class="enrichment-split">
-      <!-- الرسم البياني -->
       <div class="enrichment-graph-panel">
         <h4>🎯 الرسم البياني التفاعلي للمعادلتين</h4>
         <div class="graph-wrap" id="dualGraphWrap">
@@ -630,8 +609,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           <div class="legend-item"><div class="legend-color" style="background:#ef4444"></div><span>المعادلة 2</span></div>
           <div class="legend-item"><div class="legend-color dot" style="background:#f59e0b"></div><span>نقطة التقاطع</span></div>
         </div>
-
-        <!-- جدول القيم -->
         <div class="values-table-container" style="margin-top:var(--sp-4)">
           <h4>📊 جدول القيم الديناميكي للمعادلتين</h4>
           <table class="values-table">
@@ -640,8 +617,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           </table>
         </div>
       </div>
-
-      <!-- التحكم والحل -->
       <div class="enrichment-equations-panel">
         <div class="eq-control-card eq1-card">
           <h4>📗 المعادلة الأولى: y = m₁x + b₁</h4>
@@ -657,9 +632,8 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           </div>
           <div class="eq-display-live" id="eq1Display">y = 2x + 1</div>
         </div>
-
         <div class="eq-control-card eq2-card">
-          <h4> المعادلة الثانية: y = m₂x + b₂</h4>
+          <h4>📕 المعادلة الثانية: y = m₂x + b₂</h4>
           <div class="eq-control-row">
             <label>m₂:</label>
             <input type="number" id="m2Input" step="0.5" value="-1">
@@ -672,16 +646,11 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           </div>
           <div class="eq-display-live" id="eq2Display">y = -x + 4</div>
         </div>
-
         <div class="solution-card">
           <h4>🎯 الحل الجبري (نقطة التقاطع)</h4>
-          <p style="margin-bottom:var(--sp-2);color:var(--text-secondary);font-size:var(--fs-sm)">
-            نساوي الطرفين عند التقاطع:
-          </p>
+          <p style="margin-bottom:var(--sp-2);color:var(--text-secondary);font-size:var(--fs-sm)">نساوي الطرفين عند التقاطع:</p>
           <div id="algebraicSteps"></div>
-          <div class="intersection-result" id="intersectionResult">
-            ✨ نقطة التقاطع: <span class="math-expr">(1, 3)</span> ✨
-          </div>
+          <div class="intersection-result" id="intersectionResult">✨ نقطة التقاطع: <span class="math-expr">(1, 3)</span> ✨</div>
         </div>
       </div>
     </div>
@@ -714,7 +683,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
           <div class="summary-stat"><span class="val" style="color:var(--c-success-500)" id="summaryCorrect">0</span><span class="lbl">إجابات صحيحة</span></div>
           <div class="summary-stat"><span class="val" style="color:var(--c-accent-400)" id="summaryPoints">0</span><span class="lbl">نقاط مكتسبة</span></div>
         </div>
-        <button class="btn btn-new" onclick="resetChallengeUI()" style="font-size:var(--fs-lg); padding: var(--sp-3) var(--sp-6);"> لعب مرة أخرى</button>
+        <button class="btn btn-new" onclick="resetChallengeUI()" style="font-size:var(--fs-lg); padding: var(--sp-3) var(--sp-6);">🔄 لعب مرة أخرى</button>
       </div>
     </div>
   </div>
@@ -723,7 +692,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 <div id="dual-compete" class="page">
   <div class="competition-container">
     <div id="dc-setup" style="text-align:center; padding: 20px 0;">
-      <h2 style="font-size:1.8rem; color:var(--c-primary-800); margin-bottom:10px;">️ المنافسة الثنائية</h2>
+      <h2 style="font-size:1.8rem; color:var(--c-primary-800); margin-bottom:10px;">⚔️ المنافسة الثنائية</h2>
       <div class="dc-rules">
         <h3>📜 قواعد المنافسة</h3>
         <ul>
@@ -744,8 +713,8 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-new" onclick="startDualCompetition()" style="font-size:1.2rem; padding:15px 40px;"> ابدأ المنافسة (60 ثانية)</button>
-        <button class="btn btn-warning" onclick="resetDualResults()" style="font-size:1rem; padding:15px 25px;">️ تصفير النتائج</button>
+        <button class="btn btn-new" onclick="startDualCompetition()" style="font-size:1.2rem; padding:15px 40px;">🚀 ابدأ المنافسة (60 ثانية)</button>
+        <button class="btn btn-warning" onclick="resetDualResults()" style="font-size:1rem; padding:15px 25px;">🗑️ تصفير النتائج</button>
       </div>
     </div>
 
@@ -791,7 +760,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
     <p>اضغط على أي بطاقة لقلبها ورؤية الإجابة! 🌷</p>
     <div class="btn-row">
       <button class="btn btn-new" onclick="shuffleCards()">🍃 خلط البطاقات</button>
-      <button class="btn btn-hint" onclick="resetCards()"> إعادة البطاقات</button>
+      <button class="btn btn-hint" onclick="resetCards()">🔄 إعادة البطاقات</button>
     </div>
   </div>
   <div class="cards-grid" id="cardsGrid"></div>
@@ -839,7 +808,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
       <div class="stat-card"><div class="num" id="statPoints">0</div><div class="label">🌟 النقاط</div></div>
       <div class="stat-card"><div class="num" id="statCorrect">0</div><div class="label">✅ صحيحة</div></div>
       <div class="stat-card"><div class="num" id="statWrong">0</div><div class="label">❌ خاطئة</div></div>
-      <div class="stat-card"><div class="num" id="statGems">0</div><div class="label"> الجواهر</div></div>
+      <div class="stat-card"><div class="num" id="statGems">0</div><div class="label">🌸 الجواهر</div></div>
       <div class="stat-card"><div class="num" id="statAccuracy">0%</div><div class="label">🎯 الدقة</div></div>
       <div class="stat-card"><div class="num" id="statStreak">0</div><div class="label">🔥 أفضل تتابع</div></div>
     </div>
@@ -848,7 +817,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 
 <div class="modal" id="gardenModal">
   <div class="modal-content">
-    <button class="modal-close" onclick="closeModal('gardenModal')"></button>
+    <button class="modal-close" onclick="closeModal('gardenModal')">✕</button>
     <h2 class="modal-title">🌺 حديقة إنجازاتي</h2>
     <p style="text-align:center;margin-bottom:var(--sp-4)">كل جوهرة تمثل إنجازاً! 📐</p>
     <div class="garden-grid" id="gardenGrid"></div>
@@ -859,7 +828,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal('settingsModal')">✕</button>
     <h2 class="modal-title">⚙️ الإعدادات</h2>
-    
     <div class="settings-section">
       <h4>🧚 حجم الجنية</h4>
       <div style="display:flex;align-items:center;gap:var(--sp-3)">
@@ -868,24 +836,20 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
         <span style="font-size:var(--fs-sm)">كبيرة</span>
       </div>
     </div>
-
     <div class="settings-section">
       <h4>📍 إعادة ضبط موضع الجنية</h4>
       <button class="btn btn-new" onclick="resetFairyPosition()" style="width:100%;padding:var(--sp-3)">🔄 إعادة للموضع الافتراضي</button>
     </div>
-
     <div class="settings-section">
       <h4>🌺 تصفير الشجرة (الجواهر)</h4>
       <button class="btn btn-danger" onclick="resetGarden()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">🗑️ تصفير جميع الجواهر</button>
     </div>
-    
     <div class="settings-section">
       <h4>🔄 تصفير النقاط والإحصائيات</h4>
       <button class="btn btn-danger" onclick="resetPoints()" style="width:100%;padding:var(--sp-3);font-size:var(--fs-base)">🗑️ تصفير النقاط، الإجابات، والجواهر</button>
     </div>
-    
     <div>
-      <h4> الأصوات</h4>
+      <h4>🔊 الأصوات</h4>
       <label style="display:flex;align-items:center;gap:var(--sp-3);cursor:pointer;font-weight:600">
         <input type="checkbox" id="soundToggle" checked onchange="toggleSound()" style="width:20px;height:20px">
         <span>تفعيل الأصوات</span>
@@ -894,19 +858,11 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   </div>
 </div>
 
-<footer class="footer">
-  <div class="footer-grid">
-    <div class="footer-item"><div class="label">‍💻 عمل الطالبة</div><div class="value">تقى يونسو</div></div>
-    <div class="footer-item"><div class="label">👩‍🏫 المدرّسة</div><div class="value">فلك عاصي</div></div>
-    <div class="footer-item"><div class="label"> الصف</div><div class="value">السابع - الشعبة الأولى</div></div>
-    <div class="footer-item"><div class="label">🏫 المدرسة</div><div class="value">المدرسة النموذجية للمتفوقين إناث</div></div>
-  </div>
-</footer>
+<!-- ✅ تم حذف قسم Footer لتجنب تكرار المعلومات الموجودة في الشريط العلوي -->
+
+<canvas id="confetti-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9999;"></canvas>
 
 <script>
-// ══════════════════════════════════════════════════════════════
-// STATE
-// ══════════════════════════════════════════════════════════════
 let state = {
   points:0, correct:0, wrong:0, gems:[], streak:0, maxStreak:0,
   fairySize:110, fairyX:null, fairyY:null, soundOn:true,
@@ -928,9 +884,6 @@ function saveState() {
   try { localStorage.setItem('algebraAdventureUnified', JSON.stringify(state)); } catch(e) {}
 }
 
-// ══════════════════════════════════════════════════════════════
-// AUDIO
-// ══════════════════════════════════════════════════════════════
 let audioCtx = null;
 function playSound(type) {
   if (!state.soundOn) return;
@@ -983,9 +936,6 @@ function launchConfetti() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-// NAVIGATION
-// ══════════════════════════════════════════════════════════════
 function showPage(id, tab) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(t => t.classList.remove('active'));
@@ -1012,9 +962,6 @@ function formatEquation(m, b) {
   return `y = ${mStr}x ${bStr}`.trim();
 }
 
-// ══════════════════════════════════════════════════════════════
-// SINGLE GRAPH - BIDIRECTIONAL SYNC
-// ══════════════════════════════════════════════════════════════
 let singlePoint1 = {x:0, y:0}, singlePoint2 = {x:2, y:2}, isDraggingSingle = null;
 
 function initSingleGraph() {
@@ -1129,7 +1076,6 @@ function drawSingleGraph() {
   ctx.textAlign = 'left'; ctx.fillText('x', W-PADDING+8, originY+5);
   ctx.fillText('y', originX+8, PADDING-8);
   
-  // Draw line
   ctx.strokeStyle = '#6366f1'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath();
   let first = true;
   for (let px = PADDING-50; px <= W-PADDING+50; px += 2) {
@@ -1138,7 +1084,6 @@ function drawSingleGraph() {
   }
   ctx.stroke();
   
-  // Draw points
   ctx.fillStyle = '#3b82f6'; ctx.beginPath(); ctx.arc(toScreenX(singlePoint1.x),toScreenY(singlePoint1.y),10,0,Math.PI*2); ctx.fill();
   ctx.strokeStyle = '#ffffff'; ctx.lineWidth = 2; ctx.stroke();
   ctx.fillStyle = '#ef4444'; ctx.beginPath(); ctx.arc(toScreenX(singlePoint2.x),toScreenY(singlePoint2.y),10,0,Math.PI*2); ctx.fill();
@@ -1230,9 +1175,6 @@ function setupSingleEquationControls() {
   });
 }
 
-// ══════════════════════════════════════════════════════════════
-// DUAL GRAPH - BIDIRECTIONAL SYNC
-// ══════════════════════════════════════════════════════════════
 let eq1Points = [{x:0,y:1},{x:2,y:5}], eq2Points = [{x:0,y:4},{x:2,y:2}], isDraggingDual = null;
 
 function initDualGraph() {
@@ -1335,7 +1277,6 @@ function drawDualGraph() {
   ctx.textAlign = 'left'; ctx.fillText('x', W-PADDING+8, originY+5);
   ctx.fillText('y', originX+8, PADDING-8);
   
-  // Eq 1
   ctx.strokeStyle = '#3b82f6'; ctx.lineWidth = 3; ctx.lineCap = 'round'; ctx.beginPath();
   let first = true;
   for (let px = PADDING-50; px <= W-PADDING+50; px += 2) {
@@ -1344,7 +1285,6 @@ function drawDualGraph() {
   }
   ctx.stroke();
   
-  // Eq 2
   ctx.strokeStyle = '#ef4444'; ctx.lineWidth = 3; ctx.beginPath(); first = true;
   for (let px = PADDING-50; px <= W-PADDING+50; px += 2) {
     const x = toMathX(px), y = state.eq2.m*x+state.eq2.b, py = toScreenY(y);
@@ -1352,7 +1292,6 @@ function drawDualGraph() {
   }
   ctx.stroke();
   
-  // Intersection
   if (Math.abs(state.eq1.m-state.eq2.m) > 0.001) {
     const ix = (state.eq2.b-state.eq1.b)/(state.eq1.m-state.eq2.m);
     const iy = state.eq1.m*ix+state.eq1.b;
@@ -1538,9 +1477,6 @@ function updateAlgebraicSolution() {
   resultDiv.innerHTML = `✨ نقطة التقاطع: <span class="math-expr" style="font-size:var(--fs-base)">(${ix.toFixed(2)}, ${iy.toFixed(2)})</span> ✨`;
 }
 
-// ══════════════════════════════════════════════════════════════
-// LESSONS
-// ══════════════════════════════════════════════════════════════
 const lessons = [
   {icon:'📝', title:'العبارة الجبرية', content:'العبارة الجبرية هي عبارة رياضية تتكون من <strong>أعداد ومتغيرات وعلامات عمليات</strong>، وتكون على الصورة <span class="math-expr">ax + b</span>.', examples:['<span class="math-expr">3x + 5</span> هي عبارة جبرية','<span class="math-expr">2y - 7</span> هي عبارة جبرية'], generate:()=>{const x=Math.floor(Math.random()*8)+2,a=Math.floor(Math.random()*5)+2,b=Math.floor(Math.random()*10)+1; return{q:`إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a:a*x+b};}},
   {icon:'🔤', title:'مكونات العبارة الجبرية', content:'تتكون من:<br><strong>المتغير:</strong> حرف يمثل عدداً مجهولاً (مثل <span class="math-expr">x, y, z</span>).<br><strong>الثابت:</strong> عدد لا يتغير.<br><strong>المعامل:</strong> العدد المضروب في المتغير.', examples:['في <span class="math-expr">3x + 5</span>: المتغير <span class="math-expr">x</span>، الثابت <span class="math-expr">5</span>، المعامل <span class="math-expr">3</span>'], generate:()=>{const b=Math.floor(Math.random()*15)+1,a=Math.floor(Math.random()*5)+2; return{q:`ما هو الثابت في العبارة <span class="math-expr">${a}x + ${b}</span>؟`, a:b};}},
@@ -1563,7 +1499,7 @@ function renderLessons() {
         <div class="question-text" id="q${i}">${q.q}</div>
         <input type="text" class="answer-input" id="a${i}" placeholder="؟">
         <div class="btn-row">
-          <button class="btn btn-check" onclick="checkAnswer(${i})">️ تحقق فوري</button>
+          <button class="btn btn-check" onclick="checkAnswer(${i})">🌤️ تحقق فوري</button>
           <button class="btn btn-hint" onclick="showHint(${i})">💡 تلميح</button>
           <button class="btn btn-new" onclick="newQuestion(${i})">🔄 مسألة جديدة</button>
         </div>
@@ -1599,7 +1535,7 @@ function checkAnswer(i) {
 }
 
 function showHint(i) {
-  const hints = ['عوّضي قيمة x في العبارة واحسبي الناتج 🌟','الثابت هو العدد الذي لا يحتوي على متغير ','الحدود المتشابهة لها نفس المتغير ونفس الأس 💫','استخدمي العملية العكسية لعزل x ⚖️','ما تفعلينه في طرف، افعليه في الآخر! ️','عوّضي بقيمة x في المعادلة الأصلية للتحقق 🎯'];
+  const hints = ['عوّضي قيمة x في العبارة واحسبي الناتج 🌟','الثابت هو العدد الذي لا يحتوي على متغير 🔮','الحدود المتشابهة لها نفس المتغير ونفس الأس 💫','استخدمي العملية العكسية لعزل x ⚖️','ما تفعلينه في طرف، افعليه في الآخر! ⚖️','عوّضي بقيمة x في المعادلة الأصلية للتحقق 🎯'];
   showFairyMessage(hints[i]);
 }
 
@@ -1611,9 +1547,6 @@ function newQuestion(i) {
   document.getElementById('a'+i).value = '';
 }
 
-// ══════════════════════════════════════════════════════════════
-// CHALLENGE
-// ═════════════════════════════════════════════════════════════
 function startChallenge() {
   challengeState = { isActive:true, timeLeft:CHALLENGE_DURATION, timerInterval:null, currentQ:null, correctInRound:0, pointsInRound:0 };
   document.getElementById('challengeIdle').style.display = 'none';
@@ -1718,9 +1651,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// ══════════════════════════════════════════════════════════════
-// DUAL COMPETITION
-// ══════════════════════════════════════════════════════════════
 function startDualCompetition() {
   const p1 = document.getElementById('dc-p1-name').value.trim() || 'المتسابقة 1';
   const p2 = document.getElementById('dc-p2-name').value.trim() || 'المتسابقة 2';
@@ -1802,8 +1732,10 @@ function endDualCompetition() {
   const grid = document.getElementById('results-grid-content');
   grid.innerHTML = '';
   if (dualCompState.p1Score > dualCompState.p2Score) {
-    grid.innerHTML = `<div class="shield-card"><span class="shield-icon">️</span><div class="shield-title">درع التميز</div><div class="shield-name">${dualCompState.p1Name}</div><div class="shield-score">بـ ${dualCompState.p1Score} إجابة صحيحة</div><p style="margin-top:10px; font-size:0.9rem; color:var(--text-secondary);">أداء استثنائي وسرعة بديهة رائعة!</p></div><div class="appreciation-card"><span class="appreciation-icon">💖</span><div class="appreciation-title">بطاقة شكر وتقدير</div><div class="appreciation-name">${dualCompState.p2Name}</div><div class="appreciation-msg">"المشاركة شرف، ومحاولتكِ تستحق الإشادة! كل خطوة تقربك من القمة، استمري في التألق."</div><div class="appreciation-score">${dualCompState.p2Score} إجابة صحيحة</div></div>`;
+    // ✅ تم إضافة أيقونة الدرع 🛡️ هنا
+    grid.innerHTML = `<div class="shield-card"><span class="shield-icon">🛡️</span><div class="shield-title">درع التميز</div><div class="shield-name">${dualCompState.p1Name}</div><div class="shield-score">بـ ${dualCompState.p1Score} إجابة صحيحة</div><p style="margin-top:10px; font-size:0.9rem; color:var(--text-secondary);">أداء استثنائي وسرعة بديهة رائعة!</p></div><div class="appreciation-card"><span class="appreciation-icon">💖</span><div class="appreciation-title">بطاقة شكر وتقدير</div><div class="appreciation-name">${dualCompState.p2Name}</div><div class="appreciation-msg">"المشاركة شرف، ومحاولتكِ تستحق الإشادة! كل خطوة تقربك من القمة، استمري في التألق."</div><div class="appreciation-score">${dualCompState.p2Score} إجابة صحيحة</div></div>`;
   } else if (dualCompState.p2Score > dualCompState.p1Score) {
+    // ✅ تم إضافة أيقونة الدرع 🛡️ هنا أيضاً
     grid.innerHTML = `<div class="appreciation-card"><span class="appreciation-icon">💖</span><div class="appreciation-title">بطاقة شكر وتقدير</div><div class="appreciation-name">${dualCompState.p1Name}</div><div class="appreciation-msg">"المشاركة شرف، ومحاولتكِ تستحق الإشادة! كل خطوة تقربك من القمة، استمري في التألق."</div><div class="appreciation-score">${dualCompState.p1Score} إجابة صحيحة</div></div><div class="shield-card"><span class="shield-icon">🛡️</span><div class="shield-title">درع التميز</div><div class="shield-name">${dualCompState.p2Name}</div><div class="shield-score">بـ ${dualCompState.p2Score} إجابة صحيحة</div><p style="margin-top:10px; font-size:0.9rem; color:var(--text-secondary);">أداء استثنائي وسرعة بديهة رائعة!</p></div>`;
   } else {
     grid.innerHTML = `<div class="tie-card"><span style="font-size:4rem; display:block; margin-bottom:10px;">🤝</span><div class="shield-title" style="font-size:1.6rem;">تعادل رائع ونزيه!</div><p style="font-size:1.1rem; margin:15px 0; color:var(--text-secondary);">أحسنتِ يا <strong>${dualCompState.p1Name}</strong> و <strong>${dualCompState.p2Name}</strong>!<br>حصلت كل منكما على <strong>${dualCompState.p1Score}</strong> إجابات صحيحة.</p><p style="font-style:italic; color:var(--c-primary-700);">"العقل الرياضي ينمو بالممارسة والمنافسة الشريفة، أنتما نجمتان ساطعتان!" ✨</p></div>`;
@@ -1828,9 +1760,6 @@ function resetDualResults() {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-// CARDS
-// ══════════════════════════════════════════════════════════════
 const potions = [
   {q:'2x + 3 = 11', a:'x = 4', sol:'2x = 8 → x = 4', c1:'#486581', c2:'#102a43'},
   {q:'3x - 5 = 10', a:'x = 5', sol:'3x = 15 → x = 5', c1:'#334e68', c2:'#243b53'},
@@ -1866,7 +1795,7 @@ function renderCards() {
           <div class="q">${qDisplay}</div>
         </div>
         <div class="flip-back">
-          <div style="font-size:1.5rem;margin-bottom:5px;"></div>
+          <div style="font-size:1.5rem;margin-bottom:5px;">🧪</div>
           <div class="answer">${aDisplay}</div>
           <div class="solution">${solDisplay}</div>
         </div>
@@ -1877,17 +1806,14 @@ function renderCards() {
 function shuffleCards(){potions.sort(()=>Math.random()-0.5);renderCards();}
 function resetCards(){document.querySelectorAll('.flip-card').forEach(c=>c.classList.remove('flipped'));}
 
-// ══════════════════════════════════════════════════════════════
-// FEEDBACK & FAIRY
-// ══════════════════════════════════════════════════════════════
 const fairyMessages = {
-  correct:['أحسنتِ! أنتِ عبقرية! 🌟','رائع! استمري على هذا التألق! ✨','ممتاز! الجنية فخورة بكِ! 🧚♀️','بطلة! أنتِ سحر الرياضيات! 🔮'],
-  wrong:['حظاً أوفر في المرة القادمة! 🌱','لا تستسلمي! أنتِ قريبة من الإجابة 💪','المحاولة طريق النجاح! 🌸','فكّري بهدوء، أنتِ تستطيعين! ']
+  correct:['أحسنتِ! أنتِ عبقرية! 🌟','رائع! استمري على هذا التألق! ✨','ممتاز! الجنية فخورة بكِ! 🧚‍♀️','بطلة! أنتِ سحر الرياضيات! 🔮'],
+  wrong:['حظاً أوفر في المرة القادمة! 🌱','لا تستسلمي! أنتِ قريبة من الإجابة 💪','المحاولة طريق النجاح! 🌸','فكّري بهدوء، أنتِ تستطيعين! 🌟']
 };
 
 function showCorrectFeedback() {
   document.getElementById('feedbackText').innerHTML = '<div class="feedback-correct">🎊 أحسنتِ! 🎊</div>';
-  const gemColors = ['💎','💠','🔷','🔹','💜','💚','','❤️','🧡',''];
+  const gemColors = ['💎','💠','🔷','🔹','💜','💚','💙','❤️','🧡','💛'];
   const gemColor = gemColors[Math.floor(Math.random()*gemColors.length)];
   document.getElementById('gemReward').textContent = gemColor;
   document.getElementById('gemReward').style.display = 'block';
@@ -1924,9 +1850,6 @@ function toggleFairySpeech(e) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════
-// FAIRY DRAG & ANIMATION
-// ══════════════════════════════════════════════════════════════
 const fairyWrap = document.getElementById('fairyWrap');
 let fairyDragging = false, fairyStartX, fairyStartY, fairyInitialLeft, fairyInitialTop, fairyDragMoved = false;
 
@@ -2007,9 +1930,6 @@ function updateFairySize(val) {
   saveState();
 }
 
-// ══════════════════════════════════════════════════════════════
-// STATS & GARDEN
-// ══════════════════════════════════════════════════════════════
 function renderStats() {
   document.getElementById('statPoints').textContent = state.points;
   document.getElementById('statCorrect').textContent = state.correct;
@@ -2053,7 +1973,7 @@ function resetGarden() {
 }
 
 function resetPoints() {
-  if (!confirm('️ هل أنتِ متأكدة من تصفير جميع النقاط والإحصائيات؟\n\nسيتم تصفير:\n• النقاط: '+state.points+'\n• الإجابات الصحيحة: '+state.correct+'\n• الإجابات الخاطئة: '+state.wrong+'\n• الجواهر: '+state.gems.length+'\n• سلسلة التتابع: '+state.streak+'\n\nلا يمكن التراجع عن هذا الإجراء!')) return;
+  if (!confirm('⚠️ هل أنتِ متأكدة من تصفير جميع النقاط والإحصائيات؟\n\nسيتم تصفير:\n• النقاط: '+state.points+'\n• الإجابات الصحيحة: '+state.correct+'\n• الإجابات الخاطئة: '+state.wrong+'\n• الجواهر: '+state.gems.length+'\n• سلسلة التتابع: '+state.streak+'\n\nلا يمكن التراجع عن هذا الإجراء!')) return;
   state.points = 0;
   state.correct = 0;
   state.wrong = 0;
@@ -2070,9 +1990,6 @@ function resetPoints() {
 
 function toggleSound() { state.soundOn = document.getElementById('soundToggle').checked; saveState(); }
 
-// ══════════════════════════════════════════════════════════════
-// INIT
-// ══════════════════════════════════════════════════════════════
 function init() {
   renderLessons();
   renderCards();
