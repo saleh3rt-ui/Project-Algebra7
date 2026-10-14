@@ -45,48 +45,94 @@ body {
 
 body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !important; }
 
-/* ══════════════════════════════════════════════════════════════
-   🔧 معالجة تشتت العبارات المختلطة (عربي + رياضيات + أرقام)
+/* ═════════════════════════════════════════════════════════════
+   🔧 إصلاح عرض النصوص المختلطة (عربي + رياضيات)
    ══════════════════════════════════════════════════════════════ */
-.math-expr, .math-block, canvas, .equation-display, .eq-display-live,
-.values-table, .values-table td, .values-table th, input[type="number"], 
-.timer-text, .challenge-q, .question-text, .stat-badge .num, .stat-card .num, .gem-slot {
-  font-family: var(--font-math) !important; 
-  font-variant-numeric: lining-nums tabular-nums !important;
+
+/* للعبارات الرياضية البحتة فقط (مثل: 3x + 5 = 11) */
+.math-expr {
   direction: ltr !important;
   unicode-bidi: isolate !important;
+  display: inline-block;
+  font-family: var(--font-math) !important;
+  font-weight: 600;
+  font-size: 0.95em;
+  color: var(--c-primary-800);
+  background: linear-gradient(135deg, var(--c-primary-50), var(--c-accent-50));
+  padding: 0.1em 0.4em;
+  border-radius: 5px;
+  border: 1px solid var(--c-primary-200);
+  vertical-align: middle;
+  white-space: nowrap;
+  margin: 0 0.15em;
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 2px rgba(16,42,67,0.05);
+  isolation: isolate;
+  font-variant-numeric: lining-nums tabular-nums !important;
 }
 
-/* العبارة الرياضية البسيطة */
-.math-expr {
-  display:inline-block;
-  font-weight:600; font-size:0.95em; color:var(--c-primary-800);
-  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
-  padding:0.1em 0.4em; border-radius:5px; border:1px solid var(--c-primary-200);
-  vertical-align:middle; white-space:nowrap; margin:0 0.15em; letter-spacing:0.02em;
-  box-shadow:0 1px 2px rgba(16,42,67,0.05); isolation:isolate;
+/* للنصوص العربية البحتة */
+.arabic-text {
+  direction: rtl !important;
+  unicode-bidi: isolate !important;
+  display: inline-block;
+  font-family: var(--font-body) !important;
+  font-weight: 700;
+  font-size: 1.05em;
+  color: white;
+  text-align: center;
+  line-height: 1.5;
 }
 
-/*  class جديد للعبارات المختلطة (عربي + رياضيات) */
+/* للنصوص المختلطة (عربي + رياضيات) */
 .math-mixed {
-  direction: ltr !important;
+  direction: rtl !important;
   unicode-bidi: isolate-override !important;
   display: inline-block;
-  text-align: right;
-  font-family: var(--font-body);
+  font-family: var(--font-body) !important;
   font-weight: 600;
-  color: var(--text-primary);
-  isolation: isolate;
+  font-size: 1em;
+  color: white;
+  text-align: center;
+  line-height: 1.5;
 }
 
 .math-mixed .math-expr {
   direction: ltr !important;
   unicode-bidi: isolate !important;
+  font-family: var(--font-math) !important;
+  color: var(--c-accent-400);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
 }
 
-/* عزل كامل لأي عنصر يحتوي على محتوى مختلط */
-[dir="ltr"], [dir="auto"] {
-  unicode-bidi: isolate-override;
+/* للشرح في ظهر البطاقة */
+.solution-text {
+  direction: rtl !important;
+  unicode-bidi: isolate !important;
+  font-family: var(--font-body) !important;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.5;
+}
+
+.solution-text .math-expr {
+  direction: ltr !important;
+  unicode-bidi: isolate !important;
+  font-family: var(--font-math) !important;
+  color: var(--c-primary-700);
+  background: var(--c-primary-50);
+  border: 1px solid var(--c-primary-200);
+}
+
+/* للبطاقات الأخرى */
+canvas, .equation-display, .eq-display-live,
+.values-table, .values-table td, .values-table th, 
+input[type="number"], .timer-text, .challenge-q, 
+.question-text, .stat-badge .num, .stat-card .num, .gem-slot {
+  font-family: var(--font-math) !important;
+  font-variant-numeric: lining-nums tabular-nums !important;
 }
 
 .top-header {
@@ -216,8 +262,8 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 
 .tie-card { grid-column: 1 / -1; background: linear-gradient(135deg, var(--c-accent-50), var(--c-primary-50)); border: 3px solid var(--c-accent-400); border-radius: var(--r-2xl); padding: 30px; text-align: center; animation: shieldPop 0.8s var(--ease-out); }
 
-/* ════════════════════════════════════════════════════════════
-   🔧 CARDS SECTION - Height reduced to 200px
+/* ═══════════════════════════════════════════════════════════
+   🔧 CARDS SECTION - Fixed Arabic Text Display
    ══════════════════════════════════════════════════════════════ */
 .cards-grid { 
   display:grid; 
@@ -226,7 +272,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 }
 .flip-card { 
   perspective:1000px; 
-  height:200px; /* ✅ Reduced from 220px to 200px */
+  height:200px;
   cursor:pointer; 
 }
 .flip-inner { 
@@ -253,9 +299,27 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 .flip-front { background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900)); color:white; }
 .flip-back { background:var(--bg-primary); color:var(--text-primary); transform:rotateY(180deg); border:3px solid var(--c-primary-500); }
 .flip-front h4 { font-size:var(--fs-lg); margin-bottom:var(--sp-2); font-family:var(--font-heading); }
-.flip-front .q { font-size:var(--fs-lg); font-weight:900; direction:ltr; font-family:var(--font-math); text-align: center; line-height: 1.4; }
-.flip-back .answer { font-size:var(--fs-lg); font-weight:900; color:var(--c-primary-700); margin:var(--sp-2) 0; direction:ltr; font-family:var(--font-math); }
-.flip-back .solution { font-size:var(--fs-sm); line-height:1.5; text-align:center; color:var(--text-secondary); font-weight: 600; }
+.flip-front .q { 
+  font-size:var(--fs-lg); 
+  font-weight:900; 
+  text-align: center; 
+  line-height: 1.4; 
+  max-width: 90%;
+}
+.flip-back .answer { 
+  font-size:var(--fs-lg); 
+  font-weight:900; 
+  color:var(--c-primary-700); 
+  margin:var(--sp-2) 0; 
+  text-align: center;
+}
+.flip-back .solution { 
+  font-size:var(--fs-sm); 
+  line-height:1.5; 
+  text-align:center; 
+  color:var(--text-secondary); 
+  font-weight: 600; 
+}
 
 .fairy-wrap { position:fixed; bottom:var(--sp-5); left:var(--sp-5); z-index:50; cursor:grab; touch-action:none; user-select:none; }
 .fairy-wrap.dragging { transform:scale(1.15); z-index:60; }
@@ -281,7 +345,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   .nav-actions { width:100%; overflow-x:auto; }
   .dc-arena { grid-template-columns:1fr; }
   .cards-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: var(--sp-2); }
-  .flip-card { height: 180px; } /* ✅ Reduced from 200px to 180px for mobile */
+  .flip-card { height: 180px; }
   .flip-front h4 { font-size: var(--fs-base); }
   .flip-front .q { font-size: var(--fs-base); }
   .flip-back .answer { font-size: var(--fs-base); }
@@ -302,33 +366,33 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
     </div>
   </div>
   <div class="nav-actions">
-    <button class="nav-btn active" onclick="showPage('home',this)">🏠 الرئيسية</button>
+    <button class="nav-btn active" onclick="showPage('home',this)"> الرئيسية</button>
     <button class="nav-btn" onclick="showPage('lessons',this)">📚 الدروس</button>
     <button class="nav-btn" onclick="showPage('graph',this)">📈 الرسم البياني</button>
     <button class="nav-btn" onclick="showPage('challenge',this)">⏱️ التحدي</button>
-    <button class="nav-btn" onclick="showPage('dual-compete',this)">⚔️ المنافسة</button>
+    <button class="nav-btn" onclick="showPage('dual-compete',this)">️ المنافسة</button>
     <button class="nav-btn" onclick="showPage('cards',this)">🎴 البطاقات</button>
-    <button class="nav-btn" onclick="openModal('statsModal')"></button>
+    <button class="nav-btn" onclick="openModal('statsModal')">📊</button>
     <button class="nav-btn" onclick="openModal('settingsModal')">⚙️</button>
   </div>
 </header>
 
 <div class="student-bar">
-  <div class="student-info"><span class="label">‍🎓 الطالبة</span><span class="value">تقى يونسو</span></div>
-  <div class="student-info"><span class="label">👩‍ المعلمة</span><span class="value">فلك عاصي</span></div>
-  <div class="student-info"><span class="label"> الصف</span><span class="value">السابع - الأولى</span></div>
-  <div class="student-info"><span class="label"> المدرسة</span><span class="value">النموذجية للمتفوقين</span></div>
+  <div class="student-info"><span class="label">👩‍🎓 الطالبة</span><span class="value">تقى يونسو</span></div>
+  <div class="student-info"><span class="label">👩🏫 المعلمة</span><span class="value">فلك عاصي</span></div>
+  <div class="student-info"><span class="label">🎓 الصف</span><span class="value">السابع - الأولى</span></div>
+  <div class="student-info"><span class="label">🏫 المدرسة</span><span class="value">النموذجية للمتفوقين</span></div>
 </div>
 
 <div class="container">
 
 <div id="home" class="page active">
   <div class="hero">
-    <h2> مغامرة العبارات الجبرية والمعادلات 📐</h2>
+    <h2>📐 مغامرة العبارات الجبرية والمعادلات 📐</h2>
     <p style="font-size:1.1rem; color:var(--text-secondary); margin-bottom:20px;">تعلمي الرياضيات بأسلوب أكاديمي تفاعلي مع الجنية الصغيرة!</p>
     <div class="hero-stats">
       <div class="stat-badge">🌟 <span class="num" id="homePoints">0</span> نقطة</div>
-      <div class="stat-badge">🌸 <span class="num" id="homeGems">0</span> جوهرة</div>
+      <div class="stat-badge"> <span class="num" id="homeGems">0</span> جوهرة</div>
       <div class="stat-badge">✅ <span class="num" id="homeCorrect">0</span> صحيحة</div>
     </div>
     <div class="btn-row" style="margin-top:25px;">
@@ -355,7 +419,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
       </div>
       <div>
         <div class="eq-control-card">
-          <h4 style="color:#1e40af;margin-bottom:10px;">🎛️ التحكم بالمعادلة</h4>
+          <h4 style="color:#1e40af;margin-bottom:10px;">️ التحكم بالمعادلة</h4>
           <div class="eq-control-row"><label>m:</label><input type="number" id="singleMInput" step="0.5" value="1"><input type="range" id="singleMSlider" min="-5" max="5" step="0.5" value="1"></div>
           <div class="eq-control-row"><label>b:</label><input type="number" id="singleBInput" step="0.5" value="0"><input type="range" id="singleBSlider" min="-5" max="5" step="0.5" value="0"></div>
           <div class="eq-display-live" id="singleEqDisplay">y = 1x + 0</div>
@@ -370,7 +434,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
     <h2 style="font-size:1.4rem;margin-bottom:10px;">⏱️ تحدي السرعة (30 ثانية)</h2>
     <div id="challengeIdle">
       <p style="margin-bottom:15px;opacity:.9;">حلّي أكبر عدد ممكن من المسائل قبل انتهاء الوقت!</p>
-      <button class="btn btn-new" onclick="startChallenge()" style="font-size:1.1rem;padding:12px 30px;"> ابدأ التحدي الآن</button>
+      <button class="btn btn-new" onclick="startChallenge()" style="font-size:1.1rem;padding:12px 30px;">🚀 ابدأ التحدي الآن</button>
     </div>
     <div id="challengePlaying" style="display:none;">
       <div class="timer-text" id="timerText">30</div>
@@ -382,7 +446,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
     </div>
     <div id="challengeEnded" style="display:none;">
       <div style="background:rgba(255,255,255,0.1);border-radius:12px;padding:20px;margin-top:15px;">
-        <h3> انتهى الوقت!</h3>
+        <h3>🎉 انتهى الوقت!</h3>
         <p>الإجابات الصحيحة: <span id="summaryCorrect" style="font-size:1.5rem;font-weight:900;">0</span></p>
         <button class="btn btn-new" onclick="resetChallengeUI()" style="margin-top:10px;">🔄 لعب مرة أخرى</button>
       </div>
@@ -393,7 +457,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 <div id="dual-compete" class="page">
   <div class="competition-container">
     <div id="dc-setup" style="text-align:center; padding: 20px 0;">
-      <h2 style="font-size:1.8rem; color:var(--c-primary-800); margin-bottom:10px;">️ المنافسة الثنائية</h2>
+      <h2 style="font-size:1.8rem; color:var(--c-primary-800); margin-bottom:10px;">⚔️ المنافسة الثنائية</h2>
       <div class="dc-rules">
         <h3>📜 قواعد المنافسة</h3>
         <ul>
@@ -458,7 +522,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 <div id="cards" class="page">
   <div class="hero" style="padding: var(--sp-5); margin-bottom: var(--sp-3);">
     <h2 style="font-size:1.4rem; margin-bottom: 10px;"> البطاقات التعليمية التفاعلية</h2>
-    <p style="color:var(--text-secondary); margin-bottom:10px; font-size: 0.95rem;">اضغط على أي بطاقة لقلبها ورؤية الإجابة والشرح! </p>
+    <p style="color:var(--text-secondary); margin-bottom:10px; font-size: 0.95rem;">اضغط على أي بطاقة لقلبها ورؤية الإجابة والشرح! 🌷</p>
     <div class="btn-row" style="margin-top: 10px;">
       <button class="btn btn-new" onclick="shuffleCards()">🍃 خلط البطاقات</button>
       <button class="btn btn-check" onclick="resetCards()">🔄 إعادة البطاقات</button>
@@ -490,7 +554,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
     <button class="modal-close" onclick="closeModal('statsModal')">✕</button>
     <h2 style="text-align:center; font-size:1.4rem; font-weight:900; color:var(--c-primary-800);">📊 إحصائيات التقدم</h2>
     <div class="stats-grid">
-      <div class="stat-card"><div class="num" id="statPoints">0</div><div style="font-size:0.8rem;color:var(--text-tertiary);"> النقاط</div></div>
+      <div class="stat-card"><div class="num" id="statPoints">0</div><div style="font-size:0.8rem;color:var(--text-tertiary);">🌟 النقاط</div></div>
       <div class="stat-card"><div class="num" id="statCorrect">0</div><div style="font-size:0.8rem;color:var(--text-tertiary);">✅ صحيحة</div></div>
       <div class="stat-card"><div class="num" id="statWrong">0</div><div style="font-size:0.8rem;color:var(--text-tertiary);">❌ خاطئة</div></div>
       <div class="stat-card"><div class="num" id="statGems">0</div><div style="font-size:0.8rem;color:var(--text-tertiary);">🌸 الجواهر</div></div>
@@ -520,8 +584,8 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-item"><div style="font-size:0.75rem;color:var(--text-tertiary);">👩‍💻 الطالبة</div><div style="font-size:0.9rem;font-weight:700;color:var(--c-primary-800);">تقى يونسو</div></div>
-    <div class="footer-item"><div style="font-size:0.75rem;color:var(--text-tertiary);">👩‍🏫 المعلمة</div><div style="font-size:0.9rem;font-weight:700;color:var(--c-primary-800);">فلك عاصي</div></div>
+    <div class="footer-item"><div style="font-size:0.75rem;color:var(--text-tertiary);">👩💻 الطالبة</div><div style="font-size:0.9rem;font-weight:700;color:var(--c-primary-800);">تقى يونسو</div></div>
+    <div class="footer-item"><div style="font-size:0.75rem;color:var(--text-tertiary);">👩🏫 المعلمة</div><div style="font-size:0.9rem;font-weight:700;color:var(--c-primary-800);">فلك عاصي</div></div>
     <div class="footer-item"><div style="font-size:0.75rem;color:var(--text-tertiary);">🎓 الصف</div><div style="font-size:0.9rem;font-weight:700;color:var(--c-primary-800);">السابع - الأولى</div></div>
     <div class="footer-item"><div style="font-size:0.75rem;color:var(--text-tertiary);">🏫 المدرسة</div><div style="font-size:0.9rem;font-weight:700;color:var(--c-primary-800);">النموذجية للمتفوقين</div></div>
   </div>
@@ -649,8 +713,8 @@ function initSingleGraph() {
 const lessons = [
   {icon:'📝', title:'العبارة الجبرية', content:'تتكون من <strong>أعداد ومتغيرات وعلامات عمليات</strong>.', examples:['<span class="math-expr">3x + 5</span> عبارة جبرية'], generate:()=>{const x=Math.floor(Math.random()*8)+2,a=Math.floor(Math.random()*5)+2,b=Math.floor(Math.random()*10)+1; return{q:`إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a}x + ${b}</span>؟`, a:a*x+b};}},
   {icon:'🔤', title:'مكونات العبارة', content:'<strong>المتغير:</strong> حرف مجهول. <strong>الثابت:</strong> عدد لا يتغير. <strong>المعامل:</strong> العدد المضروب في المتغير.', examples:['في <span class="math-expr">3x + 5</span>: المعامل 3، الثابت 5'], generate:()=>{const b=Math.floor(Math.random()*15)+1,a=Math.floor(Math.random()*5)+2; return{q:`ما هو الثابت في العبارة <span class="math-expr">${a}x + ${b}</span>؟`, a:b};}},
-  {icon:'', title:'الحدود المتشابهة', content:'حدود تحتوي على نفس المتغير ونفس الأس.', examples:['<span class="math-expr">3x + 5x = 8x</span>'], generate:()=>{const terms=['3x + 5x','2y + 7y','4a + 6a'], answers=[8,9,10]; const idx=Math.floor(Math.random()*terms.length); return{q:`بسّطي: <span class="math-expr">${terms[idx]}</span> = ?`, a:answers[idx]};}},
-  {icon:'⚖️', title:'حل المعادلات', content:'ما نفعله في طرف، يجب أن نفعله في الطرف الآخر.', examples:['<span class="math-expr">x + 8 = 15</span> → x = 7'], generate:()=>{const x=Math.floor(Math.random()*10)+1,b=Math.floor(Math.random()*10)+1; return{q:`<span class="math-expr">x + ${b} = ${x+b}</span>، x = ?`, a:x};}}
+  {icon:'➕', title:'الحدود المتشابهة', content:'حدود تحتوي على نفس المتغير ونفس الأس.', examples:['<span class="math-expr">3x + 5x = 8x</span>'], generate:()=>{const terms=['3x + 5x','2y + 7y','4a + 6a'], answers=[8,9,10]; const idx=Math.floor(Math.random()*terms.length); return{q:`بسّطي: <span class="math-expr">${terms[idx]}</span> = ?`, a:answers[idx]};}},
+  {icon:'️', title:'حل المعادلات', content:'ما نفعله في طرف، يجب أن نفعله في الطرف الآخر.', examples:['<span class="math-expr">x + 8 = 15</span> → x = 7'], generate:()=>{const x=Math.floor(Math.random()*10)+1,b=Math.floor(Math.random()*10)+1; return{q:`<span class="math-expr">x + ${b} = ${x+b}</span>، x = ?`, a:x};}}
 ];
 
 function renderLessons() {
@@ -666,7 +730,7 @@ function renderLessons() {
         <div style="font-size:1.1rem;font-weight:900;margin-bottom:10px;font-family:'IBM Plex Mono',monospace;direction:ltr;" id="q${i}">${q.q}</div>
         <input type="text" class="answer-input" id="a${i}" placeholder="؟">
         <div class="btn-row">
-          <button class="btn btn-check" onclick="checkAnswer(${i})">🌤️ تحقق</button>
+          <button class="btn btn-check" onclick="checkAnswer(${i})">️ تحقق</button>
           <button class="btn btn-new" onclick="newQuestion(${i})">🔄 جديد</button>
         </div>
       </div>`;
@@ -866,7 +930,7 @@ function endDualCompetition() {
   } else if (dualCompState.p2Score > dualCompState.p1Score) {
     grid.innerHTML = `<div class="appreciation-card"><span class="appreciation-icon">💖</span><div class="appreciation-title">بطاقة شكر وتقدير</div><div class="appreciation-name">${dualCompState.p1Name}</div><div class="appreciation-msg">"المشاركة شرف، ومحاولتكِ تستحق الإشادة! كل خطوة تقربك من القمة، استمري في التألق."</div><div class="appreciation-score">${dualCompState.p1Score} إجابة صحيحة</div></div><div class="shield-card"><span class="shield-icon">🛡️</span><div class="shield-title">درع التميز</div><div class="shield-name">${dualCompState.p2Name}</div><div class="shield-score">بـ ${dualCompState.p2Score} إجابة صحيحة</div><p style="margin-top:10px; font-size:0.9rem; color:var(--text-secondary);">أداء استثنائي وسرعة بديهة رائعة!</p></div>`;
   } else {
-    grid.innerHTML = `<div class="tie-card"><span style="font-size:4rem; display:block; margin-bottom:10px;">🤝</span><div class="shield-title" style="font-size:1.6rem;">تعادل رائع ونزيه!</div><p style="font-size:1.1rem; margin:15px 0; color:var(--text-secondary);">أحسنتِ يا <strong>${dualCompState.p1Name}</strong> و <strong>${dualCompState.p2Name}</strong>!<br>حصلت كل منكما على <strong>${dualCompState.p1Score}</strong> إجابات صحيحة.</p><p style="font-style:italic; color:var(--c-primary-700);">"العقل الرياضي ينمو بالممارسة والمنافسة الشريفة، أنتما نجمتان ساطعتان!" ✨</p></div>`;
+    grid.innerHTML = `<div class="tie-card"><span style="font-size:4rem; display:block; margin-bottom:10px;"></span><div class="shield-title" style="font-size:1.6rem;">تعادل رائع ونزيه!</div><p style="font-size:1.1rem; margin:15px 0; color:var(--text-secondary);">أحسنتِ يا <strong>${dualCompState.p1Name}</strong> و <strong>${dualCompState.p2Name}</strong>!<br>حصلت كل منكما على <strong>${dualCompState.p1Score}</strong> إجابات صحيحة.</p><p style="font-style:italic; color:var(--c-primary-700);">"العقل الرياضي ينمو بالممارسة والمنافسة الشريفة، أنتما نجمتان ساطعتان!" ✨</p></div>`;
   }
   playSound('win');
   launchConfetti();
@@ -889,8 +953,30 @@ function resetDualResults() {
 }
 
 // ══════════════════════════════════════════════════════════════
-// EXPANDED CARDS ARRAY (16 Cards) - with math-mixed class applied
+// 🔧 CARDS - Fixed Arabic Text Display
 // ══════════════════════════════════════════════════════════════
+
+// دالة مساعدة لتحديد نوع النص وتطبيق الـ class المناسب
+function formatCardText(text, isQuestion = false) {
+  const hasArabic = /[\u0600-\u06FF]/.test(text);
+  const hasMath = /[a-zA-Z0-9+\-*/=()]/.test(text);
+  
+  if (hasArabic && hasMath) {
+    // نص مختلط: عربي + رياضيات
+    return `<span class="math-mixed">${text}</span>`;
+  } else if (hasMath && !hasArabic) {
+    // رياضيات فقط
+    return `<span class="math-expr">${text}</span>`;
+  } else {
+    // عربي فقط
+    if (isQuestion) {
+      return `<span class="arabic-text">${text}</span>`;
+    } else {
+      return `<span class="solution-text">${text}</span>`;
+    }
+  }
+}
+
 const potions = [
   { q: '2x + 3 = 11', a: 'x = 4', sol: '2x = 8 → x = 4', c1: '#486581', c2: '#102a43' },
   { q: '3x - 5 = 10', a: 'x = 5', sol: '3x = 15 → x = 5', c1: '#334e68', c2: '#243b53' },
@@ -911,20 +997,23 @@ const potions = [
 ];
 
 function renderCards() {
-  const grid = document.getElementById('cardsGrid'); grid.innerHTML = '';
-  potions.forEach((p,i) => {
-    const card = document.createElement('div'); card.className = 'flip-card';
+  const grid = document.getElementById('cardsGrid'); 
+  grid.innerHTML = '';
+  
+  potions.forEach((p, i) => {
+    const card = document.createElement('div'); 
+    card.className = 'flip-card';
     card.onclick = () => card.classList.toggle('flipped');
-    //  استخدام math-mixed class للعبارات المختلطة
-    const isArabic = /[\u0600-\u06FF]/.test(p.q);
-    const qDisplay = isArabic ? `<span class="math-mixed">${p.q}</span>` : `<span class="math-expr">${p.q}</span>`;
-    const aDisplay = isArabic ? `<span class="math-mixed">${p.a}</span>` : `<span class="math-expr">${p.a}</span>`;
-    const solDisplay = isArabic ? `<span class="math-mixed">${p.sol}</span>` : `<span class="math-expr">${p.sol}</span>`;
+    
+    // ✅ استخدام الدالة المساعدة لتحديد نوع النص
+    const qDisplay = formatCardText(p.q, true);
+    const aDisplay = formatCardText(p.a, false);
+    const solDisplay = formatCardText(p.sol, false);
     
     card.innerHTML = `
       <div class="flip-inner">
         <div class="flip-front" style="background:linear-gradient(135deg,${p.c1},${p.c2});">
-          <h4> بطاقة ${i+1}</h4>
+          <h4>🧪 بطاقة ${i+1}</h4>
           <div class="q">${qDisplay}</div>
         </div>
         <div class="flip-back">
@@ -936,6 +1025,7 @@ function renderCards() {
     grid.appendChild(card);
   });
 }
+
 function shuffleCards(){potions.sort(()=>Math.random()-0.5);renderCards();}
 function resetCards(){document.querySelectorAll('.flip-card').forEach(c=>c.classList.remove('flipped'));}
 
