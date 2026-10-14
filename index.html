@@ -45,13 +45,25 @@ body {
 
 body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !important; }
 
+/* ✅ إصلاح تشتت النصوص المختلطة */
 .math-expr {
-  direction:ltr !important; unicode-bidi:isolate !important; display:inline-block;
-  font-family:var(--font-math); font-weight:600; font-size:0.95em; color:var(--c-primary-800);
-  background:linear-gradient(135deg,var(--c-primary-50),var(--c-accent-50));
-  padding:0.1em 0.4em; border-radius:5px; border:1px solid var(--c-primary-200);
-  vertical-align:middle; white-space:nowrap; margin:0 0.15em; letter-spacing:0.02em;
-  box-shadow:0 1px 2px rgba(16,42,67,0.05); isolation:isolate;
+  direction: ltr !important; 
+  unicode-bidi: isolate !important; 
+  display: inline-block;
+  font-family: var(--font-math); 
+  font-weight: 600; 
+  font-size: 0.95em; 
+  color: var(--c-primary-800);
+  background: linear-gradient(135deg, var(--c-primary-50), var(--c-accent-50));
+  padding: 0.1em 0.4em; 
+  border-radius: 5px; 
+  border: 1px solid var(--c-primary-200);
+  vertical-align: middle; 
+  white-space: nowrap; 
+  margin: 0 0.15em; 
+  letter-spacing: 0.02em;
+  box-shadow: 0 1px 2px rgba(16,42,67,0.05); 
+  isolation: isolate;
 }
 
 .top-header {
@@ -323,14 +335,15 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
 }
 .timer-bar-fill.urgent { background: var(--c-danger-500) !important; }
 
-/* ✅ تم تعديل المحاذاة لليمين لدعم النص العربي مع الحفاظ على عزل المعادلات */
-.challenge-q { 
-  font-size:var(--fs-2xl); 
-  font-weight:900; 
-  margin:var(--sp-4) 0; 
-  min-height:60px; 
+/* ✅ إصلاح تشتت النصوص في حاوية الأسئلة */
+.challenge-q, #dc-question { 
+  font-size: var(--fs-2xl); 
+  font-weight: 900; 
+  margin: var(--sp-4) 0; 
+  min-height: 60px; 
   direction: rtl; 
-  text-align: right; 
+  text-align: center; /* المحاذاة الوسطى تمنع تشوه النصوص المختلطة */
+  line-height: 1.6;
 }
 
 .challenge-summary {
@@ -546,9 +559,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
         <div class="graph-wrap" id="singleGraphWrap">
           <canvas id="singleGraph"></canvas>
         </div>
-        <div class="drag-instruction">
-          💡 <strong>اسحبي النقاط:</strong> النقطة الزرقاء (0, b) تغير الجزء المقطوع، والنقطة الحمراء تغير الميل
-        </div>
+        <div class="drag-instruction">💡 <strong>اسحبي النقاط:</strong> النقطة الزرقاء (0, b) تغير الجزء المقطوع، والنقطة الحمراء تغير الميل</div>
         <div class="graph-legend">
           <div class="legend-item"><div class="legend-color dot" style="background:#3b82f6"></div><span>نقطة المقطع (0, b)</span></div>
           <div class="legend-item"><div class="legend-color dot" style="background:#ef4444"></div><span>نقطة الميل</span></div>
@@ -601,9 +612,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
         <div class="graph-wrap" id="dualGraphWrap">
           <canvas id="dualGraph"></canvas>
         </div>
-        <div class="drag-instruction">
-          💡 <strong>اسحبي النقاط:</strong> الزرقاء للمعادلة الأولى، الحمراء للثانية. شاهدي المعادلات تتغير فوراً!
-        </div>
+        <div class="drag-instruction">💡 <strong>اسحبي النقاط:</strong> الزرقاء للمعادلة الأولى، الحمراء للثانية. شاهدي المعادلات تتغير فوراً!</div>
         <div class="graph-legend">
           <div class="legend-item"><div class="legend-color" style="background:#3b82f6"></div><span>المعادلة 1</span></div>
           <div class="legend-item"><div class="legend-color" style="background:#ef4444"></div><span>المعادلة 2</span></div>
@@ -723,7 +732,7 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
         <span class="timer-text" id="dc-timer">60</span>
         <div class="timer-bar-bg"><div class="timer-bar-fill" id="dc-timer-bar" style="width:100%;"></div></div>
       </div>
-      <div class="challenge-q" id="dc-question" style="color:white; margin: 20px 0; font-size: 1.8rem;">جاري تحميل السؤال...</div>
+      <div class="challenge-q" id="dc-question" style="color:white; margin: 20px 0;">جاري تحميل السؤال...</div>
       <div class="dc-arena">
         <div class="dc-player-panel">
           <h3 id="dc-p1-display">اللاعبة 1</h3>
@@ -858,8 +867,6 @@ body, body *, input, button, table, td, th { font-variant-numeric: lining-nums !
   </div>
 </div>
 
-<!-- ✅ تم حذف قسم Footer لتجنب تكرار المعلومات الموجودة في الشريط العلوي -->
-
 <canvas id="confetti-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9999;"></canvas>
 
 <script>
@@ -969,8 +976,7 @@ function initSingleGraph() {
   const wrap = document.getElementById('singleGraphWrap');
   if (!canvas || !wrap) return;
   const rect = wrap.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
+  canvas.width = rect.width; canvas.height = rect.height;
   syncSinglePointsFromEquation();
   drawSingleGraph();
   updateSingleDisplays();
@@ -1686,9 +1692,15 @@ function generateDualQuestion() {
   if (type===0) { const x=Math.floor(Math.random()*10)+1,b=Math.floor(Math.random()*10)+1; q=`x + ${b} = ${x+b}`; a=x; }
   else if (type===1) { const x=Math.floor(Math.random()*10)+5,b=Math.floor(Math.random()*5)+1; q=`x - ${b} = ${x-b}`; a=x; }
   else if (type===2) { const x=Math.floor(Math.random()*10)+1,b=Math.floor(Math.random()*5)+2; q=`${b}x = ${x*b}`; a=x; }
-  else { const x=Math.floor(Math.random()*8)+2, a_coef=Math.floor(Math.random()*4)+2, c=Math.floor(Math.random()*10)+1; const res=a_coef*x+c; q=`إذا كانت x=${x}، فما قيمة <span class="math-expr">${a_coef}x + ${c}</span>؟`; a=res; }
+  else { 
+    const x=Math.floor(Math.random()*8)+2, a_coef=Math.floor(Math.random()*4)+2, c=Math.floor(Math.random()*10)+1; 
+    const res=a_coef*x+c; 
+    // ✅ تم تحسين صياغة السؤال لضمان عدم تشوه النص المختلط
+    q = `إذا كانت <span class="math-expr">x = ${x}</span>، فما قيمة <span class="math-expr">${a_coef}x + ${c}</span>؟`; 
+    a=res; 
+  }
   dualCompState.currentQ = {q,a};
-  document.getElementById('dc-question').innerHTML = `<span class="math-expr" style="font-size:1.5rem;">${q}</span>`;
+  document.getElementById('dc-question').innerHTML = q;
   document.getElementById('dc-p1-input').value = '';
   document.getElementById('dc-p2-input').value = '';
   document.getElementById('dc-p1-input').focus();
@@ -1732,10 +1744,8 @@ function endDualCompetition() {
   const grid = document.getElementById('results-grid-content');
   grid.innerHTML = '';
   if (dualCompState.p1Score > dualCompState.p2Score) {
-    // ✅ تم إضافة أيقونة الدرع 🛡️ هنا
     grid.innerHTML = `<div class="shield-card"><span class="shield-icon">🛡️</span><div class="shield-title">درع التميز</div><div class="shield-name">${dualCompState.p1Name}</div><div class="shield-score">بـ ${dualCompState.p1Score} إجابة صحيحة</div><p style="margin-top:10px; font-size:0.9rem; color:var(--text-secondary);">أداء استثنائي وسرعة بديهة رائعة!</p></div><div class="appreciation-card"><span class="appreciation-icon">💖</span><div class="appreciation-title">بطاقة شكر وتقدير</div><div class="appreciation-name">${dualCompState.p2Name}</div><div class="appreciation-msg">"المشاركة شرف، ومحاولتكِ تستحق الإشادة! كل خطوة تقربك من القمة، استمري في التألق."</div><div class="appreciation-score">${dualCompState.p2Score} إجابة صحيحة</div></div>`;
   } else if (dualCompState.p2Score > dualCompState.p1Score) {
-    // ✅ تم إضافة أيقونة الدرع 🛡️ هنا أيضاً
     grid.innerHTML = `<div class="appreciation-card"><span class="appreciation-icon">💖</span><div class="appreciation-title">بطاقة شكر وتقدير</div><div class="appreciation-name">${dualCompState.p1Name}</div><div class="appreciation-msg">"المشاركة شرف، ومحاولتكِ تستحق الإشادة! كل خطوة تقربك من القمة، استمري في التألق."</div><div class="appreciation-score">${dualCompState.p1Score} إجابة صحيحة</div></div><div class="shield-card"><span class="shield-icon">🛡️</span><div class="shield-title">درع التميز</div><div class="shield-name">${dualCompState.p2Name}</div><div class="shield-score">بـ ${dualCompState.p2Score} إجابة صحيحة</div><p style="margin-top:10px; font-size:0.9rem; color:var(--text-secondary);">أداء استثنائي وسرعة بديهة رائعة!</p></div>`;
   } else {
     grid.innerHTML = `<div class="tie-card"><span style="font-size:4rem; display:block; margin-bottom:10px;">🤝</span><div class="shield-title" style="font-size:1.6rem;">تعادل رائع ونزيه!</div><p style="font-size:1.1rem; margin:15px 0; color:var(--text-secondary);">أحسنتِ يا <strong>${dualCompState.p1Name}</strong> و <strong>${dualCompState.p2Name}</strong>!<br>حصلت كل منكما على <strong>${dualCompState.p1Score}</strong> إجابات صحيحة.</p><p style="font-style:italic; color:var(--c-primary-700);">"العقل الرياضي ينمو بالممارسة والمنافسة الشريفة، أنتما نجمتان ساطعتان!" ✨</p></div>`;
