@@ -282,6 +282,7 @@ box-shadow:var(--shadow-md);
 .btn-danger { background:linear-gradient(135deg,var(--c-danger-500),#991b1b); color:white; }
 .btn-warning { background:linear-gradient(135deg,var(--c-accent-600),#b45309); color:white; }
 .btn-info { background:linear-gradient(135deg,#1976d2,#0d47a1); color:white; }
+.btn-reset { background:linear-gradient(135deg,#ff6b35,#f7931e); color:white; }
 .challenge-box {
 background:linear-gradient(135deg,var(--c-primary-700),var(--c-primary-900));
 color:white; padding:var(--sp-8); border-radius:var(--r-3xl); text-align:center;
@@ -324,6 +325,12 @@ border: 2px solid var(--c-accent-400);
 .summary-stat .val { font-size: var(--fs-3xl); font-weight: 900; display: block; }
 .summary-stat .lbl { font-size: var(--fs-sm); opacity: 0.9; }
 .competition-container { background:var(--bg-primary); border-radius:var(--r-3xl); padding:var(--sp-6); box-shadow:var(--shadow-lg); margin-bottom:var(--sp-5); border:2px solid var(--border-subtle); }
+.dc-controls {
+display: flex; gap: var(--sp-3); justify-content: center; flex-wrap: wrap;
+margin-top: var(--sp-4); padding: var(--sp-3);
+background: rgba(255,255,255,0.1); border-radius: var(--r-xl);
+}
+.dc-controls .btn { font-size: var(--fs-base); padding: var(--sp-3) var(--sp-5); }
 .multi-touch-container {
 display: grid; grid-template-columns: 1fr 1fr; gap: 0;
 height: calc(100vh - 200px); min-height: 600px;
@@ -553,12 +560,6 @@ content: '✓ '; color: var(--c-success-500); font-weight: 900;
 .dc-input { width:100%; padding:var(--sp-3); font-size:var(--fs-xl); border-radius:var(--r-md); border:3px solid var(--c-accent-400); text-align:center; font-family:var(--font-math); font-weight:700; margin-bottom:var(--sp-2); background:white; color:var(--text-primary); }
 .dc-input:disabled { opacity:0.6; cursor:not-allowed; }
 .dc-feedback { min-height:30px; font-weight:700; font-size:var(--fs-sm); margin-top:var(--sp-2); }
-.dc-controls {
-display: flex; gap: var(--sp-3); justify-content: center; flex-wrap: wrap;
-margin-top: var(--sp-4); padding: var(--sp-3);
-background: rgba(255,255,255,0.1); border-radius: var(--r-xl);
-}
-.dc-controls .btn { font-size: var(--fs-base); padding: var(--sp-3) var(--sp-5); }
 .dc-results { background:var(--bg-primary); border-radius:var(--r-2xl); padding:var(--sp-6); margin-top:var(--sp-4); animation:fadeIn 0.6s; color:var(--text-primary); }
 .dc-results h2 { text-align:center; color:var(--c-primary-800); margin-bottom:var(--sp-4); font-size:1.8rem; }
 .results-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:25px; }
@@ -935,7 +936,7 @@ background: rgba(255,255,255,0.1); border-radius: var(--r-xl);
         </div>
       </div>
       <div class="dc-controls">
-        <button class="btn btn-warning" onclick="resetDualTimer()">🔄 تصفير العداد</button>
+        <button class="btn btn-reset" onclick="resetDualScores()">🗑️ تصفير النتائج</button>
         <button class="btn btn-new" onclick="startNewDualCompetition()">🚀 منافسة جديدة</button>
         <button class="btn btn-danger" onclick="exitDualCompetition()">🚪 خروج</button>
       </div>
@@ -995,6 +996,7 @@ background: rgba(255,255,255,0.1); border-radius: var(--r-xl);
       </div>
       <div class="btn-row" style="margin-top: var(--sp-4);">
         <button class="btn btn-new" onclick="startMultiTouchCompetition()" style="font-size:1.1rem; padding:12px 30px;">🚀 ابدأ المنافسة (120 ثانية)</button>
+        <button class="btn btn-reset" onclick="resetMultiTouchScores()" style="font-size:1rem; padding:12px 25px;">🗑️ تصفير النتائج</button>
         <button class="btn btn-info" onclick="backToModeSelector()" style="font-size:1rem; padding:12px 25px;">↩️ تغيير الوضع</button>
       </div>
     </div>
@@ -1073,6 +1075,7 @@ background: rgba(255,255,255,0.1); border-radius: var(--r-xl);
             <button class="btn btn-check" onclick="submitTwoDeviceAnswer()" style="width:100%; margin-top:var(--sp-2); justify-content:center; font-size:var(--fs-lg);">✅ إرسال الإجابة</button>
           </div>
           <div class="btn-row" style="margin-top:var(--sp-4);">
+            <button class="btn btn-reset" onclick="resetTwoDeviceScores()">🗑️ تصفير النتائج</button>
             <button class="btn btn-danger" onclick="disconnectTwoDevice()">🔌 قطع الاتصال</button>
           </div>
         </div>
@@ -1085,6 +1088,7 @@ background: rgba(255,255,255,0.1); border-radius: var(--r-xl);
         <div class="results-grid" id="results-grid-content"></div>
         <div class="btn-row">
           <button class="btn btn-new" onclick="resetDualCompetition()" style="font-size:1.1rem; padding:12px 30px;">🔄 منافسة جديدة</button>
+          <button class="btn btn-reset" onclick="resetDualScores()">🗑️ تصفير النتائج</button>
           <button class="btn btn-info" onclick="backToModeSelector()" style="font-size:1rem; padding:12px 25px;">↩️ تغيير الوضع</button>
         </div>
       </div>
@@ -1217,17 +1221,36 @@ let challengeState = { isActive:false, timeLeft:CHALLENGE_DURATION, timerInterva
 let dualCompState = { isActive:false, p1Name:'', p2Name:'', p1Score:0, p2Score:0, timeLeft:DUAL_COMPETITION_DURATION, timerInterval:null, currentQ:null };
 let currentCompetitionMode = 'traditional';
 
+let multiTouchKeypadsSetup = false;
+let multiTouchCompetitionEnded = false;
+
 let multiTouchState = {
-  isActive: false, p1Name: '', p2Name: '', p1Score: 0, p2Score: 0,
-  p1Answer: '', p2Answer: '', timeLeft: DUAL_COMPETITION_DURATION,
-  timerInterval: null, currentQ: null
+  isActive: false,
+  p1Name: '',
+  p2Name: '',
+  p1Score: 0,
+  p2Score: 0,
+  p1Answer: '',
+  p2Answer: '',
+  timeLeft: DUAL_COMPETITION_DURATION,
+  timerInterval: null,
+  currentQ: null
 };
 
 let twoDeviceState = {
-  isActive: false, role: null, peerConnection: null, dataChannel: null,
-  p1Name: '', p2Name: '', p1Score: 0, p2Score: 0,
-  timeLeft: DUAL_COMPETITION_DURATION, timerInterval: null,
-  currentQ: null, myAnswer: '', isHost: false
+  isActive: false,
+  role: null,
+  peerConnection: null,
+  dataChannel: null,
+  p1Name: '',
+  p2Name: '',
+  p1Score: 0,
+  p2Score: 0,
+  timeLeft: DUAL_COMPETITION_DURATION,
+  timerInterval: null,
+  currentQ: null,
+  myAnswer: '',
+  isHost: false
 };
 
 try {
@@ -1332,7 +1355,10 @@ function selectCompetitionMode(mode) {
     document.getElementById('dc-setup-traditional').style.display = 'block';
   } else if (mode === 'multitouch') {
     document.getElementById('dc-multitouch').style.display = 'block';
-    setupMultiTouchKeypads();
+    if (!multiTouchKeypadsSetup) {
+      setupMultiTouchKeypads();
+      multiTouchKeypadsSetup = true;
+    }
   } else if (mode === 'twodevice') {
     document.getElementById('dc-twodevice').style.display = 'block';
   }
@@ -1346,6 +1372,7 @@ function backToModeSelector() {
     twoDeviceState.peerConnection.close();
     twoDeviceState.peerConnection = null;
   }
+  multiTouchCompetitionEnded = false;
   document.getElementById('dc-mode-selector').style.display = 'block';
   document.getElementById('dc-setup-traditional').style.display = 'none';
   document.getElementById('dc-active-traditional').style.display = 'none';
@@ -1508,7 +1535,8 @@ function setupSingleGraphEvents() {
   function handleEnd() { isDraggingSingle = null; canvas.style.cursor = 'crosshair'; }
   canvas.addEventListener('mousedown', e => handleStart(e.clientX,e.clientY));
   canvas.addEventListener('mousemove', e => handleMove(e.clientX,e.clientY));
-  canvas.addEventListener('mouseup', handleEnd); canvas.addEventListener('mouseleave', handleEnd);
+  canvas.addEventListener('mouseup', handleEnd);
+  canvas.addEventListener('mouseleave', handleEnd);
   canvas.addEventListener('touchstart', e => { e.preventDefault(); if(e.touches.length===1) handleStart(e.touches[0].clientX,e.touches[0].clientY); }, {passive:false});
   canvas.addEventListener('touchmove', e => { e.preventDefault(); if(e.touches.length===1 && isDraggingSingle) handleMove(e.touches[0].clientX,e.touches[0].clientY); }, {passive:false});
   canvas.addEventListener('touchend', handleEnd);
@@ -2080,6 +2108,20 @@ function exitDualCompetition() {
   }
 }
 
+function resetDualScores() {
+  if (confirm('هل أنتِ متأكدة من تصفير النتائج والعودة لشاشة الإعداد؟')) {
+    clearInterval(dualCompState.timerInterval);
+    dualCompState = { isActive:false, p1Name:'', p2Name:'', p1Score:0, p2Score:0, timeLeft:DUAL_COMPETITION_DURATION, timerInterval:null, currentQ:null };
+    document.getElementById('dc-active-traditional').style.display = 'none';
+    document.getElementById('dc-results').style.display = 'none';
+    document.getElementById('dc-setup-traditional').style.display = 'block';
+    document.getElementById('dc-p1-name').value = '';
+    document.getElementById('dc-p2-name').value = '';
+    showFairyMessage('🗑️ تم تصفير النتائج!');
+    playSound('correct');
+  }
+}
+
 function resetDualCompetition() {
   document.getElementById('dc-results').style.display = 'none';
   if (currentCompetitionMode === 'traditional') {
@@ -2099,20 +2141,24 @@ function resetDualResults() {
 }
 
 function setupMultiTouchKeypads() {
+  if (multiTouchKeypadsSetup) return;
   const p1Keypad = document.getElementById('mt-p1-keypad');
   p1Keypad.querySelectorAll('.keypad-btn').forEach(btn => {
-    btn.addEventListener('pointerdown', (e) => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       handleMultiTouchKeypad(1, btn.dataset.num, btn.dataset.action);
     });
   });
   const p2Keypad = document.getElementById('mt-p2-keypad');
   p2Keypad.querySelectorAll('.keypad-btn').forEach(btn => {
-    btn.addEventListener('pointerdown', (e) => {
+    btn.addEventListener('click', (e) => {
       e.preventDefault();
+      e.stopPropagation();
       handleMultiTouchKeypad(2, btn.dataset.num, btn.dataset.action);
     });
   });
+  multiTouchKeypadsSetup = true;
 }
 
 function handleMultiTouchKeypad(player, num, action) {
@@ -2136,10 +2182,18 @@ function updateMultiTouchDisplay(player) {
 function startMultiTouchCompetition() {
   const p1 = prompt('اسم اللاعبة الأولى:', 'اللاعبة 1') || 'اللاعبة 1';
   const p2 = prompt('اسم اللاعبة الثانية:', 'اللاعبة 2') || 'اللاعبة 2';
+  multiTouchCompetitionEnded = false;
   multiTouchState = {
-    isActive: true, p1Name: p1, p2Name: p2,
-    p1Score: 0, p2Score: 0, p1Answer: '', p2Answer: '',
-    timeLeft: DUAL_COMPETITION_DURATION, timerInterval: null, currentQ: null
+    isActive: true,
+    p1Name: p1,
+    p2Name: p2,
+    p1Score: 0,
+    p2Score: 0,
+    p1Answer: '',
+    p2Answer: '',
+    timeLeft: DUAL_COMPETITION_DURATION,
+    timerInterval: null,
+    currentQ: null
   };
   document.getElementById('mt-p1-name').textContent = p1;
   document.getElementById('mt-p2-name').textContent = p2;
@@ -2159,7 +2213,10 @@ function startMultiTouchCompetition() {
     t.textContent = multiTouchState.timeLeft;
     b.style.width = (multiTouchState.timeLeft/DUAL_COMPETITION_DURATION*100)+'%';
     if (multiTouchState.timeLeft <= DUAL_URGENT_THRESHOLD) { t.classList.add('urgent'); b.classList.add('urgent'); }
-    if (multiTouchState.timeLeft <= 0) endMultiTouchCompetition();
+    if (multiTouchState.timeLeft <= 0) {
+      multiTouchState.timeLeft = 0;
+      endMultiTouchCompetition();
+    }
   }, 1000);
 }
 
@@ -2217,8 +2274,13 @@ function checkMultiTouchAnswer(player) {
 }
 
 function endMultiTouchCompetition() {
+  if (multiTouchCompetitionEnded) return;
+  multiTouchCompetitionEnded = true;
   multiTouchState.isActive = false;
-  clearInterval(multiTouchState.timerInterval);
+  if (multiTouchState.timerInterval) {
+    clearInterval(multiTouchState.timerInterval);
+    multiTouchState.timerInterval = null;
+  }
   document.getElementById('dc-multitouch').style.display = 'none';
   document.getElementById('dc-results').style.display = 'block';
   const grid = document.getElementById('results-grid-content');
@@ -2232,6 +2294,28 @@ function endMultiTouchCompetition() {
   }
   playSound('win');
   launchConfetti();
+}
+
+function resetMultiTouchScores() {
+  if (confirm('هل أنتِ متأكدة من تصفير النتائج والعودة لشاشة الاختيار؟')) {
+    clearInterval(multiTouchState.timerInterval);
+    multiTouchState = {
+      isActive: false,
+      p1Name: '',
+      p2Name: '',
+      p1Score: 0,
+      p2Score: 0,
+      p1Answer: '',
+      p2Answer: '',
+      timeLeft: DUAL_COMPETITION_DURATION,
+      timerInterval: null,
+      currentQ: null
+    };
+    document.getElementById('dc-multitouch').style.display = 'none';
+    document.getElementById('dc-mode-selector').style.display = 'block';
+    showFairyMessage('🗑️ تم تصفير النتائج!');
+    playSound('correct');
+  }
 }
 
 function selectDeviceRole(role) {
@@ -2487,6 +2571,38 @@ function disconnectTwoDevice() {
   document.getElementById('td-game').classList.remove('active');
   document.getElementById('td-setup').style.display = 'block';
   updateConnectionStatus('disconnected', '⚪ غير متصل');
+}
+
+function resetTwoDeviceScores() {
+  if (confirm('هل أنتِ متأكدة من تصفير النتائج والعودة لشاشة الاختيار؟')) {
+    if (twoDeviceState.peerConnection) {
+      twoDeviceState.peerConnection.close();
+      twoDeviceState.peerConnection = null;
+    }
+    if (twoDeviceState.timerInterval) {
+      clearInterval(twoDeviceState.timerInterval);
+    }
+    twoDeviceState = {
+      isActive: false,
+      role: null,
+      peerConnection: null,
+      dataChannel: null,
+      p1Name: '',
+      p2Name: '',
+      p1Score: 0,
+      p2Score: 0,
+      timeLeft: DUAL_COMPETITION_DURATION,
+      timerInterval: null,
+      currentQ: null,
+      myAnswer: '',
+      isHost: false
+    };
+    document.getElementById('td-game').classList.remove('active');
+    document.getElementById('dc-twodevice').style.display = 'none';
+    document.getElementById('dc-mode-selector').style.display = 'block';
+    showFairyMessage('🗑️ تم تصفير النتائج!');
+    playSound('correct');
+  }
 }
 
 function updateConnectionStatus(status, message) {
